@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface FooterProps {
-  onNavigate: (view: 'home' | 'contact' | 'machinery' | 'about') => void;
+  onNavigate: (view: 'home' | 'contact' | 'machinery' | 'about', categoryId?: string) => void;
 }
 
 export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
@@ -44,10 +44,10 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           <div>
             <h4 className="text-[15px] font-black uppercase tracking-widest mb-8 border-b border-teal-custom/30 pb-4 inline-block">IEKĀRTAS</h4>
             <ul className="space-y-4 text-gray-400 text-[15px] font-medium text-left">
-              <li><button onClick={() => onNavigate('machinery')} className="hover:text-teal-custom transition-colors text-left w-full cursor-pointer">Virsmas apstrāde</button></li>
-              <li><button onClick={() => onNavigate('machinery')} className="hover:text-teal-custom transition-colors text-left w-full cursor-pointer">Lāzera griešana</button></li>
-              <li><button onClick={() => onNavigate('machinery')} className="hover:text-teal-custom transition-colors text-left w-full cursor-pointer">CNC frēzēšana</button></li>
-              <li><button onClick={() => onNavigate('machinery')} className="hover:text-teal-custom transition-colors text-left w-full cursor-pointer">CNC virpošana</button></li>
+              <li><button onClick={() => onNavigate('machinery', 'metalapstrade')} className="hover:text-teal-custom transition-colors text-left w-full cursor-pointer">Metālapstrāde</button></li>
+              <li><button onClick={() => onNavigate('machinery', 'lazera-griesana')} className="hover:text-teal-custom transition-colors text-left w-full cursor-pointer">Lāzera griešana</button></li>
+              <li><button onClick={() => onNavigate('machinery', 'cnc-iekartas')} className="hover:text-teal-custom transition-colors text-left w-full cursor-pointer">CNC iekārtas</button></li>
+              <li><button onClick={() => onNavigate('machinery', 'automatizacija')} className="hover:text-teal-custom transition-colors text-left w-full cursor-pointer">Automatizācija</button></li>
             </ul>
           </div>
 

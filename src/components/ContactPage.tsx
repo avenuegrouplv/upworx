@@ -1,8 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-export const ContactPage: React.FC = () => {
+interface ContactPageProps {
+  initialMachineName?: string | null;
+}
+
+export const ContactPage: React.FC<ContactPageProps> = ({ initialMachineName }) => {
   const [phone, setPhone] = useState('');
+  const [machineInterest, setMachineInterest] = useState(initialMachineName || '');
   const [submitted, setSubmitted] = useState(false);
+
+  useEffect(() => {
+    if (initialMachineName) {
+      setMachineInterest(initialMachineName);
+    }
+  }, [initialMachineName]);
 
   const handleCallbackSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -134,7 +145,12 @@ export const ContactPage: React.FC = () => {
 
           <div className="lg:w-1/2 w-full">
             <div className="bg-white p-10 lg:p-12 shadow-xl rounded-sm">
-              <h3 className="text-black text-2xl font-bold uppercase mb-8">Lūdzu piezvaniet man</h3>
+              <h3 className="text-black text-2xl font-bold uppercase mb-2">Lūdzu piezvaniet man</h3>
+              {machineInterest && (
+                <p className="text-xs text-teal-custom font-bold uppercase tracking-wider mb-6">
+                  Interesējošā iekārta: <span className="text-zinc-900 font-extrabold">{machineInterest}</span>
+                </p>
+              )}
               {submitted ? (
                 <div className="bg-teal-50 border border-teal-custom text-teal-900 p-6 rounded text-center">
                   <p className="font-bold text-lg mb-1">Paldies par pieteikumu!</p>
@@ -160,7 +176,7 @@ export const ContactPage: React.FC = () => {
                     className="w-full bg-teal-custom hover:bg-teal-600 text-white font-black py-5 uppercase tracking-widest transition-all shadow-lg shadow-teal-900/20 flex items-center justify-center group cursor-pointer"
                   >
                     PIETEIKT ATZVANU
-                    <svg className="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="ml-3 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 7V5z" />
                     </svg>
                   </button>

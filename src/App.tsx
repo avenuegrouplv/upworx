@@ -14,6 +14,7 @@ export default function App() {
   const [scrolled, setScrolled] = useState(false);
   const [currentView, setCurrentView] = useState<'home' | 'contact' | 'machinery' | 'about'>('home');
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedMachine, setSelectedMachine] = useState<string | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,11 +24,16 @@ export default function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navigateTo = (view: 'home' | 'contact' | 'machinery' | 'about', categoryId?: string) => {
+  const navigateTo = (view: 'home' | 'contact' | 'machinery' | 'about', categoryId?: string, machineName?: string) => {
     if (categoryId) {
       setSelectedCategory(categoryId);
     } else {
       setSelectedCategory(null);
+    }
+    if (machineName) {
+      setSelectedMachine(machineName);
+    } else if (view !== 'contact') {
+      setSelectedMachine(null);
     }
     setCurrentView(view);
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -56,10 +62,12 @@ export default function App() {
             <ContactSection onContactClick={() => navigateTo('contact')} />
           </>
         )}
-        {currentView === 'contact' && <ContactPage />}
+        {currentView === 'contact' && (
+          <ContactPage initialMachineName={selectedMachine} />
+        )}
         {currentView === 'machinery' && (
           <MachineryPage 
-            onInquiryClick={() => navigateTo('contact')} 
+            onInquiryClick={(machineName) => navigateTo('contact', undefined, machineName)} 
             selectedCategory={selectedCategory}
           />
         )}

@@ -1,4 +1,5 @@
 import React from 'react';
+import { ArrowUp } from 'lucide-react';
 
 interface CategoryCardItem {
   id: string;
@@ -15,28 +16,28 @@ interface CategoriesProps {
 export const Categories: React.FC<CategoriesProps> = ({ onViewAll, onSelectCategory }) => {
   const categoriesList: CategoryCardItem[] = [
     {
-      id: 'automated-cutting',
+      id: 'metalapstrade',
       title: 'Metālapstrāde',
       image: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&q=80&w=800',
-      count: '12'
+      count: '4'
     },
     {
-      id: 'laser-profile',
+      id: 'lazera-griesana',
       title: 'Lāzera Griešana',
       image: 'https://images.unsplash.com/photo-1565264317065-253ac0794939?auto=format&fit=crop&q=80&w=800',
-      count: '08'
+      count: '3'
     },
     {
-      id: 'heavy-duty',
+      id: 'cnc-iekartas',
       title: 'CNC Iekārtas',
       image: 'https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&q=80&w=800',
-      count: '24'
+      count: '5'
     },
     {
-      id: 'bevelling',
+      id: 'automatizacija',
       title: 'Automatizācija',
       image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=800',
-      count: '05'
+      count: '4'
     }
   ];
 
@@ -71,13 +72,13 @@ export const Categories: React.FC<CategoriesProps> = ({ onViewAll, onSelectCateg
           </button>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {categoriesList.map((cat) => (
-            <div key={cat.id} className="flex flex-col">
-              {/* Image Card without circular arrow */}
+            <div key={cat.id} className="flex flex-col group/item">
+              {/* Image Card */}
               <div 
                 onClick={() => handleCategoryClickUnits(cat.id)}
-                className="group relative h-[420px] overflow-hidden cursor-pointer rounded-sm"
+                className="group relative h-[420px] overflow-hidden cursor-pointer rounded-sm border border-zinc-200 hover:border-teal-custom/60 transition-colors"
               >
                 <div 
                   className="absolute inset-0 bg-cover bg-center"
@@ -90,15 +91,17 @@ export const Categories: React.FC<CategoriesProps> = ({ onViewAll, onSelectCateg
                 </div>
               </div>
 
-              {/* Navigation button under the card matching site aesthetics */}
+              {/* Navigation button under the card: White, Gray, Teal Palette with upward arrow in round frame */}
               <button
                 onClick={() => handleCategoryClickUnits(cat.id)}
-                className="mt-3 w-full bg-zinc-950 hover:bg-teal-custom text-white hover:text-zinc-950 font-bold uppercase tracking-wider text-xs py-4 px-5 transition-colors rounded-sm flex items-center justify-between border border-zinc-900 hover:border-teal-custom cursor-pointer shadow-sm"
+                className="mt-3 w-full bg-zinc-50 hover:bg-white text-zinc-900 font-bold uppercase tracking-wider text-xs py-3.5 px-4 transition-all rounded-sm flex items-center justify-between border border-zinc-200 hover:border-teal-custom cursor-pointer shadow-sm group hover:shadow-md"
               >
-                <span>Uzzināt vairāk</span>
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                </svg>
+                <span className="text-zinc-800 group-hover:text-teal-custom transition-colors font-extrabold">
+                  Uzzināt vairāk
+                </span>
+                <span className="w-7 h-7 rounded-full bg-white group-hover:bg-teal-custom border border-zinc-300 group-hover:border-teal-custom text-zinc-700 group-hover:text-white flex items-center justify-center transition-all shrink-0 ml-2 shadow-xs">
+                  <ArrowUp className="w-3.5 h-3.5" />
+                </span>
               </button>
             </div>
           ))}
