@@ -1,0 +1,6 @@
+{
+  "name": "UPWORX - Industriālie Risinājumi",
+  "description": "Premium industriālās tehnikas, metālapstrādes un CNC iekārtu risinājumu mājaslapa.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
