@@ -30,7 +30,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ initialMachineName }) 
     }
   }, [initialMachineName]);
 
-  const primaryCategories = MACHINERY_CATEGORIES.filter(c => c.id !== 'all');
+  const primaryCategories = MACHINERY_CATEGORIES;
   const availableMachines = ALL_MACHINERY.filter(m => m.category === formData.category);
 
   const handleCategorySelect = (categorySlug: string) => {
@@ -209,9 +209,9 @@ export const ContactPage: React.FC<ContactPageProps> = ({ initialMachineName }) 
           </div>
         </div>
 
-        {/* Consultation Form (same form as in Home page without the left text card) */}
-        <div className="w-full bg-teal-custom p-8 sm:p-12 lg:p-16 rounded-sm shadow-xl">
-          <div className="max-w-3xl mx-auto">
+        {/* Consultation Form - Paplašināts horizontālais platums par 2.5cm */}
+        <div className="w-full max-w-[calc(560px+2.5cm)] mx-auto bg-teal-custom p-7 sm:p-10 lg:py-14 lg:px-11 rounded-sm shadow-2xl">
+          <div>
             <h3 className="text-white text-2xl sm:text-3xl font-black uppercase mb-3 tracking-tight">
               Pieteikties konsultācijai
             </h3>
@@ -224,7 +224,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ initialMachineName }) 
                 <p className="text-sm text-zinc-700">Mūsu eksperts sazināsies ar Jums vienas darba dienas laikā.</p>
               </div>
             ) : (
-              <form onSubmit={handleFormSubmit} className="space-y-6">
+              <form onSubmit={handleFormSubmit} className="space-y-5">
                 <div>
                   <label htmlFor="contact-page-name" className="block text-white text-[11px] font-bold uppercase tracking-widest mb-2">
                     Vārds, Uzvārds
@@ -235,39 +235,37 @@ export const ContactPage: React.FC<ContactPageProps> = ({ initialMachineName }) 
                     required
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full bg-white text-zinc-900 placeholder-zinc-400 border border-white px-4 py-4 font-medium focus:outline-none focus:ring-2 focus:ring-black shadow-sm transition-all" 
+                    className="w-full bg-white text-zinc-900 placeholder-zinc-400 border border-white px-4 py-3.5 font-medium focus:outline-none focus:ring-2 focus:ring-black shadow-sm transition-all text-sm" 
                     placeholder="Jūsu vārds" 
                   />
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label htmlFor="contact-page-email" className="block text-white text-[11px] font-bold uppercase tracking-widest mb-2">
-                      E-pasts
-                    </label>
-                    <input 
-                      type="email" 
-                      id="contact-page-email"
-                      required
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full bg-white text-zinc-900 placeholder-zinc-400 border border-white px-4 py-4 font-medium focus:outline-none focus:ring-2 focus:ring-black shadow-sm transition-all" 
-                      placeholder="birojs@uznemums.lv" 
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="contact-page-phone" className="block text-white text-[11px] font-bold uppercase tracking-widest mb-2">
-                      Tālrunis
-                    </label>
-                    <input 
-                      type="tel" 
-                      id="contact-page-phone"
-                      required
-                      value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="w-full bg-white text-zinc-900 placeholder-zinc-400 border border-white px-4 py-4 font-medium focus:outline-none focus:ring-2 focus:ring-black shadow-sm transition-all" 
-                      placeholder="+371 ..." 
-                    />
-                  </div>
+                <div>
+                  <label htmlFor="contact-page-email" className="block text-white text-[11px] font-bold uppercase tracking-widest mb-2">
+                    E-pasts
+                  </label>
+                  <input 
+                    type="email" 
+                    id="contact-page-email"
+                    required
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    className="w-full bg-white text-zinc-900 placeholder-zinc-400 border border-white px-4 py-3.5 font-medium focus:outline-none focus:ring-2 focus:ring-black shadow-sm transition-all text-sm" 
+                    placeholder="birojs@uznemums.lv" 
+                  />
+                </div>
+                <div>
+                  <label htmlFor="contact-page-phone" className="block text-white text-[11px] font-bold uppercase tracking-widest mb-2">
+                    Tālrunis
+                  </label>
+                  <input 
+                    type="tel" 
+                    id="contact-page-phone"
+                    required
+                    value={formData.phone}
+                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                    className="w-full bg-white text-zinc-900 placeholder-zinc-400 border border-white px-4 py-3.5 font-medium focus:outline-none focus:ring-2 focus:ring-black shadow-sm transition-all text-sm" 
+                    placeholder="+371 ..." 
+                  />
                 </div>
 
                 {/* Iekārtu kategorijas izvēlne */}
@@ -279,7 +277,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ initialMachineName }) 
                     id="contact-page-category"
                     value={formData.category}
                     onChange={(e) => handleCategorySelect(e.target.value)}
-                    className="w-full bg-white text-zinc-900 border border-white px-4 py-4 font-medium focus:outline-none focus:ring-2 focus:ring-black shadow-sm transition-all text-sm cursor-pointer"
+                    className="w-full bg-white text-zinc-900 border border-white px-4 py-3.5 font-medium focus:outline-none focus:ring-2 focus:ring-black shadow-sm transition-all text-sm cursor-pointer"
                   >
                     <option value="">Izvēlieties kategoriju</option>
                     {primaryCategories.map(cat => (
@@ -300,7 +298,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ initialMachineName }) 
                     value={formData.machine}
                     onChange={(e) => setFormData({ ...formData, machine: e.target.value })}
                     disabled={!formData.category}
-                    className={`w-full bg-white text-zinc-900 border border-white px-4 py-4 font-medium focus:outline-none focus:ring-2 focus:ring-black shadow-sm transition-all text-sm ${
+                    className={`w-full bg-white text-zinc-900 border border-white px-4 py-3.5 font-medium focus:outline-none focus:ring-2 focus:ring-black shadow-sm transition-all text-sm ${
                       !formData.category ? 'opacity-60 cursor-not-allowed bg-zinc-100' : 'cursor-pointer'
                     }`}
                   >
@@ -325,14 +323,14 @@ export const ContactPage: React.FC<ContactPageProps> = ({ initialMachineName }) 
                     rows={4}
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full bg-white text-zinc-900 placeholder-zinc-400 border border-white px-4 py-4 font-medium focus:outline-none focus:ring-2 focus:ring-black shadow-sm transition-all text-sm resize-y" 
+                    className="w-full bg-white text-zinc-900 placeholder-zinc-400 border border-white px-4 py-3.5 font-medium focus:outline-none focus:ring-2 focus:ring-black shadow-sm transition-all text-sm resize-y" 
                     placeholder="Aprakstiet savu ražošanas vajadzību, iekārtas prasības vai interesējošos jautājumus..."
                   ></textarea>
                 </div>
                 <button 
                   type="submit"
                   id="submit-contact-page-form-btn"
-                  className="w-full bg-zinc-900 hover:bg-black text-white font-bold py-5 uppercase tracking-widest transition-all cursor-pointer shadow-md"
+                  className="w-full bg-zinc-900 hover:bg-black text-white font-bold py-4.5 uppercase tracking-widest transition-all cursor-pointer shadow-md text-sm"
                 >
                   Nosūtīt Pieprasījumu
                 </button>

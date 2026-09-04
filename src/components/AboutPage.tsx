@@ -10,22 +10,18 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onContactClick }) => {
     {
       name: "Jānis Bērziņš",
       role: "Uzņēmuma vadītājs / Valdes priekšsēdētājs",
-      image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=600",
     },
     {
       name: "Māris Ozoliņš",
       role: "Pārdošanas nodaļas vadītājs",
-      image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=600",
     },
     {
       name: "Andris Kalniņš",
       role: "Tehniskā servisa nodaļas vadītājs",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=600",
     },
     {
       name: "Kaspars Liepiņš",
       role: "Automatizācijas risinājumu nodaļas vadītājs",
-      image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=600",
     }
   ];
 
@@ -68,11 +64,10 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onContactClick }) => {
       </section>
 
       {/* Par Upworx */}
-      <section id="par-upworx-section" className="py-24 border-b border-zinc-100">
+      <section id="par-upworx-section" className="py-16 sm:py-20 border-b border-zinc-100 bg-white">
         <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <div>
-              <p className="text-teal-custom font-bold uppercase tracking-[0.25em] text-xs mb-3">Industriālie risinājumi</p>
               <h2 className="text-4xl lg:text-5xl font-black uppercase tracking-tighter mb-6 text-zinc-900">
                 PAR <span className="text-teal-custom">UPWORX</span>
               </h2>
@@ -110,14 +105,10 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onContactClick }) => {
         </div>
       </section>
 
-      {/* Mūsu misija un vērtības */}
-      <OurValues />
-
-      {/* Team Section */}
-      <section id="our-team-section" className="py-24 bg-white border-b border-zinc-100">
+      {/* Team Section - Pārvietots tieši zem Par Upworx */}
+      <section id="our-team-section" className="py-16 sm:py-20 bg-zinc-50 border-b border-zinc-200/80">
         <div className="container mx-auto px-6">
-          <div className="max-w-4xl mx-auto text-center mb-16">
-            <p className="text-teal-custom font-bold uppercase tracking-[0.3em] text-xs mb-3">Speciālisti un tehniskā kompetence</p>
+          <div className="max-w-4xl mx-auto text-center mb-10 sm:mb-12">
             <h2 className="text-4xl lg:text-5xl font-black uppercase tracking-tighter text-zinc-900 mb-4">
               MŪSU <span className="text-teal-custom">KOMANDA</span>
             </h2>
@@ -127,31 +118,23 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onContactClick }) => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {teamMembers.map((member, i) => (
               <div 
                 key={i} 
-                className="bg-zinc-50 border border-zinc-200/90 rounded-sm overflow-hidden hover:border-teal-custom transition-all duration-300 group flex flex-col"
+                className="bg-white border border-zinc-200/90 rounded-sm p-7 hover:border-teal-custom transition-colors duration-300 flex flex-col justify-between shadow-xs"
               >
-                <div className="h-72 w-full overflow-hidden bg-zinc-200 relative">
-                  <img 
-                    src={member.image} 
-                    alt={member.name}
-                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500"
-                    referrerPolicy="no-referrer"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                </div>
-                <div className="p-6 flex flex-col justify-between flex-grow">
-                  <div>
-                    <h3 className="text-lg font-black uppercase tracking-tight text-zinc-900 group-hover:text-teal-custom transition-colors mb-1.5">
-                      {member.name}
-                    </h3>
-                    <p className="text-xs font-bold uppercase tracking-wider text-teal-custom">
-                      {member.role}
-                    </p>
+                <div>
+                  <div className="w-10 h-10 rounded-sm bg-teal-custom/10 text-teal-custom flex items-center justify-center mb-6 font-black text-sm select-none">
+                    {member.name.split(' ').map(n => n[0]).join('')}
                   </div>
+                  <h3 className="text-lg font-black uppercase tracking-tight text-zinc-900 mb-2">
+                    {member.name}
+                  </h3>
+                  <div className="h-0.5 w-10 bg-teal-custom/40 mb-3"></div>
+                  <p className="text-xs font-bold uppercase tracking-wider text-teal-custom leading-relaxed">
+                    {member.role}
+                  </p>
                 </div>
               </div>
             ))}
@@ -159,8 +142,11 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onContactClick }) => {
         </div>
       </section>
 
+      {/* Mūsu misija un vērtības */}
+      <OurValues />
+
       {/* History Timeline */}
-      <section className="py-24">
+      <section className="py-16 sm:py-20">
         <div className="container mx-auto px-6">
           <div className="flex flex-col lg:flex-row gap-16 lg:gap-20">
             <div className="lg:w-1/3">

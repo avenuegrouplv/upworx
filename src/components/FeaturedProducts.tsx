@@ -75,21 +75,32 @@ export const FeaturedProducts: React.FC<FeaturedProductsProps> = ({
   };
 
   return (
-    <section id="featured-products" className="py-24 bg-white border-t border-gray-100">
+    <section id="featured-products" className="py-16 sm:py-20 bg-white border-t border-gray-100">
       <div className="container mx-auto px-6">
-        <div className="mb-16">
-          <p className="text-teal-custom font-bold uppercase tracking-widest text-xs mb-3">Jaunākās iekārtas</p>
-          <h2 className="text-4xl lg:text-5xl font-black uppercase tracking-tighter text-zinc-900">
-            JAUNĀKIE <span className="text-teal-custom">PIEDĀVĀJUMI</span>
-          </h2>
-          <div className="h-1 w-20 bg-teal-custom mt-4"></div>
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-6">
+          <div>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tighter text-zinc-900">
+              JAUNĀKIE <span className="text-teal-custom">PIEDĀVĀJUMI</span>
+            </h2>
+            <div className="h-1 w-20 bg-teal-custom mt-4"></div>
+          </div>
+          {onViewAllMachinery && (
+            <button 
+              id="view-all-machinery-btn"
+              onClick={onViewAllMachinery}
+              className="bg-zinc-900 hover:bg-teal-custom text-white hover:text-zinc-950 px-6 py-3.5 text-xs font-bold uppercase tracking-widest transition-all rounded-sm cursor-pointer shadow-xs inline-flex items-center gap-2 self-start sm:self-auto shrink-0 group/topbtn"
+            >
+              <span>Apskatīt Visas Iekārtas</span>
+              <ArrowRight className="w-4 h-4 group-hover/topbtn:translate-x-1 transition-transform" />
+            </button>
+          )}
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {machines.map((m) => (
             <div 
               key={m.id}
-              className="bg-white border border-zinc-200 hover:border-teal-custom/80 rounded-sm overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col justify-between group"
+              className="bg-white border border-zinc-200 hover:border-teal-custom rounded-sm overflow-hidden shadow-sm hover:shadow-xl hover:ring-1 hover:ring-teal-custom/60 transition-all duration-300 flex flex-col justify-between group"
             >
               <div>
                 {/* Image & Brand */}
@@ -151,16 +162,6 @@ export const FeaturedProducts: React.FC<FeaturedProductsProps> = ({
               </div>
             </div>
           ))}
-        </div>
-
-        <div className="mt-16 text-center">
-          <button 
-            id="view-all-machinery-btn"
-            onClick={onViewAllMachinery}
-            className="bg-gray-900 hover:bg-black text-white px-12 py-4 text-xs font-bold uppercase tracking-widest transition-all rounded-sm cursor-pointer shadow-md"
-          >
-            Apskatīt Visas Iekārtas
-          </button>
         </div>
       </div>
     </section>

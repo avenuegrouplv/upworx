@@ -13,33 +13,49 @@ import { MachineryPage } from './components/MachineryPage';
 import { AboutPage } from './components/AboutPage';
 import { CareerPage } from './components/CareerPage';
 import { Footer } from './components/Footer';
+import { CookieBanner } from './components/CookieBanner';
+import { ALL_MACHINERY } from './data/machineryData';
 
 export default function App() {
   const [scrolled, setScrolled] = useState(false);
   const [currentView, setCurrentView] = useState<'home' | 'contact' | 'machinery' | 'about' | 'career'>('home');
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [selectedMachine, setSelectedMachine] = useState<string | null>(null);
+  const [openCookiePreferences, setOpenCookiePreferences] = useState(false);
+  const [openPrivacyModal, setOpenPrivacyModal] = useState(false);
 
   // Sync state from current browser URL
   const syncStateFromUrl = () => {
     const pathname = window.location.pathname.toLowerCase();
     if (pathname.startsWith('/iekartas')) {
       const parts = pathname.split('/').filter(Boolean);
-      const cat = parts[1] || null;
+      // parts[0] === 'iekartas'
+      const cat = parts[1] || 'metalapstrade';
+      const machine = parts[2] || null;
       setCurrentView('machinery');
       setSelectedCategory(cat);
+      setSelectedMachine(machine);
     } else if (pathname === '/par-mums' || pathname === '/about') {
       setCurrentView('about');
       setSelectedCategory(null);
+      setSelectedMachine(null);
     } else if (pathname === '/karjera' || pathname === '/career') {
       setCurrentView('career');
       setSelectedCategory(null);
+      setSelectedMachine(null);
     } else if (pathname === '/kontakti' || pathname === '/contact') {
       setCurrentView('contact');
       setSelectedCategory(null);
+      setSelectedMachine(null);
+    } else if (pathname === '/privatuma-politika' || pathname === '/privacy') {
+      setCurrentView('home');
+      setSelectedCategory(null);
+      setSelectedMachine(null);
+      setOpenPrivacyModal(true);
     } else {
       setCurrentView('home');
       setSelectedCategory(null);
+      setSelectedMachine(null);
     }
   };
 
@@ -54,10 +70,17 @@ export default function App() {
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
-  // Update dynamic page title based on view and category
+  // Update dynamic page title based on view, category and machine
   useEffect(() => {
     if (currentView === 'machinery') {
-      if (selectedCategory === 'metalapstrade') {
+      if (selectedMachine) {
+        const found = ALL_MACHINERY.find(m => m.id === selectedMachine);
+        if (found) {
+          document.title = `${found.brand} ${found.model} | UPWORX`;
+        } else {
+          document.title = 'Iekārtas | UPWORX';
+        }
+      } else if (selectedCategory === 'metalapstrade') {
         document.title = 'Metālapstrādes Iekārtas | UPWORX';
       } else if (selectedCategory === 'lazera-griesana') {
         document.title = 'Lāzera Griešanas Iekārtas | UPWORX';
@@ -77,7 +100,7 @@ export default function App() {
     } else {
       document.title = 'UPWORX | Industriālie Risinājumi';
     }
-  }, [currentView, selectedCategory]);
+  }, [currentView, selectedCategory, selectedMachine]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -90,14 +113,19 @@ export default function App() {
   const navigateTo = (
     view: 'home' | 'contact' | 'machinery' | 'about' | 'career', 
     categoryId?: string | null, 
-    machineName?: string
+    machineIdOrName?: string | null
   ) => {
-    const normalizedCategory = categoryId && categoryId !== 'all' ? categoryId : null;
+    const normalizedCategory = categoryId && categoryId !== 'all' 
+      ? categoryId 
+      : (view === 'machinery' ? (selectedCategory || 'metalapstrade') : null);
+    
     setSelectedCategory(normalizedCategory);
 
-    if (machineName) {
-      setSelectedMachine(machineName);
-    } else if (view !== 'contact') {
+    if (view === 'machinery') {
+      setSelectedMachine(machineIdOrName || null);
+    } else if (view === 'contact') {
+      setSelectedMachine(machineIdOrName || null);
+    } else {
       setSelectedMachine(null);
     }
     setCurrentView(view);
@@ -105,10 +133,12 @@ export default function App() {
     // Compute unique URL path
     let targetPath = '/';
     if (view === 'machinery') {
-      if (normalizedCategory) {
+      if (normalizedCategory && machineIdOrName) {
+        targetPath = `/iekartas/${normalizedCategory}/${machineIdOrName}`;
+      } else if (normalizedCategory) {
         targetPath = `/iekartas/${normalizedCategory}`;
       } else {
-        targetPath = '/iekartas';
+        targetPath = '/iekartas/metalapstrade';
       }
     } else if (view === 'about') {
       targetPath = '/par-mums';
@@ -119,7 +149,7 @@ export default function App() {
     }
 
     if (window.location.pathname !== targetPath) {
-      window.history.pushState({ view, categoryId: normalizedCategory, machineName }, '', targetPath);
+      window.history.pushState({ view, categoryId: normalizedCategory, machineId: machineIdOrName }, '', targetPath);
     }
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -156,14 +186,14 @@ export default function App() {
             {/* 4. Pakalpojumi un serviss (6 kartītes) pirms Kāpēc izvēlēties mūs */}
             <ServicesSection />
 
-            {/* 5. Kāpēc izvēlēties UPWORX? (ar tekstu, attēlu un 5 statistikas rādītājiem) */}
+            {/* 5. Kāpēc izvēlēties UPWORX? */}
             <AboutSection />
 
-            {/* 6. Ražotāju logo karuselis zem Kāpēc izvēlēties Upworx (pusātrumā ar 3 sek. pauzi pie katra zīmola) */}
-            <Partners />
-
-            {/* 7. Realizētie projekti (6 kartītes ar horizontālu ritināšanu) */}
+            {/* 6. Realizētie projekti */}
             <ProjectsSection />
+
+            {/* 7. Sadarbības partneri logo karuselis virs kontaktu formas */}
+            <Partners />
 
             {/* 8. Saziņas aicinājuma sadaļa */}
             <ContactSection onContactClick={() => navigateTo('contact')} />
@@ -176,9 +206,11 @@ export default function App() {
 
         {currentView === 'machinery' && (
           <MachineryPage 
+            selectedCategorySlug={selectedCategory || 'metalapstrade'}
+            selectedMachineId={selectedMachine}
+            onSelectCategory={(catId) => navigateTo('machinery', catId, null)}
+            onSelectMachine={(catId, machineId) => navigateTo('machinery', catId, machineId)}
             onInquiryClick={(machineName) => navigateTo('contact', undefined, machineName)} 
-            selectedCategory={selectedCategory}
-            onSelectCategory={(catId) => navigateTo('machinery', catId)}
           />
         )}
 
@@ -190,7 +222,19 @@ export default function App() {
           <CareerPage onContactClick={() => navigateTo('contact')} />
         )}
       </main>
-      <Footer onNavigate={navigateTo} />
+      <Footer 
+        onNavigate={navigateTo} 
+        onOpenCookieSettings={() => setOpenCookiePreferences(true)}
+        onOpenPrivacyPolicy={() => setOpenPrivacyModal(true)}
+      />
+      
+      {/* GDPR/VDAR atbilstošs Sīkdatņu paziņojums un izvēles logs */}
+      <CookieBanner 
+        forceOpenPreferences={openCookiePreferences}
+        onCloseExternalTrigger={() => setOpenCookiePreferences(false)}
+        forceOpenPrivacyPolicy={openPrivacyModal}
+        onClosePrivacyTrigger={() => setOpenPrivacyModal(false)}
+      />
     </div>
   );
 }

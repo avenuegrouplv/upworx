@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowUp } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 interface CategoryCardItem {
   id: string;
@@ -50,37 +50,30 @@ export const Categories: React.FC<CategoriesProps> = ({ onViewAll, onSelectCateg
   };
 
   return (
-    <section id="categories-section" className="py-24 bg-white">
+    <section id="categories-section" className="py-16 sm:py-20 bg-white">
       <div className="container mx-auto px-6">
-        <div className="flex flex-col lg:flex-row justify-between items-end mb-16 gap-8">
+        <div className="mb-10 sm:mb-12">
           <div className="max-w-2xl">
-            <h2 className="text-4xl lg:text-5xl font-black uppercase tracking-tighter text-gray-900 mb-6">
+            <h2 className="text-4xl lg:text-5xl font-black uppercase tracking-tighter text-gray-900 mb-4">
               IEKĀRTU <span className="text-teal-custom">KATALOGS</span>
             </h2>
-            <div className="h-1 w-24 bg-teal-custom mb-6"></div>
-            <p className="text-gray-600 leading-relaxed text-lg">
+            <div className="h-1 w-24 bg-teal-custom mb-5"></div>
+            <p className="text-gray-600 leading-relaxed text-base sm:text-lg">
               Profesionālas iekārtas dažādiem metālapstrādes un ražošanas procesiem — no atsevišķām CNC un lāzergriešanas iekārtām līdz automatizētiem ražošanas risinājumiem.
             </p>
           </div>
-          <button 
-            id="view-all-solutions-btn"
-            onClick={onViewAll}
-            className="border-b-2 border-teal-custom text-teal-custom font-bold uppercase tracking-widest text-sm py-2 hover:text-gray-900 hover:border-gray-900 transition-colors cursor-pointer"
-          >
-            Apskatīt visus risinājumus
-          </button>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {categoriesList.map((cat) => (
             <div key={cat.id} className="flex flex-col group/item">
-              {/* Image Card */}
+              {/* Image Card with subtle frame and shadow on hover */}
               <div 
                 onClick={() => handleCategoryClickUnits(cat.id)}
-                className="group relative h-[420px] overflow-hidden cursor-pointer rounded-sm border border-zinc-200 hover:border-teal-custom/60 transition-colors"
+                className="group relative h-[420px] overflow-hidden cursor-pointer rounded-sm border border-zinc-200 hover:border-teal-custom hover:shadow-xl hover:ring-1 hover:ring-teal-custom/60 transition-all duration-300"
               >
                 <div 
-                  className="absolute inset-0 bg-cover bg-center"
+                  className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
                   style={{ backgroundImage: `url(${cat.image})` }}
                 ></div>
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent group-hover:from-teal-950/80 transition-colors duration-500"></div>
@@ -90,17 +83,13 @@ export const Categories: React.FC<CategoriesProps> = ({ onViewAll, onSelectCateg
                 </div>
               </div>
 
-              {/* Navigation button under the card: White, Gray, Teal Palette with upward arrow in round frame */}
+              {/* Navigation button under the card: Standard UPWORX design matching website */}
               <button
                 onClick={() => handleCategoryClickUnits(cat.id)}
-                className="mt-3 w-full bg-zinc-50 hover:bg-white text-zinc-900 font-bold uppercase tracking-wider text-xs py-3.5 px-4 transition-all rounded-sm flex items-center justify-between border border-zinc-200 hover:border-teal-custom cursor-pointer shadow-sm group hover:shadow-md"
+                className="mt-3 w-full bg-zinc-900 hover:bg-teal-custom text-white hover:text-zinc-950 font-bold uppercase tracking-wider text-xs py-3.5 px-4 rounded-sm flex items-center justify-center transition-colors cursor-pointer group/btn shadow-xs"
               >
-                <span className="text-zinc-800 group-hover:text-teal-custom transition-colors font-extrabold">
-                  Uzzināt vairāk
-                </span>
-                <span className="w-7 h-7 rounded-full bg-white group-hover:bg-teal-custom border border-zinc-300 group-hover:border-teal-custom text-zinc-700 group-hover:text-white flex items-center justify-center transition-all shrink-0 ml-2 shadow-xs">
-                  <ArrowUp className="w-3.5 h-3.5" />
-                </span>
+                <span>Apskatīt kategoriju</span>
+                <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
               </button>
             </div>
           ))}

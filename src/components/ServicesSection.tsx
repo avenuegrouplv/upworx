@@ -43,12 +43,9 @@ export const ServicesSection: React.FC = () => {
   ];
 
   return (
-    <section id="services-section" className="py-24 bg-zinc-50 border-t border-zinc-200/80">
+    <section id="services-section" className="py-16 sm:py-20 bg-zinc-50 border-t border-zinc-200/80">
       <div className="container mx-auto px-6">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <p className="text-teal-custom font-bold uppercase tracking-[0.25em] text-xs mb-3">
-            Pilna cikla atbalsts Jūsu ražotnei
-          </p>
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tighter text-zinc-900">
             PAKALPOJUMI <span className="text-teal-custom">UN SERVISS</span>
           </h2>
@@ -61,7 +58,7 @@ export const ServicesSection: React.FC = () => {
             return (
               <div
                 key={idx}
-                className="bg-white p-8 sm:p-9 border border-zinc-200/90 rounded-sm shadow-xs hover:border-teal-custom hover:shadow-md transition-all flex flex-col justify-between group"
+                className="bg-white p-8 sm:p-9 border border-zinc-200/90 rounded-sm shadow-xs hover:border-teal-custom hover:shadow-xl hover:ring-1 hover:ring-teal-custom/60 transition-all duration-300 flex flex-col justify-between group"
               >
                 <div>
                   <div className="w-12 h-12 rounded-sm bg-teal-custom/10 text-teal-custom flex items-center justify-center mb-6 group-hover:bg-teal-custom group-hover:text-zinc-950 transition-colors shrink-0">

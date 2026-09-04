@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { MACHINERY_CATEGORIES, ALL_MACHINERY } from '../data/machineryData';
 
 interface ContactSectionProps {
   onContactClick?: () => void;
@@ -9,8 +10,22 @@ export const ContactSection: React.FC<ContactSectionProps> = () => {
     name: '',
     email: '',
     phone: '',
+    category: '',
+    machine: '',
+    message: '',
   });
   const [submitted, setSubmitted] = useState(false);
+
+  const primaryCategories = MACHINERY_CATEGORIES;
+  const availableMachines = ALL_MACHINERY.filter(m => m.category === formData.category);
+
+  const handleCategorySelect = (categorySlug: string) => {
+    setFormData(prev => ({
+      ...prev,
+      category: categorySlug,
+      machine: '',
+    }));
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -18,21 +33,22 @@ export const ContactSection: React.FC<ContactSectionProps> = () => {
     setSubmitted(true);
     setTimeout(() => {
       setSubmitted(false);
-      setFormData({ name: '', email: '', phone: '' });
+      setFormData({ name: '', email: '', phone: '', category: '', machine: '', message: '' });
     }, 5000);
   };
 
   return (
-    <section id="consultation-section" className="py-24 bg-white">
+    <section id="consultation-section" className="py-16 sm:py-20 bg-white">
       <div className="container mx-auto px-6">
-        <div className="bg-zinc-900 rounded-sm overflow-hidden flex flex-col lg:flex-row shadow-2xl">
-          <div className="lg:w-1/2 p-12 lg:p-20 text-white flex flex-col justify-center">
-            <h2 className="text-2xl sm:text-3xl lg:text-[27px] xl:text-[30px] font-black uppercase mb-6 tracking-tight leading-snug">
+        <div className="bg-zinc-900 rounded-sm overflow-hidden flex flex-col lg:flex-row items-stretch shadow-2xl">
+          {/* Kreisā puse: Informācija */}
+          <div className="flex-1 p-10 sm:p-12 lg:p-16 text-white flex flex-col justify-center">
+            <h2 className="text-2xl sm:text-3xl lg:text-[27px] xl:text-[32px] font-black uppercase mb-6 tracking-tight leading-snug">
               VAI ESIET GATAVI <br className="hidden lg:inline" />
               SPERT NĀKOŠO SOLI <br className="hidden lg:inline" />
               TEHNOLOĢIJU PASAULĒ?
             </h2>
-            <p className="text-gray-300 text-base sm:text-lg mb-10 leading-relaxed">
+            <p className="text-gray-300 text-base sm:text-lg mb-10 leading-relaxed max-w-xl">
               Mūsu inženieri palīdzēs atrast vispiemērotāko risinājumu Jūsu metālapstrādes ražotnei. Sazinieties ar mums jau šodien, lai saņemtu bezmaksas konsultāciju.
             </p>
             
@@ -67,57 +83,125 @@ export const ContactSection: React.FC<ContactSectionProps> = () => {
             </div>
           </div>
 
-          <div className="lg:w-1/2 bg-teal-custom p-12 lg:p-20">
-            <h3 className="text-white text-2xl font-bold uppercase mb-8">Pieteikties konsultācijai</h3>
+          {/* Labā puse: Kontaktu forma - Paplašināts horizontālais platums par 2.5cm */}
+          <div className="w-full lg:w-[calc(480px+2.5cm)] xl:w-[calc(500px+2.5cm)] shrink-0 bg-teal-custom p-8 sm:p-10 lg:py-14 lg:px-11 flex flex-col justify-center shadow-inner">
+            <h3 className="text-white text-2xl font-bold uppercase mb-6 tracking-tight">
+              Pieteikties konsultācijai
+            </h3>
             {submitted ? (
               <div className="bg-white text-zinc-900 p-8 rounded shadow-lg text-center">
                 <p className="font-bold text-xl mb-2 text-teal-custom">Paldies par pieprasījumu!</p>
                 <p className="text-sm text-zinc-700">Mūsu eksperts sazināsies ar Jums vienas darba dienas laikā.</p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <label htmlFor="consult-name" className="block text-white text-[11px] font-bold uppercase tracking-widest mb-2">Vārds, Uzvārds</label>
+                  <label htmlFor="consult-name" className="block text-white text-[11px] font-bold uppercase tracking-widest mb-1.5">
+                    Vārds, Uzvārds
+                  </label>
                   <input 
                     type="text" 
                     id="consult-name"
                     required
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full bg-white text-zinc-900 placeholder-zinc-400 border border-white px-4 py-4 font-medium focus:outline-none focus:ring-2 focus:ring-black shadow-sm transition-all" 
+                    className="w-full bg-white text-zinc-900 placeholder-zinc-400 border border-white px-4 py-3 font-medium focus:outline-none focus:ring-2 focus:ring-black shadow-sm transition-all text-sm" 
                     placeholder="Jūsu vārds" 
                   />
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label htmlFor="consult-email" className="block text-white text-[11px] font-bold uppercase tracking-widest mb-2">E-pasts</label>
-                    <input 
-                      type="email" 
-                      id="consult-email"
-                      required
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full bg-white text-zinc-900 placeholder-zinc-400 border border-white px-4 py-4 font-medium focus:outline-none focus:ring-2 focus:ring-black shadow-sm transition-all" 
-                      placeholder="birojs@uznemums.lv" 
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="consult-phone" className="block text-white text-[11px] font-bold uppercase tracking-widest mb-2">Tālrunis</label>
-                    <input 
-                      type="tel" 
-                      id="consult-phone"
-                      required
-                      value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="w-full bg-white text-zinc-900 placeholder-zinc-400 border border-white px-4 py-4 font-medium focus:outline-none focus:ring-2 focus:ring-black shadow-sm transition-all" 
-                      placeholder="+371 ..." 
-                    />
-                  </div>
+                <div>
+                  <label htmlFor="consult-email" className="block text-white text-[11px] font-bold uppercase tracking-widest mb-1.5">
+                    E-pasts
+                  </label>
+                  <input 
+                    type="email" 
+                    id="consult-email"
+                    required
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    className="w-full bg-white text-zinc-900 placeholder-zinc-400 border border-white px-4 py-3 font-medium focus:outline-none focus:ring-2 focus:ring-black shadow-sm transition-all text-sm" 
+                    placeholder="birojs@uznemums.lv" 
+                  />
                 </div>
+                <div>
+                  <label htmlFor="consult-phone" className="block text-white text-[11px] font-bold uppercase tracking-widest mb-1.5">
+                    Tālrunis
+                  </label>
+                  <input 
+                    type="tel" 
+                    id="consult-phone"
+                    required
+                    value={formData.phone}
+                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                    className="w-full bg-white text-zinc-900 placeholder-zinc-400 border border-white px-4 py-3 font-medium focus:outline-none focus:ring-2 focus:ring-black shadow-sm transition-all text-sm" 
+                    placeholder="+371 ..." 
+                  />
+                </div>
+
+                {/* Iekārtu kategorijas izvēlne */}
+                <div>
+                  <label htmlFor="consult-category" className="block text-white text-[11px] font-bold uppercase tracking-widest mb-1.5">
+                    Iekārtu kategorija
+                  </label>
+                  <select
+                    id="consult-category"
+                    value={formData.category}
+                    onChange={(e) => handleCategorySelect(e.target.value)}
+                    className="w-full bg-white text-zinc-900 border border-white px-4 py-3 font-medium focus:outline-none focus:ring-2 focus:ring-black shadow-sm transition-all text-sm cursor-pointer"
+                  >
+                    <option value="">Izvēlieties kategoriju</option>
+                    {primaryCategories.map(cat => (
+                      <option key={cat.id} value={cat.urlSlug || cat.id}>
+                        {cat.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Konkrētās iekārtas izvēlne */}
+                <div>
+                  <label htmlFor="consult-machine" className="block text-white text-[11px] font-bold uppercase tracking-widest mb-1.5">
+                    Iekārtas nosaukums
+                  </label>
+                  <select
+                    id="consult-machine"
+                    value={formData.machine}
+                    onChange={(e) => setFormData({ ...formData, machine: e.target.value })}
+                    disabled={!formData.category}
+                    className={`w-full bg-white text-zinc-900 border border-white px-4 py-3 font-medium focus:outline-none focus:ring-2 focus:ring-black shadow-sm transition-all text-sm ${
+                      !formData.category ? 'opacity-60 cursor-not-allowed bg-zinc-100' : 'cursor-pointer'
+                    }`}
+                  >
+                    <option value="">
+                      {formData.category ? 'Izvēlieties konkrētu iekārtu' : 'Vispirms izvēlieties kategoriju'}
+                    </option>
+                    {availableMachines.map(machine => (
+                      <option key={machine.id} value={machine.name}>
+                        {machine.name} ({machine.brand})
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Galvenais aizpildāmais laukums: Jūsu ziņojums */}
+                <div>
+                  <label htmlFor="consult-message" className="block text-white text-[11px] font-bold uppercase tracking-widest mb-1.5">
+                    Jūsu ziņojums
+                  </label>
+                  <textarea 
+                    id="consult-message"
+                    rows={4}
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    className="w-full bg-white text-zinc-900 placeholder-zinc-400 border border-white px-4 py-3 font-medium focus:outline-none focus:ring-2 focus:ring-black shadow-sm transition-all text-sm resize-y" 
+                    placeholder="Aprakstiet savu ražošanas vajadzību, iekārtas prasības vai interesējošos jautājumus..."
+                  ></textarea>
+                </div>
+
                 <button 
                   type="submit"
                   id="submit-consultation-btn"
-                  className="w-full bg-zinc-900 hover:bg-black text-white font-bold py-5 uppercase tracking-widest transition-all cursor-pointer shadow-md"
+                  className="w-full bg-zinc-900 hover:bg-black text-white font-bold py-4 uppercase tracking-widest transition-all cursor-pointer shadow-md text-sm mt-2"
                 >
                   Nosūtīt Pieprasījumu
                 </button>
