@@ -3,14 +3,14 @@ import { Menu, X } from 'lucide-react';
 
 interface HeaderProps {
   scrolled: boolean;
-  onNavigate: (view: 'home' | 'contact' | 'machinery' | 'about') => void;
-  currentView: 'home' | 'contact' | 'machinery' | 'about';
+  onNavigate: (view: 'home' | 'contact' | 'machinery' | 'about' | 'career') => void;
+  currentView: 'home' | 'contact' | 'machinery' | 'about' | 'career';
 }
 
 export const Header: React.FC<HeaderProps> = ({ scrolled, onNavigate, currentView }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const handleNav = (view: 'home' | 'contact' | 'machinery' | 'about') => {
+  const handleNav = (view: 'home' | 'contact' | 'machinery' | 'about' | 'career') => {
     onNavigate(view);
     setMobileMenuOpen(false);
   };
@@ -37,7 +37,7 @@ export const Header: React.FC<HeaderProps> = ({ scrolled, onNavigate, currentVie
         </div>
 
         {/* Desktop Nav */}
-        <nav className="hidden lg:flex items-center space-x-10 text-sm font-semibold uppercase tracking-widest text-white translate-x-24">
+        <nav className="hidden lg:flex items-center space-x-8 xl:space-x-10 text-sm font-semibold uppercase tracking-widest text-white translate-x-12 xl:translate-x-16">
           <button 
             onClick={() => handleNav('home')} 
             className={`hover:text-teal-custom transition-colors cursor-pointer py-1 ${currentView === 'home' ? 'text-teal-custom border-b-2 border-teal-custom' : ''}`}
@@ -57,6 +57,12 @@ export const Header: React.FC<HeaderProps> = ({ scrolled, onNavigate, currentVie
             Iekārtas
           </button>
           <button 
+            onClick={() => handleNav('career')} 
+            className={`hover:text-teal-custom transition-colors cursor-pointer py-1 ${currentView === 'career' ? 'text-teal-custom border-b-2 border-teal-custom' : ''}`}
+          >
+            Karjera
+          </button>
+          <button 
             onClick={() => handleNav('contact')} 
             className={`hover:text-teal-custom transition-colors cursor-pointer py-1 ${currentView === 'contact' ? 'text-teal-custom border-b-2 border-teal-custom' : ''}`}
           >
@@ -67,8 +73,10 @@ export const Header: React.FC<HeaderProps> = ({ scrolled, onNavigate, currentVie
         {/* Action button & Mobile Toggle */}
         <div className="flex items-center space-x-4 sm:space-x-6">
           <div className="hidden md:block text-right">
-            <p className="text-[10px] text-gray-400 uppercase tracking-tighter">Sazinieties ar mums</p>
-            <p className="text-white font-bold text-sm">+371 2000 0000</p>
+            <p className="text-[10px] text-gray-400 uppercase tracking-tighter">Tālrunis</p>
+            <a href="tel:+37126474339" className="text-white font-bold text-sm hover:text-teal-custom transition-colors block">
+              +371 26474339
+            </a>
           </div>
           <button 
             id="header-start-collab-btn"
@@ -111,13 +119,19 @@ export const Header: React.FC<HeaderProps> = ({ scrolled, onNavigate, currentVie
             Iekārtas
           </button>
           <button 
+            onClick={() => handleNav('career')} 
+            className={`block w-full text-left py-2 text-base font-bold uppercase tracking-wider ${currentView === 'career' ? 'text-teal-custom' : 'text-white'}`}
+          >
+            Karjera
+          </button>
+          <button 
             onClick={() => handleNav('contact')} 
             className={`block w-full text-left py-2 text-base font-bold uppercase tracking-wider ${currentView === 'contact' ? 'text-teal-custom' : 'text-white'}`}
           >
             Kontakti
           </button>
           <div className="pt-4 border-t border-zinc-800 text-gray-400 text-sm">
-            <p className="text-xs uppercase tracking-wider">Tālrunis: <span className="text-white font-bold">+371 2000 0000</span></p>
+            <p className="text-xs uppercase tracking-wider">Tālrunis: <a href="tel:+37126474339" className="text-white font-bold hover:text-teal-custom transition-colors">+371 26474339</a></p>
             <p className="text-xs uppercase tracking-wider mt-1">E-pasts: <span className="text-teal-custom">info@upworx.lv</span></p>
           </div>
         </div>

@@ -1,26 +1,31 @@
 import React from 'react';
+import { OurValues } from './OurValues';
 
 interface AboutPageProps {
   onContactClick: () => void;
 }
 
 export const AboutPage: React.FC<AboutPageProps> = ({ onContactClick }) => {
-  const values = [
+  const teamMembers = [
     {
-      title: "Inovācijas",
-      desc: "Mēs pastāvīgi sekojam līdzi tehnoloģiju attīstībai, lai piedāvātu klientiem visefektīvākos un modernākos risinājumus."
+      name: "Jānis Bērziņš",
+      role: "Uzņēmuma vadītājs / Valdes priekšsēdētājs",
+      image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=600",
     },
     {
-      title: "Uzticamība",
-      desc: "Mūsu vārds ir mūsu saistības. Mēs nodrošinām caurspīdīgu sadarbību un pildām solīto laikā."
+      name: "Māris Ozoliņš",
+      role: "Pārdošanas nodaļas vadītājs",
+      image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=600",
     },
     {
-      title: "Kvalitāte",
-      desc: "Tikai pasaules vadošie zīmoli un rūpīgi pārbaudītas iekārtas, kas kalpo gadiem ilgi."
+      name: "Andris Kalniņš",
+      role: "Tehniskā servisa nodaļas vadītājs",
+      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=600",
     },
     {
-      title: "Partnerība",
-      desc: "Mēs neesam tikai tirgotājs – mēs esam partneris, kas aug kopā ar jūsu biznesu."
+      name: "Kaspars Liepiņš",
+      role: "Automatizācijas risinājumu nodaļas vadītājs",
+      image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=600",
     }
   ];
 
@@ -28,155 +33,128 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onContactClick }) => {
     { year: "2010", event: "Uzņēmuma dibināšana Rīgā." },
     { year: "2014", event: "Pirmā lielā CNC lāzergriešanas projekta realizācija Baltijā." },
     { year: "2018", event: "Servisa centra paplašināšana un 24/7 atbalsta ieviešana." },
-    { year: "2024", event: "Līderpozīcijas stiprināšana automatizēto ražošanas līniju segmentā." }
+    { year: "2024", event: "Līderpozīcijas stiprināšana automatizēto ražošanas līniju segmentā." },
+    { year: "2026", event: "Jaunākās paaudzes viedās ražošanas līniju un robotizētās automatizācijas risinājumu ieviešana Baltijā." }
   ];
 
   return (
     <div id="about-page" className="bg-white">
-      {/* Hero Section */}
-      <section className="relative pt-48 pb-32 bg-zinc-950 overflow-hidden">
-        <div className="absolute inset-0 opacity-30">
+      {/* Hero Section - Vertically half height of Home hero, matching heading size, distinct industrial image without portraits */}
+      <section className="relative h-[50vh] min-h-[360px] max-h-[480px] w-full bg-zinc-950 overflow-hidden flex items-center justify-center pt-20">
+        <div className="absolute inset-0 z-0 pointer-events-none">
           <img 
-            src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&q=80&w=2000" 
-            alt="Team Background" 
-            className="w-full h-full object-cover grayscale"
+            src="/hero_par_mums.jpg" 
+            alt="UPWORX Industriālā Ražotne" 
+            className="w-full h-full object-cover select-none"
+            referrerPolicy="no-referrer"
           />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/60 to-black/25"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/30"></div>
         </div>
-        <div className="container mx-auto px-6 relative z-10 text-center">
-          <p className="text-teal-custom font-bold uppercase tracking-[0.4em] text-xs mb-6">Mūsu stāsts</p>
-          <h1 className="text-5xl lg:text-8xl font-black text-white uppercase tracking-tighter mb-8 leading-none">
-            MĒS VEIDOJAM <br />
-            <span className="text-teal-custom">RĪTDIENAS</span> RAŽOŠANU
-          </h1>
-          <div className="max-w-3xl mx-auto">
-            <p className="text-gray-400 text-xl leading-relaxed">
-              UPWORX ir vadošais industriālo iekārtu piegādātājs Baltijas reģionā, nodrošinot augstākās klases metālapstrādes un automatizācijas risinājumus kopš 2010. gada.
+        <div className="container mx-auto px-6 sm:px-8 lg:px-16 xl:px-20 relative z-10 text-white flex items-center justify-start">
+          <div className="max-w-3xl text-left">
+            <h1 className="text-3xl sm:text-4xl md:text-[42px] lg:text-[48px] font-black mb-5 leading-[1.15] tracking-tight uppercase">
+              <span className="md:block">PIEREDZE UN TEHNOLOĢIJAS </span>
+              <span className="md:block">
+                <span className="text-teal-custom">MŪSDIENĪGAI</span> RAŽOŠANAI
+              </span>
+            </h1>
+            <p className="text-sm sm:text-[15px] md:text-base lg:text-[17px] text-gray-200 max-w-2xl leading-relaxed font-normal">
+              <span className="md:block">UPWORX ir vadošais industriālo metālapstrādes iekārtu piegādātājs Baltijas reģionā, </span>
+              <span className="md:block">nodrošinot augstākās klases metālapstrādes un automatizācijas risinājumus.</span>
             </p>
           </div>
         </div>
       </section>
 
-      {/* Mission & Vision */}
-      <section className="py-24 border-b border-zinc-100">
+      {/* Par Upworx */}
+      <section id="par-upworx-section" className="py-24 border-b border-zinc-100">
         <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-center">
             <div>
-              <h2 className="text-4xl font-black uppercase tracking-tighter mb-8">MŪSU <span className="text-teal-custom">MISIJA</span></h2>
-              <p className="text-gray-600 text-lg leading-relaxed mb-6">
-                Nodrošināt Latvijas un kaimiņvalstu ražotājus ar tehnoloģijām, kas ļauj tiem būt konkurētspējīgiem globālā mērogā. Mēs ticam, ka precizitāte un automatizācija ir atslēga uz ilgtspējīgu izaugsmi.
+              <p className="text-teal-custom font-bold uppercase tracking-[0.25em] text-xs mb-3">Industriālie risinājumi</p>
+              <h2 className="text-4xl lg:text-5xl font-black uppercase tracking-tighter mb-6 text-zinc-900">
+                PAR <span className="text-teal-custom">UPWORX</span>
+              </h2>
+              <div className="h-1 w-20 bg-teal-custom mb-8"></div>
+              <p className="text-zinc-800 text-lg lg:text-xl leading-relaxed font-medium mb-6">
+                UPWORX specializējas profesionālu metālapstrādes iekārtu un automatizācijas risinājumu piegādē Baltijas uzņēmumiem. Vairāk nekā 15 gadu pieredze nozarē ļauj nodrošināt klientiem tehnisko konsultāciju, iekārtu piegādi, uzstādīšanu un servisu.
               </p>
-              <div className="bg-zinc-50 p-8 border-l-4 border-teal-custom">
-                <p className="text-zinc-900 font-bold italic text-xl">
-                  &quot;Mūsu mērķis nav pārdot iekārtu, bet gan radīt risinājumu, kas pelna naudu mūsu klientam.&quot;
-                </p>
-              </div>
+              <p className="text-gray-600 text-base leading-relaxed mb-8">
+                Mūsu mērķis ir būt uzticamam partnerim ražošanas modernizācijā un attīstībā, piedāvājot pārbaudītas tehnoloģijas no vadošajiem pasaules ražotājiem un garantējot augstas klases tehnisko atbalstu katrā projekta posmā.
+              </p>
             </div>
             <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-4">
-                <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=600" className="w-full h-64 object-cover grayscale" alt="Work 1" />
-                <img src="https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&q=80&w=600" className="w-full h-48 object-cover grayscale" alt="Work 2" />
-              </div>
-              <div className="space-y-4 pt-12">
-                <img src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?auto=format&fit=crop&q=80&w=600" className="w-full h-48 object-cover grayscale" alt="Work 3" />
-                <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=600" className="w-full h-64 object-cover grayscale" alt="Work 4" />
-              </div>
+              <img 
+                src="https://images.pexels.com/photos/224924/pexels-photo-224924.jpeg?auto=compress&cs=tinysrgb&w=800" 
+                className="w-full h-52 sm:h-60 object-cover rounded-sm shadow-sm" 
+                alt="Metālapstrādes lāzera griešanas tehnoloģijas" 
+              />
+              <img 
+                src="https://images.pexels.com/photos/3846554/pexels-photo-3846554.jpeg?auto=compress&cs=tinysrgb&w=800" 
+                className="w-full h-52 sm:h-60 object-cover rounded-sm shadow-sm" 
+                alt="Precīza CNC apstrāde un frēzēšana" 
+              />
+              <img 
+                src="https://images.pexels.com/photos/1108101/pexels-photo-1108101.jpeg?auto=compress&cs=tinysrgb&w=800" 
+                className="w-full h-52 sm:h-60 object-cover rounded-sm shadow-sm" 
+                alt="Industriālās ražošanas tehnoloģiskās iekārtas" 
+              />
+              <img 
+                src="https://images.pexels.com/photos/3825586/pexels-photo-3825586.jpeg?auto=compress&cs=tinysrgb&w=800" 
+                className="w-full h-52 sm:h-60 object-cover rounded-sm shadow-sm" 
+                alt="Ražošanas automatizācija un roboti" 
+              />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Values Grid */}
-      <section className="py-24 bg-zinc-50">
-        <div className="container mx-auto px-6 text-center mb-16">
-          <h2 className="text-4xl font-black uppercase tracking-tighter mb-4">MŪSU <span className="text-teal-custom">VĒRTĪBAS</span></h2>
-          <div className="h-1 w-24 bg-teal-custom mx-auto mb-8"></div>
-        </div>
-        <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {values.map((v, i) => (
-              <div key={i} className="bg-white p-10 shadow-sm border border-zinc-100 group hover:border-teal-custom transition-all">
-                <h4 className="text-xl font-black uppercase mb-4 tracking-tight group-hover:text-teal-custom transition-colors">{v.title}</h4>
-                <p className="text-gray-500 text-sm leading-relaxed">{v.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Mūsu misija un vērtības */}
+      <OurValues />
 
       {/* Team Section */}
       <section id="our-team-section" className="py-24 bg-white border-b border-zinc-100">
         <div className="container mx-auto px-6">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <p className="text-teal-custom font-bold uppercase tracking-[0.3em] text-xs mb-3">Speciālisti un eksperti</p>
+          <div className="max-w-4xl mx-auto text-center mb-16">
+            <p className="text-teal-custom font-bold uppercase tracking-[0.3em] text-xs mb-3">Speciālisti un tehniskā kompetence</p>
             <h2 className="text-4xl lg:text-5xl font-black uppercase tracking-tighter text-zinc-900 mb-4">
               MŪSU <span className="text-teal-custom">KOMANDA</span>
             </h2>
-            <div className="h-1 w-24 bg-teal-custom mx-auto mb-6"></div>
-            <p className="text-gray-600 text-base leading-relaxed">
-              UPWORX profesionāļu komanda ar padziļinātām inženiertehniskām zināšanām un gadiem ilgu pieredzi industriālajā metālapstrādes sektorā.
+            <div className="h-1 w-24 bg-teal-custom mx-auto mb-8"></div>
+            <p className="text-zinc-800 text-lg lg:text-xl leading-relaxed font-medium">
+              UPWORX komandā strādā speciālisti ar pieredzi metālapstrādes iekārtu, ražošanas tehnoloģiju un tehniskā servisa jomā. Mūsu kompetence aptver visu iekārtas ieviešanas procesu – no piemērotākā risinājuma izvēles līdz uzstādīšanai, operatoru apmācībai un turpmākajam servisam.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
-            {/* Member 1 */}
-            <div className="bg-zinc-50 border border-zinc-200/80 p-5 rounded-sm flex flex-col items-center text-center group hover:border-teal-custom transition-colors">
-              <div className="w-full aspect-[4/5] bg-zinc-200/90 rounded-sm mb-5 flex flex-col items-center justify-center border-2 border-dashed border-zinc-300 text-zinc-400 group-hover:border-teal-custom/50 group-hover:bg-zinc-100 transition-colors relative overflow-hidden">
-                <svg className="w-12 h-12 mb-2 text-zinc-400/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                </svg>
-                <span className="text-[11px] font-semibold tracking-wider uppercase text-zinc-500">Ievietot foto</span>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {teamMembers.map((member, i) => (
+              <div 
+                key={i} 
+                className="bg-zinc-50 border border-zinc-200/90 rounded-sm overflow-hidden hover:border-teal-custom transition-all duration-300 group flex flex-col"
+              >
+                <div className="h-72 w-full overflow-hidden bg-zinc-200 relative">
+                  <img 
+                    src={member.image} 
+                    alt={member.name}
+                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500"
+                    referrerPolicy="no-referrer"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                </div>
+                <div className="p-6 flex flex-col justify-between flex-grow">
+                  <div>
+                    <h3 className="text-lg font-black uppercase tracking-tight text-zinc-900 group-hover:text-teal-custom transition-colors mb-1.5">
+                      {member.name}
+                    </h3>
+                    <p className="text-xs font-bold uppercase tracking-wider text-teal-custom">
+                      {member.role}
+                    </p>
+                  </div>
+                </div>
               </div>
-              <h3 className="text-lg font-black uppercase text-zinc-900 tracking-tight mb-1">Jānis Bērziņš</h3>
-              <p className="text-xs text-gray-500 font-medium">Pārdošanas nodaļas vadītājs</p>
-            </div>
-
-            {/* Member 2 */}
-            <div className="bg-zinc-50 border border-zinc-200/80 p-5 rounded-sm flex flex-col items-center text-center group hover:border-teal-custom transition-colors">
-              <div className="w-full aspect-[4/5] bg-zinc-200/90 rounded-sm mb-5 flex flex-col items-center justify-center border-2 border-dashed border-zinc-300 text-zinc-400 group-hover:border-teal-custom/50 group-hover:bg-zinc-100 transition-colors relative overflow-hidden">
-                <svg className="w-12 h-12 mb-2 text-zinc-400/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                </svg>
-                <span className="text-[11px] font-semibold tracking-wider uppercase text-zinc-500">Ievietot foto</span>
-              </div>
-              <h3 className="text-lg font-black uppercase text-zinc-900 tracking-tight mb-1">Valdis Ozoliņš</h3>
-              <p className="text-xs text-gray-500 font-medium">Mārketinga nodaļas vadītājs</p>
-            </div>
-
-            {/* Member 3 */}
-            <div className="bg-zinc-50 border border-zinc-200/80 p-5 rounded-sm flex flex-col items-center text-center group hover:border-teal-custom transition-colors">
-              <div className="w-full aspect-[4/5] bg-zinc-200/90 rounded-sm mb-5 flex flex-col items-center justify-center border-2 border-dashed border-zinc-300 text-zinc-400 group-hover:border-teal-custom/50 group-hover:bg-zinc-100 transition-colors relative overflow-hidden">
-                <svg className="w-12 h-12 mb-2 text-zinc-400/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                </svg>
-                <span className="text-[11px] font-semibold tracking-wider uppercase text-zinc-500">Ievietot foto</span>
-              </div>
-              <h3 className="text-lg font-black uppercase text-zinc-900 tracking-tight mb-1">Artūrs Kalniņš</h3>
-              <p className="text-xs text-gray-500 font-medium">Tehniskais direktors</p>
-            </div>
-
-            {/* Member 4 */}
-            <div className="bg-zinc-50 border border-zinc-200/80 p-5 rounded-sm flex flex-col items-center text-center group hover:border-teal-custom transition-colors">
-              <div className="w-full aspect-[4/5] bg-zinc-200/90 rounded-sm mb-5 flex flex-col items-center justify-center border-2 border-dashed border-zinc-300 text-zinc-400 group-hover:border-teal-custom/50 group-hover:bg-zinc-100 transition-colors relative overflow-hidden">
-                <svg className="w-12 h-12 mb-2 text-zinc-400/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                </svg>
-                <span className="text-[11px] font-semibold tracking-wider uppercase text-zinc-500">Ievietot foto</span>
-              </div>
-              <h3 className="text-lg font-black uppercase text-zinc-900 tracking-tight mb-1">Kristaps Liepiņš</h3>
-              <p className="text-xs text-gray-500 font-medium">Servisa un CNC inženierijas vadītājs</p>
-            </div>
-
-            {/* Member 5 */}
-            <div className="bg-zinc-50 border border-zinc-200/80 p-5 rounded-sm flex flex-col items-center text-center group hover:border-teal-custom transition-colors">
-              <div className="w-full aspect-[4/5] bg-zinc-200/90 rounded-sm mb-5 flex flex-col items-center justify-center border-2 border-dashed border-zinc-300 text-zinc-400 group-hover:border-teal-custom/50 group-hover:bg-zinc-100 transition-colors relative overflow-hidden">
-                <svg className="w-12 h-12 mb-2 text-zinc-400/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                </svg>
-                <span className="text-[11px] font-semibold tracking-wider uppercase text-zinc-500">Ievietot foto</span>
-              </div>
-              <h3 className="text-lg font-black uppercase text-zinc-900 tracking-tight mb-1">Elīna Zariņa</h3>
-              <p className="text-xs text-gray-500 font-medium">Klientu atbalsta vadītāja</p>
-            </div>
+            ))}
           </div>
         </div>
       </section>
@@ -184,55 +162,31 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onContactClick }) => {
       {/* History Timeline */}
       <section className="py-24">
         <div className="container mx-auto px-6">
-          <div className="flex flex-col lg:flex-row gap-20">
+          <div className="flex flex-col lg:flex-row gap-16 lg:gap-20">
             <div className="lg:w-1/3">
-              <h2 className="text-4xl font-black uppercase tracking-tighter mb-8 leading-tight">IZAUGSMES <br /><span className="text-teal-custom">HRONOLOĢIJA</span></h2>
-              <p className="text-gray-600">
-                Gadu gaitā esam no neliela entuziastu biroja izauguši par nozares autoritāti, kuras viedoklī ieklausās lielākie reģiona ražotāji.
+              <h2 className="text-4xl font-black uppercase tracking-tighter mb-6 leading-tight text-zinc-900">
+                IZAUGSMES <br /><span className="text-teal-custom">HRONOLOĢIJA</span>
+              </h2>
+              <div className="h-1 w-20 bg-teal-custom mb-6"></div>
+              <p className="text-gray-600 leading-relaxed text-base">
+                Kopš uzņēmuma dibināšanas esam pakāpeniski paplašinājuši piedāvāto iekārtu klāstu, tehniskā servisa iespējas un realizēto projektu apjomu Baltijā.
               </p>
             </div>
             <div className="lg:w-2/3">
-              <div className="space-y-12">
+              <div className="space-y-10">
                 {timeline.map((item, i) => (
-                  <div key={i} className="flex gap-8 group">
-                    <div className="text-4xl font-black text-teal-custom/20 group-hover:text-teal-custom transition-colors w-24 shrink-0">
+                  <div key={i} className="flex gap-6 sm:gap-8 group">
+                    <div className="text-3xl sm:text-4xl font-black text-teal-custom/30 group-hover:text-teal-custom transition-colors w-24 shrink-0">
                       {item.year}
                     </div>
-                    <div className="pt-2 flex-grow">
-                      <p className="text-xl font-bold uppercase tracking-tight text-zinc-900 mb-2">{item.event}</p>
+                    <div className="pt-1.5 flex-grow">
+                      <p className="text-lg sm:text-xl font-bold uppercase tracking-tight text-zinc-900 mb-2">{item.event}</p>
                       <div className="h-px w-full bg-zinc-100 group-last:hidden"></div>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Team CTA */}
-      <section className="py-24 bg-zinc-950 text-white overflow-hidden relative">
-        <div className="absolute top-0 left-0 w-full h-full bg-teal-custom/5 skew-y-6 transform translate-y-1/2"></div>
-        <div className="container mx-auto px-6 relative z-10 text-center">
-          <h2 className="text-4xl lg:text-6xl font-black uppercase tracking-tighter mb-8 leading-tight">VĒLATIES PIEVIENOTIES <br />MŪSU <span className="text-teal-custom">EKSPERTU</span> KOMANDAI?</h2>
-          <p className="text-gray-400 text-lg mb-12 max-w-2xl mx-auto">
-            Mēs pastāvīgi meklējam talantīgus inženierus, servisa tehniķus un tirdzniecības speciālistus. Ja esi gatavs izaicinājumiem, sazinies ar mums.
-          </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-6">
-            <button 
-              id="view-vacancies-btn"
-              onClick={onContactClick}
-              className="bg-teal-custom hover:bg-teal-600 px-12 py-5 text-sm font-bold uppercase tracking-widest transition-all rounded-sm"
-            >
-              Apskatīt Vakances
-            </button>
-            <button 
-              id="send-cv-btn"
-              onClick={onContactClick}
-              className="border border-white/20 hover:border-white px-12 py-5 text-sm font-bold uppercase tracking-widest transition-all rounded-sm"
-            >
-              Sūtīt CV
-            </button>
           </div>
         </div>
       </section>

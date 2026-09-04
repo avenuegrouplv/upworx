@@ -24,14 +24,14 @@ export const Categories: React.FC<CategoriesProps> = ({ onViewAll, onSelectCateg
     {
       id: 'lazera-griesana',
       title: 'Lāzera Griešana',
-      image: 'https://images.unsplash.com/photo-1565264317065-253ac0794939?auto=format&fit=crop&q=80&w=800',
-      count: '3'
+      image: 'https://images.pexels.com/photos/224924/pexels-photo-224924.jpeg?auto=compress&cs=tinysrgb&w=800',
+      count: '4'
     },
     {
       id: 'cnc-iekartas',
       title: 'CNC Iekārtas',
-      image: 'https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&q=80&w=800',
-      count: '5'
+      image: 'https://images.pexels.com/photos/3846554/pexels-photo-3846554.jpeg?auto=compress&cs=tinysrgb&w=800',
+      count: '4'
     },
     {
       id: 'automatizacija',
@@ -59,8 +59,7 @@ export const Categories: React.FC<CategoriesProps> = ({ onViewAll, onSelectCateg
             </h2>
             <div className="h-1 w-24 bg-teal-custom mb-6"></div>
             <p className="text-gray-600 leading-relaxed text-lg">
-              Izvēlieties atbilstošo kategoriju, lai iepazītos ar mūsu plašo industriālo risinājumu klāstu. 
-              Mēs piedāvājam tikai pārbaudītu ražotāju tehniku.
+              Profesionālas iekārtas dažādiem metālapstrādes un ražošanas procesiem — no atsevišķām CNC un lāzergriešanas iekārtām līdz automatizētiem ražošanas risinājumiem.
             </p>
           </div>
           <button 

@@ -27,12 +27,13 @@ export const ContactSection: React.FC<ContactSectionProps> = () => {
       <div className="container mx-auto px-6">
         <div className="bg-zinc-900 rounded-sm overflow-hidden flex flex-col lg:flex-row shadow-2xl">
           <div className="lg:w-1/2 p-12 lg:p-20 text-white flex flex-col justify-center">
-            <h2 className="text-4xl lg:text-5xl font-black uppercase mb-8 tracking-tighter">
-              GATAVI <span className="text-teal-custom">AUGT?</span>
+            <h2 className="text-2xl sm:text-3xl lg:text-[27px] xl:text-[30px] font-black uppercase mb-6 tracking-tight leading-snug">
+              VAI ESIET GATAVI <br className="hidden lg:inline" />
+              SPERT NĀKOŠO SOLI <br className="hidden lg:inline" />
+              TEHNOLOĢIJU PASAULĒ?
             </h2>
-            <p className="text-gray-400 text-lg mb-12 leading-relaxed">
-              Mūsu inženieri palīdzēs atrast piemērotāko risinājumu jūsu ražotnei. 
-              Sazinieties ar mums jau šodien, lai saņemtu bezmaksas konsultāciju.
+            <p className="text-gray-300 text-base sm:text-lg mb-10 leading-relaxed">
+              Mūsu inženieri palīdzēs atrast vispiemērotāko risinājumu Jūsu metālapstrādes ražotnei. Sazinieties ar mums jau šodien, lai saņemtu bezmaksas konsultāciju.
             </p>
             
             <div className="space-y-6">
@@ -44,7 +45,9 @@ export const ContactSection: React.FC<ContactSectionProps> = () => {
                 </div>
                 <div>
                   <p className="text-[10px] text-gray-500 uppercase font-bold tracking-widest">Tālrunis</p>
-                  <p className="text-xl font-bold">+371 2000 0000</p>
+                  <a href="tel:+37126474339" className="text-xl font-bold hover:text-teal-custom transition-colors block">
+                    +371 26474339
+                  </a>
                 </div>
               </div>
 
@@ -56,7 +59,9 @@ export const ContactSection: React.FC<ContactSectionProps> = () => {
                 </div>
                 <div>
                   <p className="text-[10px] text-gray-500 uppercase font-bold tracking-widest">E-pasts</p>
-                  <p className="text-xl font-bold">info@upworx.lv</p>
+                  <a href="mailto:info@upworx.lv" className="text-xl font-bold hover:text-teal-custom transition-colors block">
+                    info@upworx.lv
+                  </a>
                 </div>
               </div>
             </div>
@@ -65,46 +70,46 @@ export const ContactSection: React.FC<ContactSectionProps> = () => {
           <div className="lg:w-1/2 bg-teal-custom p-12 lg:p-20">
             <h3 className="text-white text-2xl font-bold uppercase mb-8">Pieteikties konsultācijai</h3>
             {submitted ? (
-              <div className="bg-black/30 border border-white/40 text-white p-8 rounded text-center">
-                <p className="font-bold text-xl mb-2">Paldies par pieprasījumu!</p>
-                <p className="text-sm text-white/90">Mūsu eksperts sazināsies ar Jums vienas darba dienas laikā.</p>
+              <div className="bg-white text-zinc-900 p-8 rounded shadow-lg text-center">
+                <p className="font-bold text-xl mb-2 text-teal-custom">Paldies par pieprasījumu!</p>
+                <p className="text-sm text-zinc-700">Mūsu eksperts sazināsies ar Jums vienas darba dienas laikā.</p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                  <label htmlFor="consult-name" className="block text-white/80 text-[10px] font-bold uppercase tracking-widest mb-2">Vārds, Uzvārds</label>
+                  <label htmlFor="consult-name" className="block text-white text-[11px] font-bold uppercase tracking-widest mb-2">Vārds, Uzvārds</label>
                   <input 
                     type="text" 
                     id="consult-name"
                     required
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full bg-white/10 border border-white/20 px-4 py-4 text-white placeholder-white/30 focus:outline-none focus:border-white transition-colors" 
+                    className="w-full bg-white text-zinc-900 placeholder-zinc-400 border border-white px-4 py-4 font-medium focus:outline-none focus:ring-2 focus:ring-black shadow-sm transition-all" 
                     placeholder="Jūsu vārds" 
                   />
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label htmlFor="consult-email" className="block text-white/80 text-[10px] font-bold uppercase tracking-widest mb-2">E-pasts</label>
+                    <label htmlFor="consult-email" className="block text-white text-[11px] font-bold uppercase tracking-widest mb-2">E-pasts</label>
                     <input 
                       type="email" 
                       id="consult-email"
                       required
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full bg-white/10 border border-white/20 px-4 py-4 text-white placeholder-white/30 focus:outline-none focus:border-white transition-colors" 
+                      className="w-full bg-white text-zinc-900 placeholder-zinc-400 border border-white px-4 py-4 font-medium focus:outline-none focus:ring-2 focus:ring-black shadow-sm transition-all" 
                       placeholder="birojs@uznemums.lv" 
                     />
                   </div>
                   <div>
-                    <label htmlFor="consult-phone" className="block text-white/80 text-[10px] font-bold uppercase tracking-widest mb-2">Tālrunis</label>
+                    <label htmlFor="consult-phone" className="block text-white text-[11px] font-bold uppercase tracking-widest mb-2">Tālrunis</label>
                     <input 
                       type="tel" 
                       id="consult-phone"
                       required
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="w-full bg-white/10 border border-white/20 px-4 py-4 text-white placeholder-white/30 focus:outline-none focus:border-white transition-colors" 
+                      className="w-full bg-white text-zinc-900 placeholder-zinc-400 border border-white px-4 py-4 font-medium focus:outline-none focus:ring-2 focus:ring-black shadow-sm transition-all" 
                       placeholder="+371 ..." 
                     />
                   </div>

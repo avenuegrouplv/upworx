@@ -1,15 +1,16 @@
 import React from 'react';
+import { MapPin, Phone, Mail } from 'lucide-react';
 
 interface FooterProps {
-  onNavigate: (view: 'home' | 'contact' | 'machinery' | 'about', categoryId?: string) => void;
+  onNavigate: (view: 'home' | 'contact' | 'machinery' | 'about' | 'career', categoryId?: string) => void;
 }
 
 export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
   return (
-    <footer id="main-footer" className="bg-black text-white pt-20 pb-10">
-      <div className="container mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
-          <div className="col-span-1 lg:col-span-1">
+    <footer id="main-footer" className="bg-black text-white pt-16 pb-8">
+      <div className="container mx-auto px-6 sm:px-8 lg:px-12 xl:px-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-8 mb-10">
+          <div className="col-span-1 md:col-span-1 lg:col-span-3">
             <div className="flex items-center mb-8 cursor-pointer" onClick={() => onNavigate('home')}>
               <svg width="30" height="30" viewBox="0 0 100 100" className="mr-3">
                 <path d="M10 80 L30 60 L50 70 L80 30" fill="none" stroke="#2c9db1" strokeWidth="12" strokeLinecap="round" />
@@ -41,7 +42,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             </div>
           </div>
 
-          <div>
+          <div className="col-span-1 md:col-span-1 lg:col-span-2">
             <h4 className="text-[15px] font-black uppercase tracking-widest mb-8 border-b border-teal-custom/30 pb-4 inline-block">IEKĀRTAS</h4>
             <ul className="space-y-4 text-gray-400 text-[15px] font-medium text-left">
               <li><button onClick={() => onNavigate('machinery', 'metalapstrade')} className="hover:text-teal-custom transition-colors text-left w-full cursor-pointer">Metālapstrāde</button></li>
@@ -51,43 +52,58 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             </ul>
           </div>
 
-          <div>
+          <div className="col-span-1 md:col-span-1 lg:col-span-2">
             <h4 className="text-[15px] font-black uppercase tracking-widest mb-8 border-b border-teal-custom/30 pb-4 inline-block">SVARĪGI</h4>
             <ul className="space-y-4 text-gray-400 text-[15px] font-medium text-left">
+              <li><button onClick={() => onNavigate('home')} className="hover:text-teal-custom transition-colors text-left w-full cursor-pointer">Sākums</button></li>
               <li><button onClick={() => onNavigate('about')} className="hover:text-teal-custom transition-colors text-left w-full cursor-pointer">Par mums</button></li>
+              <li><button onClick={() => onNavigate('machinery')} className="hover:text-teal-custom transition-colors text-left w-full cursor-pointer">Iekārtas</button></li>
+              <li><button onClick={() => onNavigate('career')} className="hover:text-teal-custom transition-colors text-left w-full cursor-pointer">Karjera</button></li>
               <li><button onClick={() => onNavigate('contact')} className="hover:text-teal-custom transition-colors text-left w-full cursor-pointer">Kontakti</button></li>
-              <li><button onClick={() => onNavigate('contact')} className="hover:text-teal-custom transition-colors text-left w-full cursor-pointer">Pieteikt atzvanu</button></li>
               <li><button onClick={() => onNavigate('about')} className="hover:text-teal-custom transition-colors text-left w-full cursor-pointer">Privātuma politika</button></li>
               <li><button onClick={() => onNavigate('about')} className="hover:text-teal-custom transition-colors text-left w-full cursor-pointer">Sīkdatņu politika</button></li>
             </ul>
           </div>
 
-          <div>
-            <h4 className="text-[15px] font-black uppercase tracking-widest mb-8 border-b border-teal-custom/30 pb-4 inline-block">BIROJS</h4>
+          {/* Kontaktinformācija - novietota tuvāk ekrāna labajai malai */}
+          <div className="col-span-1 md:col-span-1 lg:col-span-5 lg:col-start-8 xl:col-start-9 lg:ml-auto w-full max-w-md">
+            <h4 className="text-[15px] font-black uppercase tracking-widest mb-8 border-b border-teal-custom/30 pb-4 inline-block">KONTAKTINFORMĀCIJA</h4>
             <div className="text-gray-400 text-[15px] space-y-4 font-medium">
-              <p>Rūpniecības iela 102,<br />Rīga, LV-1010, Latvija</p>
-              <p>Darba laiks:<br />P-Pk: 08:30 - 17:30</p>
-              <div className="pt-4">
-                 <button 
-                  onClick={() => onNavigate('contact')}
-                  className="bg-zinc-900 border border-white/10 px-6 py-3 text-[11px] font-bold uppercase tracking-widest hover:border-teal-custom hover:text-teal-custom transition-all cursor-pointer"
-                 >
-                   Skatīt kartē
-                 </button>
-              </div>
+              <p>
+                SIA Upworx, Reģ.Nr. 50203706491
+              </p>
+              <p className="flex items-center gap-2.5">
+                <MapPin className="w-4 h-4 text-teal-custom shrink-0" />
+                <span className="whitespace-nowrap">Ošu ceļš 11B, Jelgava, LV-3003, Latvija</span>
+              </p>
+              <p className="flex items-center gap-2.5">
+                <Phone className="w-4 h-4 text-teal-custom shrink-0" />
+                <a href="tel:+37126474339" className="hover:text-teal-custom transition-colors">
+                  +371 26474339
+                </a>
+              </p>
+              <p className="flex items-center gap-2.5">
+                <Mail className="w-4 h-4 text-teal-custom shrink-0" />
+                <a href="mailto:info@upworx.lv" className="hover:text-teal-custom transition-colors">
+                  info@upworx.lv
+                </a>
+              </p>
+              <p>
+                Darba laiks: P-Pk: 08:30 - 17:30
+              </p>
             </div>
           </div>
         </div>
 
-        <div className="border-t border-white/5 pt-10 flex flex-col md:flex-row justify-between items-center text-[13px] text-gray-400 font-heading tracking-wide">
+        <div className="border-t border-white/5 pt-6 flex flex-col md:flex-row justify-between items-center text-[15px] text-gray-400 font-medium">
           <p>© 2026 UPWORX I Visas tiesības aizsargātas</p>
-          <p className="mt-4 md:mt-0">
+          <p className="mt-3 md:mt-0">
             Izstrādātājs:{' '}
             <a 
               href="https://sageonmedia.eu" 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="text-teal-custom hover:text-teal-400 font-bold hover:underline transition-colors cursor-pointer ml-1 inline-flex items-center"
+              className="text-teal-custom hover:text-teal-400 hover:underline transition-colors cursor-pointer ml-1 inline-flex items-center"
             >
               Sageon Media
             </a>

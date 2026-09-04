@@ -1,82 +1,166 @@
 import React from 'react';
+import { ArrowRight, Settings, Zap, CheckCircle2 } from 'lucide-react';
 
-interface ProductItemProps {
+interface FeaturedMachine {
+  id: string;
+  categoryId: string;
   name: string;
+  model: string;
   brand: string;
+  type: string;
   img: string;
-  onSelect?: () => void;
+  specs: string[];
 }
 
-const ProductItem: React.FC<ProductItemProps> = ({ name, brand, img, onSelect }) => (
-  <div 
-    onClick={onSelect}
-    className="bg-gray-50 p-6 group cursor-pointer transition-all hover:shadow-lg rounded-sm border border-transparent hover:border-teal-custom/30"
-  >
-    <div className="relative mb-8 overflow-hidden h-64 flex items-center justify-center bg-white">
-      <img src={img} alt={name} className="max-h-full object-contain" />
-      <div className="absolute top-0 right-0 bg-white shadow-sm px-3 py-1">
-        <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">{brand}</span>
-      </div>
-    </div>
-    <div className="border-t border-gray-200 pt-6">
-      <h4 className="text-xl font-bold uppercase mb-2 group-hover:text-teal-custom transition-colors text-zinc-900">{name}</h4>
-      <p className="text-sm text-gray-500 mb-6 uppercase tracking-wider">Augstas precizitātes apstrādes centrs</p>
-      <div className="flex justify-between items-center">
-        <span className="text-teal-custom font-bold text-sm tracking-widest uppercase group-hover:underline underline-offset-4">Specifikācija</span>
-        <div className="bg-gray-900 group-hover:bg-teal-custom text-white p-2 rounded-sm transition-colors">
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />
-          </svg>
-        </div>
-      </div>
-    </div>
-  </div>
-);
-
 interface FeaturedProductsProps {
+  onSelectMachine?: (categoryId: string, machineId: string) => void;
   onViewAllMachinery?: () => void;
 }
 
-export const FeaturedProducts: React.FC<FeaturedProductsProps> = ({ onViewAllMachinery }) => {
+export const FeaturedProducts: React.FC<FeaturedProductsProps> = ({ 
+  onSelectMachine,
+  onViewAllMachinery 
+}) => {
+  const machines: FeaturedMachine[] = [
+    {
+      id: 'trumpf-trubend-5170',
+      categoryId: 'metalapstrade',
+      name: 'TruBend 5170',
+      model: 'TruBend 5170',
+      brand: 'TRUMPF',
+      type: 'CNC hidrauliskā locīšanas prese',
+      img: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&q=80&w=800',
+      specs: [
+        'Spiediena spēks: 1700 kN (170 tonnas)',
+        'Locīšanas garums: 3230 mm',
+        'ACB Wireless leņķa automātiskā mērīšana'
+      ]
+    },
+    {
+      id: 'amada-ensis-3015-aj',
+      categoryId: 'lazera-griesana',
+      name: 'ENSIS 3015 AJ 9kW',
+      model: 'ENSIS 3015 AJ',
+      brand: 'AMADA',
+      type: '2D šķiedru (fiber) lāzergriešanas iekārta',
+      img: 'https://images.pexels.com/photos/224924/pexels-photo-224924.jpeg?auto=compress&cs=tinysrgb&w=800',
+      specs: [
+        'Lāzera jauda: 9 kW ENSIS Fiber',
+        'Darba zona: 3070 × 1550 mm',
+        'Stara automātiskā modulācija (0.8–25 mm)'
+      ]
+    },
+    {
+      id: 'dmg-mori-dmu-75-monoblock',
+      categoryId: 'cnc-iekartas',
+      name: 'DMU 75 monoBLOCK',
+      model: 'DMU 75 monoBLOCK',
+      brand: 'DMG MORI',
+      type: '5-asu universālais CNC apstrādes centrs',
+      img: 'https://images.pexels.com/photos/3846554/pexels-photo-3846554.jpeg?auto=compress&cs=tinysrgb&w=800',
+      specs: [
+        'Gājieni X/Y/Z: 750 / 650 / 560 mm',
+        'SpeedMASTER vārpsta: 20 000 apgr./min',
+        'CELOS vadība ar SIEMENS 840D sl'
+      ]
+    }
+  ];
+
+  const handleCardClick = (m: FeaturedMachine) => {
+    if (onSelectMachine) {
+      onSelectMachine(m.categoryId, m.id);
+    } else if (onViewAllMachinery) {
+      onViewAllMachinery();
+    }
+  };
+
   return (
     <section id="featured-products" className="py-24 bg-white border-t border-gray-100">
       <div className="container mx-auto px-6">
         <div className="mb-16">
-          <p className="text-teal-custom font-bold uppercase tracking-widest text-xs mb-4">Mūsu lepnums</p>
-          <h2 className="text-4xl font-black uppercase tracking-tighter text-zinc-900">
+          <p className="text-teal-custom font-bold uppercase tracking-widest text-xs mb-3">Jaunākās iekārtas</p>
+          <h2 className="text-4xl lg:text-5xl font-black uppercase tracking-tighter text-zinc-900">
             JAUNĀKIE <span className="text-teal-custom">PIEDĀVĀJUMI</span>
           </h2>
+          <div className="h-1 w-20 bg-teal-custom mt-4"></div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <ProductItem 
-            name="Alpha Precision X-500" 
-            brand="DMG MORI" 
-            img="https://images.unsplash.com/photo-1590950751299-1426691ec50e?auto=format&fit=crop&q=80&w=400" 
-            onSelect={onViewAllMachinery}
-          />
-          <ProductItem 
-            name="LaserCut Pro Infinity" 
-            brand="TRUMPF" 
-            img="https://images.unsplash.com/photo-1537462715879-360eeb61a0ad?auto=format&fit=crop&q=80&w=400" 
-            onSelect={onViewAllMachinery}
-          />
-          <ProductItem 
-            name="CNC Master-H" 
-            brand="MAZAK" 
-            img="https://images.unsplash.com/photo-1565264317065-253ac0794939?auto=format&fit=crop&q=80&w=400" 
-            onSelect={onViewAllMachinery}
-          />
+          {machines.map((m) => (
+            <div 
+              key={m.id}
+              className="bg-white border border-zinc-200 hover:border-teal-custom/80 rounded-sm overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col justify-between group"
+            >
+              <div>
+                {/* Image & Brand */}
+                <div className="relative h-60 w-full overflow-hidden bg-zinc-950 flex items-center justify-center">
+                  <img 
+                    src={m.img} 
+                    alt={`${m.brand} ${m.name}`} 
+                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 opacity-90"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/80 via-transparent to-transparent"></div>
+                  
+                  {/* Brand Tag */}
+                  <div className="absolute top-3 left-3 bg-zinc-950/90 border border-white/20 px-3 py-1 text-[11px] font-black uppercase tracking-wider text-teal-custom shadow-sm">
+                    {m.brand}
+                  </div>
+                </div>
+
+                {/* Card Body with structured information */}
+                <div className="p-6">
+                  <div className="mb-4">
+                    <p className="text-[11px] text-teal-custom font-bold uppercase tracking-wider mb-1">
+                      Ražotājs: <span className="text-zinc-900 font-black">{m.brand}</span>
+                    </p>
+                    <h4 className="text-2xl font-black uppercase tracking-tight text-zinc-900 mb-1">
+                      {m.model}
+                    </h4>
+                    <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                      {m.type}
+                    </p>
+                  </div>
+
+                  {/* 2-3 Tehniskie parametri */}
+                  <div className="pt-4 border-t border-zinc-100 mb-6">
+                    <p className="text-[10px] uppercase font-bold text-gray-400 tracking-wider mb-2.5">
+                      Būtiskie tehniskie parametri:
+                    </p>
+                    <ul className="space-y-2">
+                      {m.specs.map((spec, sIdx) => (
+                        <li key={sIdx} className="flex items-start text-xs text-zinc-700 leading-snug">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-teal-custom mr-2 shrink-0 mt-0.5" />
+                          <span>{spec}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              {/* Card Action Button */}
+              <div className="p-6 pt-0">
+                <button
+                  onClick={() => handleCardClick(m)}
+                  className="w-full bg-zinc-900 hover:bg-teal-custom text-white hover:text-zinc-950 font-bold uppercase tracking-wider text-xs py-3.5 px-4 rounded-sm flex items-center justify-center transition-colors cursor-pointer group/btn shadow-xs"
+                >
+                  <span>Apskatīt iekārtu</span>
+                  <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
+                </button>
+              </div>
+            </div>
+          ))}
         </div>
 
         <div className="mt-16 text-center">
-            <button 
-              id="view-all-machinery-btn"
-              onClick={onViewAllMachinery}
-              className="bg-gray-900 hover:bg-black text-white px-12 py-5 text-xs font-bold uppercase tracking-widest transition-all rounded-sm cursor-pointer shadow-md"
-            >
-                Apskatīt Visas Iekārtas (45+)
-            </button>
+          <button 
+            id="view-all-machinery-btn"
+            onClick={onViewAllMachinery}
+            className="bg-gray-900 hover:bg-black text-white px-12 py-4 text-xs font-bold uppercase tracking-widest transition-all rounded-sm cursor-pointer shadow-md"
+          >
+            Apskatīt Visas Iekārtas
+          </button>
         </div>
       </div>
     </section>
