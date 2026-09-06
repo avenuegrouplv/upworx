@@ -1,4 +1,5 @@
 import React from 'react';
+import { User } from 'lucide-react';
 import { OurValues } from './OurValues';
 
 interface AboutPageProps {
@@ -22,6 +23,22 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onContactClick }) => {
     {
       name: "Kaspars Liepiņš",
       role: "Automatizācijas risinājumu nodaļas vadītājs",
+    },
+    {
+      name: "Gatis Krūmiņš",
+      role: "CNC iekārtu servisa inženieris",
+    },
+    {
+      name: "Edgars Vītols",
+      role: "Lāzertehnoloģiju speciālists",
+    },
+    {
+      name: "Artūrs Zariņš",
+      role: "Industriālo projektu vadītājs",
+    },
+    {
+      name: "Ivars Pētersons",
+      role: "Rezerves daļu un loģistikas vadītājs",
     }
   ];
 
@@ -63,12 +80,12 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onContactClick }) => {
         </div>
       </section>
 
-      {/* Par Upworx */}
-      <section id="par-upworx-section" className="py-16 sm:py-20 border-b border-zinc-100 bg-white">
+      {/* Par Upworx - attālums no hero precīzi saskaņots ar lapu Karjera un Iekārtas (pt-20 sm:pt-24 un items-start) */}
+      <section id="par-upworx-section" className="pt-20 sm:pt-24 pb-20 sm:pb-24 border-b border-zinc-100 bg-white">
         <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
             <div>
-              <h2 className="text-4xl lg:text-5xl font-black uppercase tracking-tighter mb-6 text-zinc-900">
+              <h2 className="text-4xl lg:text-5xl font-black uppercase tracking-tighter mb-6 text-zinc-900 leading-tight">
                 PAR <span className="text-teal-custom">UPWORX</span>
               </h2>
               <div className="h-1 w-20 bg-teal-custom mb-8"></div>
@@ -122,16 +139,26 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onContactClick }) => {
             {teamMembers.map((member, i) => (
               <div 
                 key={i} 
-                className="bg-white border border-zinc-200/90 rounded-sm p-7 hover:border-teal-custom transition-colors duration-300 flex flex-col justify-between shadow-xs"
+                className="bg-white border border-zinc-200 rounded-sm overflow-hidden flex flex-col justify-between shadow-xs select-none"
               >
-                <div>
-                  <div className="w-10 h-10 rounded-sm bg-teal-custom/10 text-teal-custom flex items-center justify-center mb-6 font-black text-sm select-none">
-                    {member.name.split(' ').map(n => n[0]).join('')}
+                {/* Vieta attēlam kartiņas augšējā daļā (samazināta par 20% uz 1:1, statiska bez animācijām) */}
+                <div className="relative w-full aspect-square bg-zinc-100 border-b border-zinc-200 flex flex-col items-center justify-center overflow-hidden">
+                  <div className="flex flex-col items-center justify-center text-zinc-400 p-4 text-center">
+                    <div className="w-14 h-14 rounded-full bg-zinc-200/80 border border-zinc-300 flex items-center justify-center text-zinc-400 mb-2 shadow-inner">
+                      <User className="w-7 h-7 stroke-[1.5]" />
+                    </div>
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-zinc-400">
+                      Attēla vieta
+                    </span>
                   </div>
-                  <h3 className="text-lg font-black uppercase tracking-tight text-zinc-900 mb-2">
+                </div>
+
+                {/* Vārds, uzvārds un amata nosaukums kartiņas apakšējā daļā */}
+                <div className="p-5 bg-white flex flex-col justify-end flex-grow">
+                  <h3 className="text-base sm:text-lg font-black uppercase tracking-tight text-zinc-900 mb-1.5 leading-snug">
                     {member.name}
                   </h3>
-                  <div className="h-0.5 w-10 bg-teal-custom/40 mb-3"></div>
+                  <div className="h-0.5 w-8 bg-teal-custom/60 mb-2.5"></div>
                   <p className="text-xs font-bold uppercase tracking-wider text-teal-custom leading-relaxed">
                     {member.role}
                   </p>

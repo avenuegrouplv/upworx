@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 
 interface CategoryCardItem {
   id: string;
@@ -73,7 +73,7 @@ export const Categories: React.FC<CategoriesProps> = ({ onViewAll, onSelectCateg
                 className="group relative h-[420px] overflow-hidden cursor-pointer rounded-sm border border-zinc-200 hover:border-teal-custom hover:shadow-xl hover:ring-1 hover:ring-teal-custom/60 transition-all duration-300"
               >
                 <div 
-                  className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
+                  className="absolute inset-0 bg-cover bg-center"
                   style={{ backgroundImage: `url(${cat.image})` }}
                 ></div>
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent group-hover:from-teal-950/80 transition-colors duration-500"></div>
@@ -83,13 +83,15 @@ export const Categories: React.FC<CategoriesProps> = ({ onViewAll, onSelectCateg
                 </div>
               </div>
 
-              {/* Navigation button under the card: Standard UPWORX design matching website */}
+              {/* Navigation button under the card: Distinct background, expressive border & round contour around bold arrow */}
               <button
                 onClick={() => handleCategoryClickUnits(cat.id)}
-                className="mt-3 w-full bg-zinc-900 hover:bg-teal-custom text-white hover:text-zinc-950 font-bold uppercase tracking-wider text-xs py-3.5 px-4 rounded-sm flex items-center justify-center transition-colors cursor-pointer group/btn shadow-xs"
+                className="mt-3 w-full bg-zinc-100 hover:bg-zinc-200/80 text-zinc-900 border border-zinc-400 hover:border-teal-custom font-bold uppercase tracking-wider text-xs py-3 px-4 rounded-sm flex items-center justify-center transition-all duration-300 cursor-pointer shadow-xs hover:shadow-md"
               >
                 <span>Apskatīt kategoriju</span>
-                <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
+                <span className="w-7 h-7 rounded-full border border-teal-custom text-teal-custom flex items-center justify-center ml-2.5 shrink-0">
+                  <ArrowUpRight className="w-3.5 h-3.5" strokeWidth={2.8} />
+                </span>
               </button>
             </div>
           ))}

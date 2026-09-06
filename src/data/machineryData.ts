@@ -462,7 +462,7 @@ export const ALL_MACHINERY: MachineItem[] = [
     model: 'Optiplex 3015 NEO 15kW',
     name: 'Optiplex 3015 NEO 15kW',
     brand: 'MAZAK',
-    type: 'Šķiedru lāzergriešanas darbagalds ar stara modulāciju',
+    type: 'Šķiedru lāzergriešanas darbagalds',
     category: 'lazera-griesana',
     categoryName: 'Lāzera griešana',
     image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=1200',

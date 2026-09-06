@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Header } from './components/Header';
+import { Header, Language } from './components/Header';
 import { Hero } from './components/Hero';
 import { Categories } from './components/Categories';
 import { FeaturedProducts } from './components/FeaturedProducts';
@@ -23,6 +23,22 @@ export default function App() {
   const [selectedMachine, setSelectedMachine] = useState<string | null>(null);
   const [openCookiePreferences, setOpenCookiePreferences] = useState(false);
   const [openPrivacyModal, setOpenPrivacyModal] = useState(false);
+  const [currentLang, setCurrentLang] = useState<Language>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('upworx_language');
+      if (saved && ['LV', 'ENG', 'RU'].includes(saved)) {
+        return saved as Language;
+      }
+    }
+    return 'LV';
+  });
+
+  const handleLanguageChange = (lang: Language) => {
+    setCurrentLang(lang);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('upworx_language', lang);
+    }
+  };
 
   // Sync state from current browser URL
   const syncStateFromUrl = () => {
@@ -113,7 +129,8 @@ export default function App() {
   const navigateTo = (
     view: 'home' | 'contact' | 'machinery' | 'about' | 'career', 
     categoryId?: string | null, 
-    machineIdOrName?: string | null
+    machineIdOrName?: string | null,
+    scrollToTop: boolean = true
   ) => {
     const normalizedCategory = categoryId && categoryId !== 'all' 
       ? categoryId 
@@ -152,7 +169,9 @@ export default function App() {
       window.history.pushState({ view, categoryId: normalizedCategory, machineId: machineIdOrName }, '', targetPath);
     }
 
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (scrollToTop) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
   return (
@@ -161,6 +180,8 @@ export default function App() {
         scrolled={scrolled} 
         onNavigate={navigateTo} 
         currentView={currentView}
+        currentLang={currentLang}
+        onLanguageChange={handleLanguageChange}
       />
       <main className="flex-grow">
         {currentView === 'home' && (
@@ -208,9 +229,9 @@ export default function App() {
           <MachineryPage 
             selectedCategorySlug={selectedCategory || 'metalapstrade'}
             selectedMachineId={selectedMachine}
-            onSelectCategory={(catId) => navigateTo('machinery', catId, null)}
-            onSelectMachine={(catId, machineId) => navigateTo('machinery', catId, machineId)}
-            onInquiryClick={(machineName) => navigateTo('contact', undefined, machineName)} 
+            onSelectCategory={(catId) => navigateTo('machinery', catId, null, false)}
+            onSelectMachine={(catId, machineId) => navigateTo('machinery', catId, machineId, true)}
+            onInquiryClick={(machineName) => navigateTo('contact', undefined, machineName, true)} 
           />
         )}
 

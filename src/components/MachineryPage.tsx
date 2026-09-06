@@ -5,7 +5,7 @@ import {
   Settings, 
   Cpu, 
   ChevronRight,
-  ArrowRight
+  ArrowUpRight
 } from 'lucide-react';
 import { 
   MachineItem, 
@@ -36,9 +36,31 @@ export const MachineryPage: React.FC<MachineryPageProps> = ({
     ? ALL_MACHINERY.find(m => m.id === selectedMachineId) 
     : null;
 
+  // Only scroll to top if opening a specific machine detail page
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [selectedCategorySlug, selectedMachineId]);
+    if (selectedMachineId) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [selectedMachineId]);
+
+  const handleCategorySelect = (categorySlug: string) => {
+    onSelectCategory(categorySlug);
+    // Ekrāns aizslīd uz iekārtu sadaļu ~5cm augstāk, lai pilnībā ietilptu arī kartīšu attēli zem galvenes
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        const el = document.getElementById('machinery-models-section');
+        if (el) {
+          const headerOffset = 105; // 80px fiksētā galvene + 25px papildu brīva vieta
+          const elementPosition = el.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+        }
+      }, 50);
+    });
+  };
 
   if (currentMachine) {
     return (
@@ -105,20 +127,15 @@ export const MachineryPage: React.FC<MachineryPageProps> = ({
         </div>
       </section>
 
-      {/* Category Header & Tabs - attālums no hero precīzi saskaņots ar lapu Par mums (pt-16 sm:pt-20) */}
-      <div className="bg-white border-b border-zinc-200 pt-16 sm:pt-20 pb-12 mb-12">
+      {/* Category Header & Tabs - attālums no hero precīzi saskaņots ar lapu Karjera (pt-20 sm:pt-24) */}
+      <div className="bg-white border-b border-zinc-200 pt-20 sm:pt-24 pb-12 mb-12">
         <div className="container mx-auto px-6">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
             <div>
-              <div className="flex items-center space-x-2.5 text-teal-custom font-black text-xs uppercase tracking-[0.25em] mb-4 sm:mb-5">
-                <span>Iekārtu katalogs</span>
-                <span className="font-normal text-teal-custom/60">I</span>
-                <span>{activeCategory.name}</span>
-              </div>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-zinc-900">
-                {activeCategory.name}
+              <h2 className="text-4xl lg:text-5xl font-black uppercase tracking-tighter text-zinc-900 mb-6">
+                IEKĀRTU <span className="text-teal-custom">KATALOGS</span>
               </h2>
-              <div className="h-1 w-20 bg-teal-custom mt-4" />
+              <div className="h-1 w-20 bg-teal-custom mb-2 sm:mb-0" />
             </div>
             
             <div className="bg-zinc-100 border border-zinc-200 px-4 py-2 rounded-sm text-xs font-bold uppercase tracking-wider text-zinc-700 self-start md:self-auto">
@@ -127,7 +144,7 @@ export const MachineryPage: React.FC<MachineryPageProps> = ({
             </div>
           </div>
 
-          {/* 4 Galvenās kategoriju navigācijas cilnes (Tabs) */}
+          {/* 4 Galvenās kategoriju navigācijas cilnes (Tabs) - gaišs stils bez melna fona */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 pt-2">
             {MACHINERY_CATEGORIES.map((cat) => {
               const isActive = cat.urlSlug === activeCategory.urlSlug;
@@ -135,21 +152,21 @@ export const MachineryPage: React.FC<MachineryPageProps> = ({
                 <button
                   key={cat.id}
                   id={`tab-${cat.urlSlug}`}
-                  onClick={() => onSelectCategory(cat.urlSlug)}
+                  onClick={() => handleCategorySelect(cat.urlSlug)}
                   className={`flex items-center space-x-3 p-3.5 rounded-sm border text-left transition-all duration-200 cursor-pointer ${
                     isActive 
-                      ? 'bg-zinc-900 text-white border-zinc-900 shadow-md ring-2 ring-teal-custom/50' 
-                      : 'bg-zinc-50 hover:bg-white text-zinc-700 border-zinc-200 hover:border-zinc-300'
+                      ? 'bg-zinc-100 text-zinc-950 border-teal-custom shadow-sm ring-2 ring-teal-custom/60' 
+                      : 'bg-white hover:bg-zinc-50 text-zinc-800 border-zinc-200 hover:border-zinc-300'
                   }`}
                 >
-                  <div className={`p-2 rounded-sm ${isActive ? 'bg-zinc-800 text-teal-custom' : 'bg-zinc-200 text-zinc-600'}`}>
+                  <div className={`p-2 rounded-sm transition-colors ${isActive ? 'bg-white border border-teal-custom text-teal-custom shadow-xs' : 'bg-zinc-100 text-zinc-600'}`}>
                     {getCategoryIcon(cat.id)}
                   </div>
                   <div className="min-w-0">
-                    <p className={`text-xs font-black uppercase tracking-wider truncate ${isActive ? 'text-white' : 'text-zinc-900'}`}>
+                    <p className={`text-xs font-black uppercase tracking-wider truncate ${isActive ? 'text-zinc-950' : 'text-zinc-900'}`}>
                       {cat.name}
                     </p>
-                    <p className={`text-[11px] truncate ${isActive ? 'text-zinc-400' : 'text-zinc-500'}`}>
+                    <p className={`text-[11px] truncate ${isActive ? 'text-teal-custom font-bold' : 'text-zinc-500'}`}>
                       4 iekārtas
                     </p>
                   </div>
@@ -161,22 +178,17 @@ export const MachineryPage: React.FC<MachineryPageProps> = ({
       </div>
 
       {/* 4 Iekārtu kartīšu režģis konkrētajai kategorijai */}
-      <div className="container mx-auto px-6 max-w-7xl">
-        <div className="mb-10">
-          <h2 className="text-xs font-black uppercase tracking-[0.25em] text-teal-custom mb-2">
-            Modeļu klāsts
-          </h2>
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-            <div>
-              <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-zinc-900 mb-4">
-                {activeCategory.name}
-              </h3>
-              <div className="h-1 w-20 bg-teal-custom" />
-            </div>
-            <span className="text-xs text-zinc-600 font-bold bg-white px-3.5 py-2 border border-zinc-200 rounded-sm shadow-xs self-start sm:self-auto">
-              Rāda 4 no 4 iekārtām
-            </span>
+      <div id="machinery-models-section" className="container mx-auto px-6 max-w-7xl scroll-mt-24">
+        <div className="mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+          <div>
+            <h2 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-zinc-900">
+              MODEĻU <span className="text-teal-custom">KLĀSTS</span>
+            </h2>
+            <div className="h-1 w-20 bg-teal-custom mt-3" />
           </div>
+          <span className="text-xs text-zinc-600 font-bold bg-white px-3.5 py-2 border border-zinc-200 rounded-sm shadow-xs self-start sm:self-auto">
+            Rāda 4 no 4 iekārtām
+          </span>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -200,27 +212,24 @@ export const MachineryPage: React.FC<MachineryPageProps> = ({
             </h3>
             <div className="h-1 w-20 bg-teal-custom" />
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             {MACHINERY_CATEGORIES.filter(c => c.urlSlug !== activeCategory.urlSlug).map((otherCat) => (
               <button
                 key={otherCat.id}
-                onClick={() => onSelectCategory(otherCat.urlSlug)}
-                className="bg-white hover:bg-zinc-100/80 border border-zinc-200 p-5 rounded-sm flex items-center justify-between transition-all group text-left cursor-pointer"
+                onClick={() => handleCategorySelect(otherCat.urlSlug)}
+                className="flex items-center space-x-3 p-3.5 rounded-sm border text-left transition-all duration-200 cursor-pointer bg-white hover:bg-zinc-50 text-zinc-800 border-zinc-200 hover:border-zinc-300"
               >
-                <div className="flex items-center space-x-3.5">
-                  <div className="p-2.5 bg-zinc-100 text-teal-custom group-hover:bg-zinc-900 group-hover:text-white rounded-sm transition-colors">
-                    {getCategoryIcon(otherCat.id)}
-                  </div>
-                  <div>
-                    <h4 className="font-black text-sm uppercase tracking-tight text-zinc-900 group-hover:text-teal-custom transition-colors">
-                      {otherCat.name}
-                    </h4>
-                    <p className="text-xs text-zinc-500">
-                      4 iekārtas
-                    </p>
-                  </div>
+                <div className="p-2 rounded-sm bg-zinc-100 text-zinc-600">
+                  {getCategoryIcon(otherCat.id)}
                 </div>
-                <ArrowRight className="w-4 h-4 text-zinc-400 group-hover:text-zinc-900 group-hover:translate-x-1 transition-all" />
+                <div className="min-w-0">
+                  <p className="text-xs font-black uppercase tracking-wider truncate text-zinc-900">
+                    {otherCat.name}
+                  </p>
+                  <p className="text-[11px] truncate text-zinc-500">
+                    4 iekārtas
+                  </p>
+                </div>
               </button>
             ))}
           </div>

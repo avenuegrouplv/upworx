@@ -133,7 +133,7 @@ export const ProjectsSection: React.FC = () => {
 
       {/* Exactly 4 full cards in view container */}
       <div className="container mx-auto px-6">
-        <div className="overflow-hidden">
+        <div className="overflow-hidden py-2 -my-2">
           <div
             className="flex transition-transform duration-500 ease-out -mx-2.5"
             style={{
@@ -145,7 +145,7 @@ export const ProjectsSection: React.FC = () => {
                 key={item.id}
                 className="w-full sm:w-1/2 lg:w-1/4 shrink-0 px-2.5 flex"
               >
-                <div className="w-full bg-zinc-50 border border-zinc-200/90 rounded-sm overflow-hidden flex flex-col justify-between hover:border-teal-custom hover:shadow-xl hover:ring-1 hover:ring-teal-custom/60 transition-all duration-300 group">
+                <div className="w-full bg-zinc-50 border border-zinc-300 rounded-sm overflow-hidden flex flex-col justify-between hover:border-teal-custom hover:shadow-lg transition-all duration-300 group">
                   <div>
                     {/* Project Image - Compact */}
                     <div className="relative h-40 sm:h-44 w-full overflow-hidden bg-zinc-950">
@@ -156,10 +156,6 @@ export const ProjectsSection: React.FC = () => {
                         loading="lazy"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/85 via-zinc-950/20 to-transparent"></div>
-                      
-                      <div className="absolute top-2.5 left-2.5 bg-zinc-950/90 border border-teal-custom/40 px-2.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-teal-custom">
-                        Realizēts projekts
-                      </div>
                     </div>
 
                     {/* Project Content - Compact */}
@@ -211,8 +207,8 @@ export const ProjectsSection: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* UPWORX Scope Footer - Compact */}
-                  <div className="p-4 sm:p-5 pt-0 border-t border-zinc-200/60 mt-2">
+                  {/* UPWORX Scope Footer - Compact un ar vienmērīgu noslēgumu */}
+                  <div className="p-4 sm:p-5 pt-3">
                     <div className="bg-white border border-teal-custom/30 p-2.5 rounded-sm flex items-center gap-2">
                       <CheckCircle2 className="w-3.5 h-3.5 text-teal-custom shrink-0" />
                       <div className="text-[11px] leading-snug">

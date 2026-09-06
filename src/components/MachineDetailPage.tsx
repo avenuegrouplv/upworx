@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { 
   ArrowLeft, 
+  ArrowUpRight,
   FileText, 
   Download, 
   ChevronRight, 
@@ -427,10 +428,12 @@ export const MachineDetailPage: React.FC<MachineDetailPageProps> = ({
             </div>
             <button
               onClick={() => onNavigateToCategory(machine.category)}
-              className="inline-flex items-center text-xs font-bold uppercase tracking-wider text-teal-custom hover:text-teal-700 transition-colors cursor-pointer group/link self-start sm:self-auto pb-1"
+              className="bg-zinc-100 hover:bg-zinc-200/80 text-zinc-900 border border-zinc-400 hover:border-teal-custom px-4 py-2 text-xs font-bold uppercase tracking-wider transition-all rounded-sm cursor-pointer shadow-xs inline-flex items-center gap-2.5 self-start sm:self-auto shrink-0 hover:shadow-md"
             >
               <span>{getViewAllCategoryLabel()}</span>
-              <ChevronRight className="w-4 h-4 ml-1 group-hover/link:translate-x-1 transition-transform" />
+              <span className="w-6 h-6 rounded-full border border-teal-custom text-teal-custom flex items-center justify-center shrink-0">
+                <ArrowUpRight className="w-3.5 h-3.5" strokeWidth={2.8} />
+              </span>
             </button>
           </div>
 

@@ -75,8 +75,8 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCookieSettings
                 </ul>
               </div>
 
-              {/* Kolonna: KONTAKTINFORMĀCIJA */}
-              <div>
+              {/* Kolonna: KONTAKTINFORMĀCIJA (pavirzīta par 1cm pa labi) */}
+              <div className="sm:translate-x-[1cm]">
                 <h4 className="text-[14px] sm:text-[15px] font-black uppercase tracking-widest mb-4 border-b border-teal-custom/30 pb-2 inline-block">
                   KONTAKTINFORMĀCIJA
                 </h4>
@@ -109,49 +109,57 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCookieSettings
           </div>
         </div>
 
-        {/* Apakšējā josla: Kreisajā pusē autortiesības, centrā pa vidu ekrānam Privātuma un Sīkdatņu politika, labajā pusē Izstrādātājs */}
-        <div className="border-t border-white/5 pt-5 flex flex-col md:grid md:grid-cols-3 items-center text-[14px] sm:text-[15px] text-gray-400 font-medium gap-3 md:gap-0">
-          <p className="text-center md:text-left">© 2026 UPWORX I Visas tiesības aizsargātas</p>
-
-          <div className="flex items-center justify-center gap-5 text-center">
-            <button 
-              onClick={() => {
-                if (onOpenPrivacyPolicy) {
-                  onOpenPrivacyPolicy();
-                } else {
-                  onNavigate('about');
-                }
-              }} 
-              className="hover:text-teal-custom transition-colors cursor-pointer"
-            >
-              Privātuma politika
-            </button>
-            <span className="text-zinc-600 select-none">|</span>
-            <button 
-              onClick={() => {
-                if (onOpenCookieSettings) {
-                  onOpenCookieSettings();
-                } else {
-                  onNavigate('about');
-                }
-              }} 
-              className="hover:text-teal-custom transition-colors cursor-pointer"
-            >
-              Sīkdatņu politika
-            </button>
+        {/* Apakšējā josla: Izstrādātājs no kreisās puses vertikāli salāgots ar Kontaktinformācija stabiņu */}
+        <div className="border-t border-white/5 pt-5 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center text-[14px] sm:text-[15px] text-gray-400 font-medium">
+          <div className="col-span-1 lg:col-span-4 xl:col-span-4 text-center lg:text-left">
+            <p>© 2026 UPWORX I Visas tiesības aizsargātas</p>
           </div>
 
-          <p className="text-center md:text-right">
-            Izstrādātājs:{' '}
-            <a 
-              href="https://sageonmedia.eu" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="text-teal-custom hover:text-teal-400 hover:underline transition-colors cursor-pointer ml-1 inline-flex items-center"
-            >
-              Sageon Media
-            </a>
-          </p>
+          <div className="col-span-1 lg:col-span-8 xl:col-span-8">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 lg:gap-8 xl:gap-10 items-center">
+              <div className="sm:col-span-2 flex items-center justify-center gap-5 text-center">
+                <button 
+                  onClick={() => {
+                    if (onOpenPrivacyPolicy) {
+                      onOpenPrivacyPolicy();
+                    } else {
+                      onNavigate('about');
+                    }
+                  }} 
+                  className="hover:text-teal-custom transition-colors cursor-pointer"
+                >
+                  Privātuma politika
+                </button>
+                <span className="text-zinc-600 select-none">|</span>
+                <button 
+                  onClick={() => {
+                    if (onOpenCookieSettings) {
+                      onOpenCookieSettings();
+                    } else {
+                      onNavigate('about');
+                    }
+                  }} 
+                  className="hover:text-teal-custom transition-colors cursor-pointer"
+                >
+                  Sīkdatņu politika
+                </button>
+              </div>
+
+              <div className="sm:translate-x-[1cm] text-center sm:text-left">
+                <p>
+                  Izstrādātājs:{' '}
+                  <a 
+                    href="https://sageonmedia.eu" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="text-teal-custom hover:text-teal-400 hover:underline transition-colors cursor-pointer ml-1 inline-flex items-center font-semibold"
+                  >
+                    Sageon Media
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </footer>

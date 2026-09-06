@@ -17,59 +17,15 @@ export const CareerPage: React.FC<CareerPageProps> = ({ onContactClick }) => {
   const vacancies = [
     {
       id: 'servisa-inzenieris',
-      title: 'CNC un lāzergriešanas iekārtu servisa inženieris',
-      type: 'Pilna slodze',
-      location: 'Rīga, Jelgava / Baltijas reģions',
-      salary: '2 200 – 3 200 EUR (bruto) + prēmiju sistēma',
-      responsibilities: [
-        'Metālapstrādes un lāzergriešanas iekārtu uzstādīšana un nodošana ekspluatācijā',
-        'Regulāro tehnisko apkopju veikšana un iekārtu diagnostika',
-        'Bojājumu novēršana un operatīvs remonts pie klientiem ražotnēs',
-        'Klientu personāla apmācība darbam ar iekārtu un tās pareizu uzturēšanu'
-      ],
-      requirements: [
-        'Tehniskā izglītība mehatronikā, mehānikā vai elektrotehnikā',
-        'Izpratne par pneimatiku, hidrauliku un elektriskajām shēmām',
-        'Augsta atbildības sajūta, precizitāte un patstāvība lēmumu pieņemšanā',
-        'B kategorijas autovadītāja apliecība'
-      ]
+      title: 'CNC un lāzergriešanas iekārtu servisa inženieris'
     },
     {
       id: 'tirdzniecibas-vaditajs',
-      title: 'Metālapstrādes iekārtu tirdzniecības inženieris',
-      type: 'Pilna slodze',
-      location: 'Rīga, Jelgava / Latvija',
-      salary: '2 000 – 3 500 EUR (bruto) + komisijas procents',
-      responsibilities: [
-        'Jaunu klientu un ražošanas uzņēmumu piesaiste Baltijā',
-        'Tehnisko konsultāciju sniegšana un optimālo iekārtu piemeklēšana',
-        'Komerciālo piedāvājumu sagatavošana un pārrunu vadīšana',
-        'Dalība nozares izstādēs un iekārtu demonstrācijās'
-      ],
-      requirements: [
-        'Izpratne par metālapstrādes tehnoloģiskajiem procesiem un iekārtām',
-        'Veiksmīga pieredze B2B tehniskajā pārdošanā',
-        'Teicamas komunikācijas, prezentācijas un argumentācijas prasmes',
-        'Latviešu un angļu valodas zināšanas (tehniskā līmenī)'
-      ]
+      title: 'Metālapstrādes iekārtu tirdzniecības inženieris'
     },
     {
       id: 'automatizacijas-inzenieris',
-      title: 'Ražošanas automatizācijas un robotikas speciālists',
-      type: 'Pilna slodze',
-      location: 'Jelgava / Baltija',
-      salary: '2 500 – 3 800 EUR (bruto)',
-      responsibilities: [
-        'Automatizēto ražošanas šūnu un industriālo robotu integrācija',
-        'PLC kontrolleru programmēšana un sistēmu pieslēgšana',
-        'Ražošanas līniju testēšana un efektivitātes optimizēšana',
-        'Tehniskās dokumentācijas un lietotāju instrukciju izstrāde'
-      ],
-      requirements: [
-        'Augstākā tehniskā izglītība automātikā, robotikā vai datorvadībā',
-        'Praktiska pieredze darbā ar industriālajiem robotiem un PLC',
-        'Inovāciju orientēta domāšana un vēlme apgūt jaunākās tehnoloģijas'
-      ]
+      title: 'Ražošanas automatizācijas un robotikas speciālists'
     }
   ];
 
@@ -205,59 +161,24 @@ export const CareerPage: React.FC<CareerPageProps> = ({ onContactClick }) => {
                 key={v.id} 
                 className="bg-white border border-zinc-200 rounded-sm p-6 sm:p-8 hover:border-teal-custom transition-all shadow-xs"
               >
-                <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6 mb-6">
-                  <div>
-                    <div className="flex flex-wrap items-center gap-3 mb-2">
-                      <span className="text-[11px] font-bold uppercase tracking-wider bg-teal-custom/10 text-teal-custom px-2.5 py-1 rounded-sm">
-                        {v.type}
-                      </span>
-                      <span className="text-[12px] font-medium text-zinc-500 flex items-center gap-1">
-                        <MapPin className="w-3.5 h-3.5" />
-                        {v.location}
-                      </span>
-                    </div>
-                    <h3 className="text-xl sm:text-2xl font-black uppercase tracking-tight text-zinc-900">
-                      {v.title}
-                    </h3>
-                  </div>
-                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 shrink-0">
-                    <div className="text-left sm:text-right">
-                      <p className="text-[11px] uppercase tracking-wider text-zinc-400 font-semibold">Atalgojums</p>
-                      <p className="text-sm sm:text-base font-bold text-zinc-900">{v.salary}</p>
-                    </div>
-                    <a
-                      href="#pieteikties"
-                      onClick={() => setSelectedVacancy(v.title)}
-                      className="bg-zinc-900 hover:bg-teal-custom text-white hover:text-zinc-950 px-5 py-2.5 rounded-sm text-xs font-bold uppercase tracking-wider transition-colors inline-block text-center"
-                    >
-                      Pieteikties
-                    </a>
-                  </div>
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <h3 className="text-xl sm:text-2xl font-black uppercase tracking-tight text-zinc-900">
+                    {v.title}
+                  </h3>
+                  <a
+                    href="#pieteikties"
+                    onClick={() => setSelectedVacancy(v.title)}
+                    className="bg-teal-custom hover:bg-teal-600 text-white px-5 py-2.5 rounded-sm text-xs font-bold uppercase tracking-wider transition-colors inline-block text-center shrink-0 self-start sm:self-auto shadow-sm"
+                  >
+                    Pieteikties
+                  </a>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6 border-t border-zinc-100 text-sm">
-                  <div>
-                    <h4 className="text-xs font-bold uppercase tracking-wider text-zinc-900 mb-3">Galvenie pienākumi:</h4>
-                    <ul className="space-y-2">
-                      {v.responsibilities.map((r, i) => (
-                        <li key={i} className="flex items-start gap-2.5 text-zinc-600 text-xs sm:text-sm">
-                          <CheckCircle2 className="w-4 h-4 text-teal-custom shrink-0 mt-0.5" />
-                          <span>{r}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div>
-                    <h4 className="text-xs font-bold uppercase tracking-wider text-zinc-900 mb-3">Prasības kandidātiem:</h4>
-                    <ul className="space-y-2">
-                      {v.requirements.map((req, i) => (
-                        <li key={i} className="flex items-start gap-2.5 text-zinc-600 text-xs sm:text-sm">
-                          <CheckCircle2 className="w-4 h-4 text-teal-custom shrink-0 mt-0.5" />
-                          <span>{req}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                {/* Brīva vieta ar uzrakstu "Informācija sekos." */}
+                <div className="pt-6 mt-6 border-t border-zinc-100 min-h-[90px] flex items-center">
+                  <p className="text-sm sm:text-base font-semibold text-zinc-400 italic">
+                    Informācija sekos.
+                  </p>
                 </div>
               </div>
             ))}

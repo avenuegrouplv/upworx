@@ -52,28 +52,31 @@ export const ServicesSection: React.FC = () => {
           <div className="h-1 w-20 bg-teal-custom mx-auto mt-4"></div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-          {services.map((srv, idx) => {
-            const IconComponent = srv.icon;
-            return (
-              <div
-                key={idx}
-                className="bg-white p-8 sm:p-9 border border-zinc-200/90 rounded-sm shadow-xs hover:border-teal-custom hover:shadow-xl hover:ring-1 hover:ring-teal-custom/60 transition-all duration-300 flex flex-col justify-between group"
-              >
-                <div>
-                  <div className="w-12 h-12 rounded-sm bg-teal-custom/10 text-teal-custom flex items-center justify-center mb-6 group-hover:bg-teal-custom group-hover:text-zinc-950 transition-colors shrink-0">
-                    <IconComponent className="w-6 h-6" strokeWidth={2} />
+        <div className="max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 justify-center">
+            {services.map((srv, idx) => {
+              const IconComponent = srv.icon;
+              return (
+                <div
+                  key={idx}
+                  className="bg-white p-6 sm:p-7 border border-zinc-300 rounded-sm shadow-xs flex flex-col justify-between max-w-[320px] w-full mx-auto"
+                >
+                  <div>
+                    {/* Vizuāli lielāks un izteiksmīgāks simbols */}
+                    <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-sm bg-teal-custom/10 border border-teal-custom/30 text-teal-custom flex items-center justify-center mb-5 shrink-0 shadow-xs">
+                      <IconComponent className="w-7 h-7 sm:w-8 sm:h-8" strokeWidth={2.2} />
+                    </div>
+                    <h3 className="text-base sm:text-lg font-black uppercase tracking-tight text-zinc-900 mb-2 leading-snug">
+                      {srv.title}
+                    </h3>
+                    <p className="text-zinc-600 text-xs sm:text-[13px] leading-relaxed">
+                      {srv.desc}
+                    </p>
                   </div>
-                  <h3 className="text-xl font-black uppercase tracking-tight text-zinc-900 mb-2.5 group-hover:text-teal-custom transition-colors">
-                    {srv.title}
-                  </h3>
-                  <p className="text-zinc-600 text-sm leading-relaxed">
-                    {srv.desc}
-                  </p>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>

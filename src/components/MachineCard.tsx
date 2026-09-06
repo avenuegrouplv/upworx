@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import { MachineItem } from '../data/machineryData';
 
 interface MachineCardProps {
@@ -44,7 +44,7 @@ export const MachineCard: React.FC<MachineCardProps> = ({ machine, onViewMachine
             <p className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mb-1">
               Iekārtas tips
             </p>
-            <p className="text-sm font-bold text-zinc-900 uppercase tracking-tight">
+            <p className="text-sm font-bold text-zinc-900 uppercase tracking-tight min-h-[2.5rem] flex items-start">
               {machine.type}
             </p>
           </div>
@@ -73,15 +73,17 @@ export const MachineCard: React.FC<MachineCardProps> = ({ machine, onViewMachine
         </div>
       </div>
 
-      {/* Poga: Apskatīt iekārtu */}
+      {/* Poga: Apskatīt iekārtu (izteiksmīgs rāmītis, fons, bultiņa ar apaļu kontūru bez atsevišķa fona) */}
       <div className="p-6 pt-0">
         <button
           id={`view-machine-${machine.id}`}
           onClick={() => onViewMachine(machine.category, machine.id)}
-          className="w-full bg-zinc-900 hover:bg-teal-custom text-white py-3.5 px-4 text-xs font-bold uppercase tracking-widest rounded-sm transition-all duration-300 flex items-center justify-center gap-2 group-hover:shadow-md cursor-pointer"
+          className="w-full bg-zinc-100 hover:bg-zinc-200/80 text-zinc-900 border border-zinc-400 hover:border-teal-custom py-3 px-4 text-xs font-bold uppercase tracking-wider rounded-sm transition-all duration-300 flex items-center justify-center gap-2.5 hover:shadow-md cursor-pointer"
         >
           <span>Apskatīt iekārtu</span>
-          <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+          <span className="w-7 h-7 rounded-full border border-teal-custom text-teal-custom flex items-center justify-center shrink-0">
+            <ArrowUpRight className="w-3.5 h-3.5" strokeWidth={2.8} />
+          </span>
         </button>
       </div>
     </div>

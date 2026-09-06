@@ -27,7 +27,7 @@ export const AboutSection: React.FC = () => {
             </p>
           </div>
 
-          {/* Labā puse: Samazināts attēls ar 2024. gada lielākais piegādātājs birku */}
+          {/* Labā puse: Industriāls attēls */}
           <div className="lg:col-span-5">
             <div className="relative overflow-hidden rounded-sm border border-zinc-800 shadow-xl">
               <img 
@@ -37,19 +37,6 @@ export const AboutSection: React.FC = () => {
                 loading="lazy"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/80 via-zinc-950/20 to-transparent pointer-events-none"></div>
-              
-              {/* Taisnstūra kartiņa: horizontālais platums tikai mazliet platāks par vertikālo */}
-              <div className="absolute bottom-4 left-4 sm:bottom-5 sm:left-5 bg-teal-custom text-zinc-950 p-4 sm:p-5 rounded-sm shadow-2xl w-48 sm:w-56 aspect-[1.18/1] flex flex-col justify-between">
-                <div>
-                  <div className="w-6 h-0.5 bg-zinc-950/40 mb-2"></div>
-                  <p className="text-zinc-900/85 text-[10px] sm:text-[11px] font-black uppercase tracking-widest">
-                    Nozares līderis
-                  </p>
-                </div>
-                <p className="text-zinc-950 font-black text-xs sm:text-[14px] uppercase tracking-tight leading-snug">
-                  2024. GADA LIELĀKAIS PIEGĀDĀTĀJS BALTIJĀ
-                </p>
-              </div>
             </div>
           </div>
         </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight, Settings, Zap, CheckCircle2 } from 'lucide-react';
+import { ArrowUpRight, Settings, Zap, CheckCircle2 } from 'lucide-react';
 
 interface FeaturedMachine {
   id: string;
@@ -88,10 +88,12 @@ export const FeaturedProducts: React.FC<FeaturedProductsProps> = ({
             <button 
               id="view-all-machinery-btn"
               onClick={onViewAllMachinery}
-              className="bg-zinc-900 hover:bg-teal-custom text-white hover:text-zinc-950 px-6 py-3.5 text-xs font-bold uppercase tracking-widest transition-all rounded-sm cursor-pointer shadow-xs inline-flex items-center gap-2 self-start sm:self-auto shrink-0 group/topbtn"
+              className="bg-zinc-100 hover:bg-zinc-200/80 text-zinc-900 border border-zinc-400 hover:border-teal-custom px-5 py-2.5 text-xs font-bold uppercase tracking-wider transition-all rounded-sm cursor-pointer shadow-xs inline-flex items-center gap-2.5 self-start sm:self-auto shrink-0 hover:shadow-md"
             >
               <span>Apskatīt Visas Iekārtas</span>
-              <ArrowRight className="w-4 h-4 group-hover/topbtn:translate-x-1 transition-transform" />
+              <span className="w-7 h-7 rounded-full border border-teal-custom text-teal-custom flex items-center justify-center shrink-0">
+                <ArrowUpRight className="w-3.5 h-3.5" strokeWidth={2.8} />
+              </span>
             </button>
           )}
         </div>
@@ -150,14 +152,16 @@ export const FeaturedProducts: React.FC<FeaturedProductsProps> = ({
                 </div>
               </div>
 
-              {/* Card Action Button */}
+              {/* Card Action Button: Distinct background, expressive border & round contour around bold arrow */}
               <div className="p-6 pt-0">
                 <button
                   onClick={() => handleCardClick(m)}
-                  className="w-full bg-zinc-900 hover:bg-teal-custom text-white hover:text-zinc-950 font-bold uppercase tracking-wider text-xs py-3.5 px-4 rounded-sm flex items-center justify-center transition-colors cursor-pointer group/btn shadow-xs"
+                  className="w-full bg-zinc-100 hover:bg-zinc-200/80 text-zinc-900 border border-zinc-400 hover:border-teal-custom font-bold uppercase tracking-wider text-xs py-3 px-4 rounded-sm flex items-center justify-center transition-all duration-300 cursor-pointer shadow-xs hover:shadow-md"
                 >
                   <span>Apskatīt iekārtu</span>
-                  <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
+                  <span className="w-7 h-7 rounded-full border border-teal-custom text-teal-custom flex items-center justify-center ml-2.5 shrink-0">
+                    <ArrowUpRight className="w-3.5 h-3.5" strokeWidth={2.8} />
+                  </span>
                 </button>
               </div>
             </div>
