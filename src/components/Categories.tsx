@@ -1,5 +1,6 @@
 import React from 'react';
 import { ArrowUpRight } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 interface CategoryCardItem {
   id: string;
@@ -14,28 +15,31 @@ interface CategoriesProps {
 }
 
 export const Categories: React.FC<CategoriesProps> = ({ onViewAll, onSelectCategory }) => {
+  const { t } = useLanguage();
+  const c = t.categories;
+
   const categoriesList: CategoryCardItem[] = [
     {
       id: 'metalapstrade',
-      title: 'Metālapstrāde',
+      title: c.metalworking,
       image: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&q=80&w=800',
       count: '4'
     },
     {
       id: 'lazera-griesana',
-      title: 'Lāzera Griešana',
+      title: c.laserCutting,
       image: 'https://images.pexels.com/photos/224924/pexels-photo-224924.jpeg?auto=compress&cs=tinysrgb&w=800',
       count: '4'
     },
     {
       id: 'cnc-iekartas',
-      title: 'CNC Iekārtas',
+      title: c.cncEquipment,
       image: 'https://images.pexels.com/photos/3846554/pexels-photo-3846554.jpeg?auto=compress&cs=tinysrgb&w=800',
       count: '4'
     },
     {
       id: 'automatizacija',
-      title: 'Automatizācija',
+      title: c.automation,
       image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=800',
       count: '4'
     }
@@ -55,11 +59,11 @@ export const Categories: React.FC<CategoriesProps> = ({ onViewAll, onSelectCateg
         <div className="mb-10 sm:mb-12">
           <div className="max-w-2xl">
             <h2 className="text-4xl lg:text-5xl font-black uppercase tracking-tighter text-gray-900 mb-4">
-              IEKĀRTU <span className="text-teal-custom">KATALOGS</span>
+              {c.catalogTitle1} <span className="text-teal-custom">{c.catalogTitle2}</span>
             </h2>
             <div className="h-1 w-24 bg-teal-custom mb-5"></div>
             <p className="text-gray-600 leading-relaxed text-base sm:text-lg">
-              Profesionālas iekārtas dažādiem metālapstrādes un ražošanas procesiem — no atsevišķām CNC un lāzergriešanas iekārtām līdz automatizētiem ražošanas risinājumiem.
+              {c.subtitle}
             </p>
           </div>
         </div>
@@ -78,7 +82,7 @@ export const Categories: React.FC<CategoriesProps> = ({ onViewAll, onSelectCateg
                 ></div>
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent group-hover:from-teal-950/80 transition-colors duration-500"></div>
                 <div className="absolute bottom-0 left-0 p-6 w-full">
-                  <p className="text-teal-custom font-bold text-xs uppercase tracking-widest mb-2">{cat.count} IEKĀRTAS</p>
+                  <p className="text-teal-custom font-bold text-xs uppercase tracking-widest mb-2">{cat.count} {c.machinesLabel}</p>
                   <h3 className="text-2xl font-black text-white uppercase tracking-tight leading-tight">{cat.title}</h3>
                 </div>
               </div>
@@ -88,7 +92,7 @@ export const Categories: React.FC<CategoriesProps> = ({ onViewAll, onSelectCateg
                 onClick={() => handleCategoryClickUnits(cat.id)}
                 className="mt-3 w-full bg-zinc-100 hover:bg-zinc-200/80 text-zinc-900 border border-zinc-400 hover:border-teal-custom font-bold uppercase tracking-wider text-xs py-3 px-4 rounded-sm flex items-center justify-center transition-all duration-300 cursor-pointer shadow-xs hover:shadow-md"
               >
-                <span>Apskatīt kategoriju</span>
+                <span>{c.viewCategory}</span>
                 <span className="w-7 h-7 rounded-full border border-teal-custom text-teal-custom flex items-center justify-center ml-2.5 shrink-0">
                   <ArrowUpRight className="w-3.5 h-3.5" strokeWidth={2.8} />
                 </span>
@@ -100,3 +104,4 @@ export const Categories: React.FC<CategoriesProps> = ({ onViewAll, onSelectCateg
     </section>
   );
 };
+

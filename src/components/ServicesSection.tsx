@@ -7,39 +7,19 @@ import {
   Wrench, 
   Layers 
 } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 export const ServicesSection: React.FC = () => {
-  const services = [
-    {
-      title: 'Iekārtu konsultācijas',
-      desc: 'Palīdzība piemērotākās tehnoloģijas un iekārtas izvēlē.',
-      icon: MessagesSquare,
-    },
-    {
-      title: 'Piegāde un uzstādīšana',
-      desc: 'Iekārtu piegāde, uzstādīšana un sagatavošana darbam.',
-      icon: Truck,
-    },
-    {
-      title: 'Nodošana ekspluatācijā',
-      desc: 'Iekārtu konfigurēšana, pārbaude un palaišana.',
-      icon: SlidersHorizontal,
-    },
-    {
-      title: 'Operatoru apmācība',
-      desc: 'Personāla apmācība darbam ar uzstādītajām iekārtām.',
-      icon: GraduationCap,
-    },
-    {
-      title: 'Tehniskais serviss',
-      desc: 'Diagnostika, apkope un remonts.',
-      icon: Wrench,
-    },
-    {
-      title: 'Rezerves daļas',
-      desc: 'Rezerves un dilstošo detaļu piegāde.',
-      icon: Layers,
-    },
+  const { t } = useLanguage();
+  const s = t.services;
+
+  const icons = [
+    MessagesSquare, 
+    Truck, 
+    SlidersHorizontal, 
+    GraduationCap, 
+    Wrench, 
+    Layers 
   ];
 
   return (
@@ -47,15 +27,15 @@ export const ServicesSection: React.FC = () => {
       <div className="container mx-auto px-6">
         <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tighter text-zinc-900">
-            PAKALPOJUMI <span className="text-teal-custom">UN SERVISS</span>
+            {s.title} <span className="text-teal-custom">{s.titleHighlight}</span>
           </h2>
           <div className="h-1 w-20 bg-teal-custom mx-auto mt-4"></div>
         </div>
 
         <div className="max-w-5xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 justify-center">
-            {services.map((srv, idx) => {
-              const IconComponent = srv.icon;
+            {s.items.map((srv, idx) => {
+              const IconComponent = icons[idx] || Layers;
               return (
                 <div
                   key={idx}
@@ -82,3 +62,4 @@ export const ServicesSection: React.FC = () => {
     </section>
   );
 };
+

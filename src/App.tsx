@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Header, Language } from './components/Header';
+import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { Categories } from './components/Categories';
 import { FeaturedProducts } from './components/FeaturedProducts';
@@ -15,30 +15,16 @@ import { CareerPage } from './components/CareerPage';
 import { Footer } from './components/Footer';
 import { CookieBanner } from './components/CookieBanner';
 import { ALL_MACHINERY } from './data/machineryData';
+import { useLanguage } from './context/LanguageContext';
 
 export default function App() {
+  const { language, setLanguage } = useLanguage();
   const [scrolled, setScrolled] = useState(false);
   const [currentView, setCurrentView] = useState<'home' | 'contact' | 'machinery' | 'about' | 'career'>('home');
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [selectedMachine, setSelectedMachine] = useState<string | null>(null);
   const [openCookiePreferences, setOpenCookiePreferences] = useState(false);
   const [openPrivacyModal, setOpenPrivacyModal] = useState(false);
-  const [currentLang, setCurrentLang] = useState<Language>(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('upworx_language');
-      if (saved && ['LV', 'ENG', 'RU'].includes(saved)) {
-        return saved as Language;
-      }
-    }
-    return 'LV';
-  });
-
-  const handleLanguageChange = (lang: Language) => {
-    setCurrentLang(lang);
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('upworx_language', lang);
-    }
-  };
 
   // Sync state from current browser URL
   const syncStateFromUrl = () => {
@@ -86,37 +72,72 @@ export default function App() {
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
-  // Update dynamic page title based on view, category and machine
+  // Update dynamic page title based on view, category, machine, and current language
   useEffect(() => {
+    const titles = {
+      LV: {
+        home: 'UPWORX | Industriālie Risinājumi',
+        about: 'Par Mums | UPWORX',
+        career: 'Karjera | UPWORX',
+        contact: 'Kontakti | UPWORX',
+        machinery: 'Iekārtu Katalogs | UPWORX',
+        metalapstrade: 'Metālapstrādes Iekārtas | UPWORX',
+        'lazera-griesana': 'Lāzera Griešanas Iekārtas | UPWORX',
+        'cnc-iekartas': 'CNC Iekārtas | UPWORX',
+        automatizacija: 'Automatizācijas Iekārtas | UPWORX',
+        defaultMachinery: 'Iekārtas | UPWORX',
+      },
+      ENG: {
+        home: 'UPWORX | Industrial Solutions',
+        about: 'About Us | UPWORX',
+        career: 'Career | UPWORX',
+        contact: 'Contact Us | UPWORX',
+        machinery: 'Machinery Catalog | UPWORX',
+        metalapstrade: 'Metalworking Machinery | UPWORX',
+        'lazera-griesana': 'Laser Cutting Machinery | UPWORX',
+        'cnc-iekartas': 'CNC Machinery | UPWORX',
+        automatizacija: 'Automation Equipment | UPWORX',
+        defaultMachinery: 'Machinery | UPWORX',
+      },
+      RU: {
+        home: 'UPWORX | Промышленные Решения',
+        about: 'О Нас | UPWORX',
+        career: 'Карьера | UPWORX',
+        contact: 'Контакты | UPWORX',
+        machinery: 'Каталог Оборудования | UPWORX',
+        metalapstrade: 'Металлообрабатывающее Оборудование | UPWORX',
+        'lazera-griesana': 'Оборудование для Лазерной Резки | UPWORX',
+        'cnc-iekartas': 'Станки с ЧПУ | UPWORX',
+        automatizacija: 'Оборудование для Автоматизации | UPWORX',
+        defaultMachinery: 'Оборудование | UPWORX',
+      }
+    };
+
+    const cur = titles[language] || titles.LV;
+
     if (currentView === 'machinery') {
       if (selectedMachine) {
         const found = ALL_MACHINERY.find(m => m.id === selectedMachine);
         if (found) {
           document.title = `${found.brand} ${found.model} | UPWORX`;
         } else {
-          document.title = 'Iekārtas | UPWORX';
+          document.title = cur.defaultMachinery;
         }
-      } else if (selectedCategory === 'metalapstrade') {
-        document.title = 'Metālapstrādes Iekārtas | UPWORX';
-      } else if (selectedCategory === 'lazera-griesana') {
-        document.title = 'Lāzera Griešanas Iekārtas | UPWORX';
-      } else if (selectedCategory === 'cnc-iekartas') {
-        document.title = 'CNC Iekārtas | UPWORX';
-      } else if (selectedCategory === 'automatizacija') {
-        document.title = 'Automatizācijas Iekārtas | UPWORX';
+      } else if (selectedCategory && (cur as Record<string, string>)[selectedCategory]) {
+        document.title = (cur as Record<string, string>)[selectedCategory];
       } else {
-        document.title = 'Iekārtu Katalogs | UPWORX';
+        document.title = cur.machinery;
       }
     } else if (currentView === 'about') {
-      document.title = 'Par Mums | UPWORX';
+      document.title = cur.about;
     } else if (currentView === 'career') {
-      document.title = 'Karjera | UPWORX';
+      document.title = cur.career;
     } else if (currentView === 'contact') {
-      document.title = 'Kontakti | UPWORX';
+      document.title = cur.contact;
     } else {
-      document.title = 'UPWORX | Industriālie Risinājumi';
+      document.title = cur.home;
     }
-  }, [currentView, selectedCategory, selectedMachine]);
+  }, [currentView, selectedCategory, selectedMachine, language]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -180,8 +201,8 @@ export default function App() {
         scrolled={scrolled} 
         onNavigate={navigateTo} 
         currentView={currentView}
-        currentLang={currentLang}
-        onLanguageChange={handleLanguageChange}
+        currentLang={language}
+        onLanguageChange={setLanguage}
       />
       <main className="flex-grow">
         {currentView === 'home' && (
@@ -202,6 +223,7 @@ export default function App() {
             <FeaturedProducts 
               onSelectMachine={(categoryId, machineId) => navigateTo('machinery', machineId)}
               onViewAllMachinery={() => navigateTo('machinery')} 
+              onRequestPrice={(machineName) => navigateTo('contact', undefined, machineName, true)}
             />
 
             {/* 4. Pakalpojumi un serviss (6 kartītes) pirms Kāpēc izvēlēties mūs */}

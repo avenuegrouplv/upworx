@@ -1,16 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useLanguage } from '../context/LanguageContext';
 
 export const Partners: React.FC = () => {
-  const partners = [
-    { name: 'TRUMPF', specialty: 'Lāzera griešana & lokšņu apstrāde' },
-    { name: 'MAZAK', specialty: 'CNC apstrādes centri & virpas' },
-    { name: 'AMADA', specialty: 'Lāzergriešana & locīšanas preses' },
-    { name: 'BYSTRONIC', specialty: 'Šķiedru lāzeri & automatizācija' },
-    { name: 'DMG MORI', specialty: '5-asu frēzēšana & virpošana' },
-    { name: 'HAAS', specialty: 'CNC vertikālie & horizontālie centri' },
-    { name: 'FANUC', specialty: 'Robotika & CNC vadības sistēmas' },
-    { name: 'PRIMA POWER', specialty: 'Lokšņu metālapstrādes līnijas' },
-  ];
+  const { t } = useLanguage();
+  const partnersData = t.partners;
+  const partners = partnersData.items;
 
   const totalOriginal = partners.length;
   // Duplicate 4 times for seamless infinite looping
@@ -43,7 +37,6 @@ export const Partners: React.FC = () => {
   const GAP = 20;
   
   // Card width calculation ensures exact full fit across the container:
-  // (containerWidth - totalGaps) / visibleCount
   const cardWidth = containerWidth > 0 
     ? Math.max(120, (containerWidth - (visibleCount - 1) * GAP) / visibleCount)
     : 220;
@@ -78,7 +71,7 @@ export const Partners: React.FC = () => {
       <div className="container mx-auto px-6">
         <div className="mb-8">
           <p className="text-teal-custom font-bold uppercase tracking-[0.25em] text-xs">
-            SADARBĪBAS PARTNERI
+            {partnersData.badge}
           </p>
           <div className="h-0.5 w-16 bg-teal-custom/60 mt-2"></div>
         </div>
@@ -119,3 +112,4 @@ export const Partners: React.FC = () => {
     </section>
   );
 };
+

@@ -13,6 +13,8 @@ import {
 import { MachineItem, ALL_MACHINERY, MACHINERY_CATEGORIES } from '../data/machineryData';
 import { MachineCard } from './MachineCard';
 import { MachineInquiryModal } from './MachineInquiryModal';
+import { useLanguage } from '../context/LanguageContext';
+import { getLocalizedMachine, localizedCategories } from '../i18n/machineryLocalization';
 
 interface MachineDetailPageProps {
   machine: MachineItem;
@@ -22,10 +24,15 @@ interface MachineDetailPageProps {
 }
 
 export const MachineDetailPage: React.FC<MachineDetailPageProps> = ({
-  machine,
+  machine: rawMachine,
   onNavigateToCategory,
-  onNavigateToMachine
+  onNavigateToMachine,
+  onInquiryClick
 }) => {
+  const { language, t } = useLanguage();
+  const machine = getLocalizedMachine(rawMachine, language);
+  const md = t.machineDetail;
+
   const [activeImage, setActiveImage] = useState<string>(machine.image);
   const [isInquiryModalOpen, setIsInquiryModalOpen] = useState<boolean>(false);
 
@@ -35,44 +42,17 @@ export const MachineDetailPage: React.FC<MachineDetailPageProps> = ({
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [machine.id, machine.image]);
 
-  // Find category metadata
-  const categoryMeta = MACHINERY_CATEGORIES.find(c => c.id === machine.category);
-
   // Other 3 machines in this category
   const otherMachines = ALL_MACHINERY.filter(
     m => m.category === machine.category && m.id !== machine.id
   ).slice(0, 3);
 
+  // Localized category name
+  const catName = localizedCategories[language]?.[machine.category]?.name || machine.categoryName;
+
   // Format "Citas [kategorijas] iekārtas" title
   const getOtherHeading = () => {
-    switch (machine.category) {
-      case 'metalapstrade':
-        return 'Citas metālapstrādes iekārtas';
-      case 'lazera-griesana':
-        return 'Citas lāzera griešanas iekārtas';
-      case 'cnc-iekartas':
-        return 'Citas CNC iekārtas';
-      case 'automatizacija':
-        return 'Citas automatizācijas iekārtas';
-      default:
-        return 'Citas iekārtas';
-    }
-  };
-
-  // Pareizs teksts kategorijas saitei bez vārdu dublēšanās
-  const getViewAllCategoryLabel = () => {
-    switch (machine.category) {
-      case 'metalapstrade':
-        return 'Apskatīt visas metālapstrādes iekārtas';
-      case 'lazera-griesana':
-        return 'Apskatīt visas lāzera griešanas iekārtas';
-      case 'cnc-iekartas':
-        return 'Apskatīt visas CNC iekārtas';
-      case 'automatizacija':
-        return 'Apskatīt visas automatizācijas iekārtas';
-      default:
-        return 'Apskatīt visas iekārtas';
-    }
+    return `${md.otherMachinesPrefix} ${catName}`;
   };
 
   const imagesList = machine.galleryImages && machine.galleryImages.length > 0
@@ -89,14 +69,14 @@ export const MachineDetailPage: React.FC<MachineDetailPageProps> = ({
             onClick={() => onNavigateToCategory('metalapstrade')} 
             className="hover:text-teal-custom transition-colors cursor-pointer"
           >
-            Iekārtas
+            {t.common.machineryNav}
           </button>
           <ChevronRight className="w-3.5 h-3.5 text-zinc-400 flex-shrink-0" />
           <button 
             onClick={() => onNavigateToCategory(machine.category)} 
             className="hover:text-teal-custom transition-colors cursor-pointer"
           >
-            {machine.categoryName}
+            {catName}
           </button>
           <ChevronRight className="w-3.5 h-3.5 text-zinc-400 flex-shrink-0" />
           <span className="text-zinc-900 font-bold">
@@ -149,7 +129,7 @@ export const MachineDetailPage: React.FC<MachineDetailPageProps> = ({
             <div className="space-y-4">
               <div>
                 <span className="inline-block bg-zinc-100 text-zinc-800 text-[11px] font-black uppercase tracking-widest px-3 py-1 rounded-sm border border-zinc-200 mb-3">
-                  Ražotājs: {machine.brand}
+                  {md.manufacturerLabel}: {machine.brand}
                 </span>
                 <h1 className="text-3xl sm:text-4xl xl:text-5xl font-black uppercase tracking-tight text-zinc-900 leading-tight">
                   {machine.model}
@@ -167,7 +147,7 @@ export const MachineDetailPage: React.FC<MachineDetailPageProps> = ({
               {/* 3 galvenie parametri vizuāli izcelti */}
               <div className="pt-4 border-t border-zinc-100 space-y-2.5">
                 <p className="text-[10px] font-extrabold uppercase tracking-widest text-zinc-400">
-                  Galvenie parametri
+                  {md.keyParamsTitle}
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   {machine.threeMainParams.map((param, idx) => (
@@ -187,17 +167,17 @@ export const MachineDetailPage: React.FC<MachineDetailPageProps> = ({
               </div>
             </div>
 
-            {/* Poga: PIEPRASĪT PIEDĀVĀJUMU */}
+            {/* Poga: PIEPRASĪT CENU */}
             <div className="pt-4">
               <button
                 id="top-inquiry-btn"
                 onClick={() => setIsInquiryModalOpen(true)}
                 className="w-full bg-teal-custom hover:bg-teal-600 text-white py-4 px-6 text-sm font-black uppercase tracking-widest rounded-sm transition-all duration-300 shadow-lg shadow-teal-900/20 flex items-center justify-center gap-2.5 cursor-pointer hover:shadow-teal-900/30"
               >
-                <span>Pieprasīt piedāvājumu</span>
+                <span>{md.requestPriceBtn}</span>
               </button>
               <p className="text-[11px] text-zinc-400 text-center mt-2.5">
-                Piedāvājuma sagatavošana parasti aizņem 1 darba dienu
+                {md.requestPriceNote}
               </p>
             </div>
           </div>
@@ -209,10 +189,10 @@ export const MachineDetailPage: React.FC<MachineDetailPageProps> = ({
         <section id="section-about-machine" className="py-16 border-b border-zinc-200">
           <div className="max-w-4xl">
             <h2 className="text-xs font-black uppercase tracking-[0.25em] text-teal-custom mb-2">
-              Apraksts
+              {md.aboutBadge}
             </h2>
             <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-zinc-900 mb-4">
-              Par iekārtu
+              {md.aboutTitle}
             </h3>
             <div className="h-1 w-20 bg-teal-custom mb-8" />
             <p className="text-zinc-700 text-base sm:text-lg leading-relaxed font-normal">
@@ -227,10 +207,10 @@ export const MachineDetailPage: React.FC<MachineDetailPageProps> = ({
         <section id="section-advantages" className="py-16 border-b border-zinc-200">
           <div className="mb-10">
             <h2 className="text-xs font-black uppercase tracking-[0.25em] text-teal-custom mb-2">
-              Priekšrocības
+              {md.advantagesBadge}
             </h2>
             <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-zinc-900 mb-4">
-              Galvenās priekšrocības
+              {md.advantagesTitle}
             </h3>
             <div className="h-1 w-20 bg-teal-custom" />
           </div>
@@ -261,10 +241,10 @@ export const MachineDetailPage: React.FC<MachineDetailPageProps> = ({
         <section id="section-specs" className="py-16 border-b border-zinc-200">
           <div className="mb-10">
             <h2 className="text-xs font-black uppercase tracking-[0.25em] text-teal-custom mb-2">
-              Specifikācija
+              {md.specsBadge}
             </h2>
             <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-zinc-900 mb-4">
-              Tehniskie parametri
+              {md.specsTitle}
             </h3>
             <div className="h-1 w-20 bg-teal-custom" />
           </div>
@@ -298,10 +278,10 @@ export const MachineDetailPage: React.FC<MachineDetailPageProps> = ({
           <section id="section-technologies" className="py-16 border-b border-zinc-200">
             <div className="mb-10">
               <h2 className="text-xs font-black uppercase tracking-[0.25em] text-teal-custom mb-2">
-                Inovācijas
+                {md.innovationsBadge}
               </h2>
               <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-zinc-900 mb-4">
-                Tehnoloģijas un funkcijas
+                {md.innovationsTitle}
               </h3>
               <div className="h-1 w-20 bg-teal-custom" />
             </div>
@@ -335,10 +315,10 @@ export const MachineDetailPage: React.FC<MachineDetailPageProps> = ({
           <section id="section-docs" className="py-16 border-b border-zinc-200">
             <div className="mb-10">
               <h2 className="text-xs font-black uppercase tracking-[0.25em] text-teal-custom mb-2">
-                Materiāli
+                {md.documentationBadge}
               </h2>
               <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-zinc-900 mb-4">
-                Dokumentācija
+                {md.documentationTitle}
               </h3>
               <div className="h-1 w-20 bg-teal-custom" />
             </div>
@@ -358,23 +338,27 @@ export const MachineDetailPage: React.FC<MachineDetailPageProps> = ({
                         {doc.title}
                       </h4>
                       <span className="text-[11px] text-zinc-500 font-medium">
-                        PDF dokuments {doc.fileSize ? `· ${doc.fileSize}` : ''}
+                        PDF {doc.fileSize ? `· ${doc.fileSize}` : ''}
                       </span>
                     </div>
                   </div>
 
-                  <a
-                    href="#download"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      alert(`Sagatavo ${doc.title} lejupielādi...`);
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const link = document.createElement('a');
+                      link.href = doc.fileUrl || '#';
+                      link.setAttribute('download', `${doc.title}.pdf`);
+                      link.target = '_blank';
+                      link.rel = 'noopener noreferrer';
+                      link.click();
                     }}
                     className="inline-flex items-center space-x-1.5 bg-zinc-900 hover:bg-teal-custom text-white px-3.5 py-2 rounded-sm text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer flex-shrink-0 ml-4"
                   >
                     <Download className="w-3.5 h-3.5" />
-                    <span className="hidden sm:inline">Lejupielādēt PDF</span>
+                    <span className="hidden sm:inline">{md.downloadPdfBtn}</span>
                     <span className="sm:hidden">PDF</span>
-                  </a>
+                  </button>
                 </div>
               ))}
             </div>
@@ -382,7 +366,7 @@ export const MachineDetailPage: React.FC<MachineDetailPageProps> = ({
         )}
 
         {/* ========================================================================= */}
-        {/* 10. SADAĻA “PIEPRASĪT PIEDĀVĀJUMU” (CTA Banneris ar modal atvēršanu)      */}
+        {/* 10. SADAĻA “PIEPRASĪT CENU” (CTA Banneris ar modal atvēršanu)             */}
         {/* ========================================================================= */}
         <section id="section-inquiry-cta" className="py-20 border-b border-zinc-200">
           <div className="bg-zinc-950 text-white rounded-sm p-8 sm:p-14 relative overflow-hidden shadow-2xl">
@@ -390,13 +374,13 @@ export const MachineDetailPage: React.FC<MachineDetailPageProps> = ({
             
             <div className="relative z-10 max-w-2xl space-y-6">
               <span className="text-teal-custom font-extrabold text-xs uppercase tracking-[0.25em]">
-                Konsultācija un aprēķins
+                {md.ctaBadge}
               </span>
               <h3 className="text-3xl sm:text-4xl font-black uppercase tracking-tight text-white leading-tight">
-                INTERESĒ {machine.brand} {machine.model}?
+                {md.ctaTitlePrefix} {machine.brand} {machine.model}?
               </h3>
               <p className="text-zinc-300 text-sm sm:text-base leading-relaxed">
-                Sazinieties ar mūsu komandu, lai saņemtu informāciju par iekārtas konfigurāciju, piegādes iespējām un cenu.
+                {md.ctaSubtitle}
               </p>
               <div className="pt-2">
                 <button
@@ -405,7 +389,7 @@ export const MachineDetailPage: React.FC<MachineDetailPageProps> = ({
                   className="bg-teal-custom hover:bg-teal-600 text-white px-8 py-4 text-xs font-black uppercase tracking-widest rounded-sm transition-all duration-300 shadow-xl shadow-teal-900/40 inline-flex items-center gap-2 cursor-pointer"
                 >
                   <PhoneCall className="w-4 h-4" />
-                  <span>Pieprasīt piedāvājumu</span>
+                  <span>{md.requestPriceBtn}</span>
                 </button>
               </div>
             </div>
@@ -419,7 +403,7 @@ export const MachineDetailPage: React.FC<MachineDetailPageProps> = ({
           <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
             <div>
               <h2 className="text-xs font-black uppercase tracking-[0.25em] text-teal-custom mb-2">
-                Saistītās iekārtas
+                {md.relatedBadge}
               </h2>
               <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-zinc-900 mb-4">
                 {getOtherHeading()}
@@ -430,7 +414,7 @@ export const MachineDetailPage: React.FC<MachineDetailPageProps> = ({
               onClick={() => onNavigateToCategory(machine.category)}
               className="bg-zinc-100 hover:bg-zinc-200/80 text-zinc-900 border border-zinc-400 hover:border-teal-custom px-4 py-2 text-xs font-bold uppercase tracking-wider transition-all rounded-sm cursor-pointer shadow-xs inline-flex items-center gap-2.5 self-start sm:self-auto shrink-0 hover:shadow-md"
             >
-              <span>{getViewAllCategoryLabel()}</span>
+              <span>{md.viewAllCategoryBtn}</span>
               <span className="w-6 h-6 rounded-full border border-teal-custom text-teal-custom flex items-center justify-center shrink-0">
                 <ArrowUpRight className="w-3.5 h-3.5" strokeWidth={2.8} />
               </span>
@@ -450,12 +434,14 @@ export const MachineDetailPage: React.FC<MachineDetailPageProps> = ({
 
       </div>
 
-      {/* Modal logs piedāvājuma pieprasījumam */}
+      {/* Modal logs piedāvājuma / cenas pieprasījumam */}
       <MachineInquiryModal 
         machine={machine}
         isOpen={isInquiryModalOpen}
         onClose={() => setIsInquiryModalOpen(false)}
+        onNavigateToContacts={onInquiryClick}
       />
     </div>
   );
 };
+

@@ -16,6 +16,7 @@ export interface TechItem {
 export interface DocItem {
   title: string;
   fileSize?: string;
+  fileUrl?: string;
 }
 
 export interface TechnicalSpec {

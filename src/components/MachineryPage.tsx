@@ -15,6 +15,8 @@ import {
 } from '../data/machineryData';
 import { MachineCard } from './MachineCard';
 import { MachineDetailPage } from './MachineDetailPage';
+import { useLanguage } from '../context/LanguageContext';
+import { localizedCategories } from '../i18n/machineryLocalization';
 
 interface MachineryPageProps {
   selectedCategorySlug: string;
@@ -31,6 +33,9 @@ export const MachineryPage: React.FC<MachineryPageProps> = ({
   onSelectMachine,
   onInquiryClick
 }) => {
+  const { language, t } = useLanguage();
+  const mp = t.machineryPage;
+
   // If a specific machine is selected, render the reusable MachineDetailPage template!
   const currentMachine = selectedMachineId 
     ? ALL_MACHINERY.find(m => m.id === selectedMachineId) 
@@ -83,6 +88,10 @@ export const MachineryPage: React.FC<MachineryPageProps> = ({
     m => m.category === activeCategory.id
   );
 
+  const getCategoryName = (catId: string, defaultName: string) => {
+    return localizedCategories[language]?.[catId]?.name || defaultName;
+  };
+
   const getCategoryIcon = (id: string) => {
     switch (id) {
       case 'metalapstrade':
@@ -100,12 +109,12 @@ export const MachineryPage: React.FC<MachineryPageProps> = ({
 
   return (
     <div id="machinery-category-page" className="bg-zinc-50 min-h-screen pb-24">
-      {/* Hero Banner with restored /hero_iekartas.jpg */}
+      {/* Hero Banner */}
       <section className="relative h-[50vh] min-h-[360px] max-h-[480px] w-full bg-zinc-950 overflow-hidden flex items-center justify-center pt-20">
         <div className="absolute inset-0 z-0 pointer-events-none">
           <img 
             src="/hero_iekartas.jpg" 
-            alt="UPWORX Iekārtu Katalogs" 
+            alt="UPWORX Machinery" 
             className="w-full h-full object-cover select-none"
             referrerPolicy="no-referrer"
           />
@@ -115,39 +124,40 @@ export const MachineryPage: React.FC<MachineryPageProps> = ({
         <div className="container mx-auto px-6 sm:px-8 lg:px-16 xl:px-20 relative z-10 text-white flex items-center justify-start">
           <div className="max-w-3xl text-left">
             <h1 className="text-3xl sm:text-4xl md:text-[42px] lg:text-[48px] font-black mb-5 leading-[1.15] tracking-tight uppercase">
-              <span className="md:block">INDUSTRIĀLO IEKĀRTU </span>
+              <span className="md:block">{mp.heroTitle1} </span>
               <span className="md:block">
-                <span className="text-teal-custom">KATALOGS</span>
+                <span className="text-teal-custom">{mp.heroTitle2}</span>
               </span>
             </h1>
             <p className="text-sm sm:text-[15px] md:text-base lg:text-[17px] text-gray-200 max-w-2xl leading-relaxed font-normal">
-              Augstas precizitātes metālapstrādes un automatizācijas tehnoloģijas mūsdienīgai industriālajai ražošanai.
+              {mp.heroSubtitle}
             </p>
           </div>
         </div>
       </section>
 
-      {/* Category Header & Tabs - attālums no hero precīzi saskaņots ar lapu Karjera (pt-20 sm:pt-24) */}
+      {/* Category Header & Tabs */}
       <div className="bg-white border-b border-zinc-200 pt-20 sm:pt-24 pb-12 mb-12">
         <div className="container mx-auto px-6">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
             <div>
               <h2 className="text-4xl lg:text-5xl font-black uppercase tracking-tighter text-zinc-900 mb-6">
-                IEKĀRTU <span className="text-teal-custom">KATALOGS</span>
+                {mp.catalogHeader1} <span className="text-teal-custom">{mp.catalogHeader2}</span>
               </h2>
               <div className="h-1 w-20 bg-teal-custom mb-2 sm:mb-0" />
             </div>
             
             <div className="bg-zinc-100 border border-zinc-200 px-4 py-2 rounded-sm text-xs font-bold uppercase tracking-wider text-zinc-700 self-start md:self-auto">
               <span className="w-2 h-2 rounded-full bg-teal-custom inline-block mr-2" />
-              {categoryMachines.length} iekārtas kategorijā
+              {categoryMachines.length} {mp.inCategoryCount}
             </div>
           </div>
 
-          {/* 4 Galvenās kategoriju navigācijas cilnes (Tabs) - gaišs stils bez melna fona */}
+          {/* 4 Galvenās kategoriju navigācijas cilnes (Tabs) */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 pt-2">
             {MACHINERY_CATEGORIES.map((cat) => {
               const isActive = cat.urlSlug === activeCategory.urlSlug;
+              const catDisplayName = getCategoryName(cat.id, cat.name);
               return (
                 <button
                   key={cat.id}
@@ -164,10 +174,10 @@ export const MachineryPage: React.FC<MachineryPageProps> = ({
                   </div>
                   <div className="min-w-0">
                     <p className={`text-xs font-black uppercase tracking-wider truncate ${isActive ? 'text-zinc-950' : 'text-zinc-900'}`}>
-                      {cat.name}
+                      {catDisplayName}
                     </p>
                     <p className={`text-[11px] truncate ${isActive ? 'text-teal-custom font-bold' : 'text-zinc-500'}`}>
-                      4 iekārtas
+                      4 {mp.machinesCountSuffix}
                     </p>
                   </div>
                 </button>
@@ -182,12 +192,12 @@ export const MachineryPage: React.FC<MachineryPageProps> = ({
         <div className="mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div>
             <h2 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-zinc-900">
-              MODEĻU <span className="text-teal-custom">KLĀSTS</span>
+              {mp.modelsRangeTitle1} <span className="text-teal-custom">{mp.modelsRangeTitle2}</span>
             </h2>
             <div className="h-1 w-20 bg-teal-custom mt-3" />
           </div>
           <span className="text-xs text-zinc-600 font-bold bg-white px-3.5 py-2 border border-zinc-200 rounded-sm shadow-xs self-start sm:self-auto">
-            Rāda 4 no 4 iekārtām
+            {mp.showingCount}
           </span>
         </div>
 
@@ -205,36 +215,40 @@ export const MachineryPage: React.FC<MachineryPageProps> = ({
         <div className="mt-20 pt-12 border-t border-zinc-200">
           <div className="mb-10">
             <h2 className="text-xs font-black uppercase tracking-[0.25em] text-teal-custom mb-2">
-              Kategorijas
+              {mp.otherCategoriesBadge}
             </h2>
             <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-zinc-900 mb-4">
-              Citas iekārtu kategorijas
+              {mp.otherCategoriesTitle}
             </h3>
             <div className="h-1 w-20 bg-teal-custom" />
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            {MACHINERY_CATEGORIES.filter(c => c.urlSlug !== activeCategory.urlSlug).map((otherCat) => (
-              <button
-                key={otherCat.id}
-                onClick={() => handleCategorySelect(otherCat.urlSlug)}
-                className="flex items-center space-x-3 p-3.5 rounded-sm border text-left transition-all duration-200 cursor-pointer bg-white hover:bg-zinc-50 text-zinc-800 border-zinc-200 hover:border-zinc-300"
-              >
-                <div className="p-2 rounded-sm bg-zinc-100 text-zinc-600">
-                  {getCategoryIcon(otherCat.id)}
-                </div>
-                <div className="min-w-0">
-                  <p className="text-xs font-black uppercase tracking-wider truncate text-zinc-900">
-                    {otherCat.name}
-                  </p>
-                  <p className="text-[11px] truncate text-zinc-500">
-                    4 iekārtas
-                  </p>
-                </div>
-              </button>
-            ))}
+            {MACHINERY_CATEGORIES.filter(c => c.urlSlug !== activeCategory.urlSlug).map((otherCat) => {
+              const otherDisplayName = getCategoryName(otherCat.id, otherCat.name);
+              return (
+                <button
+                  key={otherCat.id}
+                  onClick={() => handleCategorySelect(otherCat.urlSlug)}
+                  className="flex items-center space-x-3 p-3.5 rounded-sm border text-left transition-all duration-200 cursor-pointer bg-white hover:bg-zinc-50 text-zinc-800 border-zinc-200 hover:border-zinc-300"
+                >
+                  <div className="p-2 rounded-sm bg-zinc-100 text-zinc-600">
+                    {getCategoryIcon(otherCat.id)}
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-xs font-black uppercase tracking-wider truncate text-zinc-900">
+                      {otherDisplayName}
+                    </p>
+                    <p className="text-[11px] truncate text-zinc-500">
+                      4 {mp.machinesCountSuffix}
+                    </p>
+                  </div>
+                </button>
+              );
+            })}
           </div>
         </div>
       </div>
     </div>
   );
 };
+

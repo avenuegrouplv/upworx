@@ -1,5 +1,6 @@
 import React from 'react';
 import { MapPin, Phone, Mail } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 interface FooterProps {
   onNavigate: (view: 'home' | 'contact' | 'machinery' | 'about' | 'career', categoryId?: string) => void;
@@ -8,6 +9,9 @@ interface FooterProps {
 }
 
 export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCookieSettings, onOpenPrivacyPolicy }) => {
+  const { t } = useLanguage();
+  const f = t.footer;
+
   return (
     <footer id="main-footer" className="bg-black text-white pt-10 sm:pt-12 pb-6 overflow-x-clip">
       <div className="container mx-auto px-6 sm:px-8 lg:px-12 xl:px-16">
@@ -24,8 +28,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCookieSettings
               </span>
             </div>
             <p className="text-gray-400 leading-relaxed mb-4 text-[14px] sm:text-[15px]">
-              Premium industriālās tehnikas piegādātājs Baltijā. 
-              Mēs nodrošinām pilnu ciklu - no iekārtu izvēles līdz servisa apkopei.
+              {f.aboutText}
             </p>
             <div className="flex space-x-3">
               <a 
@@ -51,42 +54,42 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCookieSettings
               {/* Kolonna: IEKĀRTAS */}
               <div>
                 <h4 className="text-[14px] sm:text-[15px] font-black uppercase tracking-widest mb-4 border-b border-teal-custom/30 pb-2 inline-block">
-                  IEKĀRTAS
+                  {f.machineryTitle}
                 </h4>
                 <ul className="space-y-2.5 text-gray-400 text-[14px] sm:text-[15px] font-medium text-left">
-                  <li><button onClick={() => onNavigate('machinery', 'metalapstrade')} className="hover:text-teal-custom transition-colors text-left w-full cursor-pointer">Metālapstrāde</button></li>
-                  <li><button onClick={() => onNavigate('machinery', 'lazera-griesana')} className="hover:text-teal-custom transition-colors text-left w-full cursor-pointer">Lāzera griešana</button></li>
-                  <li><button onClick={() => onNavigate('machinery', 'cnc-iekartas')} className="hover:text-teal-custom transition-colors text-left w-full cursor-pointer">CNC iekārtas</button></li>
-                  <li><button onClick={() => onNavigate('machinery', 'automatizacija')} className="hover:text-teal-custom transition-colors text-left w-full cursor-pointer">Automatizācija</button></li>
+                  <li><button onClick={() => onNavigate('machinery', 'metalapstrade')} className="hover:text-teal-custom transition-colors text-left w-full cursor-pointer">{f.metalworking}</button></li>
+                  <li><button onClick={() => onNavigate('machinery', 'lazera-griesana')} className="hover:text-teal-custom transition-colors text-left w-full cursor-pointer">{f.laserCutting}</button></li>
+                  <li><button onClick={() => onNavigate('machinery', 'cnc-iekartas')} className="hover:text-teal-custom transition-colors text-left w-full cursor-pointer">{f.cncEquipment}</button></li>
+                  <li><button onClick={() => onNavigate('machinery', 'automatizacija')} className="hover:text-teal-custom transition-colors text-left w-full cursor-pointer">{f.automation}</button></li>
                 </ul>
               </div>
 
-              {/* Kolonna: NAVIGĀCIJA (atrodas tieši pa vidu starp Iekārtas un Kontaktinformācija) */}
+              {/* Kolonna: NAVIGĀCIJA */}
               <div>
                 <h4 className="text-[14px] sm:text-[15px] font-black uppercase tracking-widest mb-4 border-b border-teal-custom/30 pb-2 inline-block">
-                  NAVIGĀCIJA
+                  {f.navigationTitle}
                 </h4>
                 <ul className="space-y-2.5 text-gray-400 text-[14px] sm:text-[15px] font-medium text-left">
-                  <li><button onClick={() => onNavigate('home')} className="hover:text-teal-custom transition-colors text-left w-full cursor-pointer">Sākums</button></li>
-                  <li><button onClick={() => onNavigate('about')} className="hover:text-teal-custom transition-colors text-left w-full cursor-pointer">Par mums</button></li>
-                  <li><button onClick={() => onNavigate('machinery')} className="hover:text-teal-custom transition-colors text-left w-full cursor-pointer">Iekārtas</button></li>
-                  <li><button onClick={() => onNavigate('career')} className="hover:text-teal-custom transition-colors text-left w-full cursor-pointer">Karjera</button></li>
-                  <li><button onClick={() => onNavigate('contact')} className="hover:text-teal-custom transition-colors text-left w-full cursor-pointer">Kontakti</button></li>
+                  <li><button onClick={() => onNavigate('home')} className="hover:text-teal-custom transition-colors text-left w-full cursor-pointer">{f.home}</button></li>
+                  <li><button onClick={() => onNavigate('about')} className="hover:text-teal-custom transition-colors text-left w-full cursor-pointer">{f.about}</button></li>
+                  <li><button onClick={() => onNavigate('machinery')} className="hover:text-teal-custom transition-colors text-left w-full cursor-pointer">{f.machinery}</button></li>
+                  <li><button onClick={() => onNavigate('career')} className="hover:text-teal-custom transition-colors text-left w-full cursor-pointer">{f.career}</button></li>
+                  <li><button onClick={() => onNavigate('contact')} className="hover:text-teal-custom transition-colors text-left w-full cursor-pointer">{f.contact}</button></li>
                 </ul>
               </div>
 
-              {/* Kolonna: KONTAKTINFORMĀCIJA (pavirzīta par 1cm pa labi) */}
+              {/* Kolonna: KONTAKTINFORMĀCIJA */}
               <div className="sm:translate-x-[1cm]">
                 <h4 className="text-[14px] sm:text-[15px] font-black uppercase tracking-widest mb-4 border-b border-teal-custom/30 pb-2 inline-block">
-                  KONTAKTINFORMĀCIJA
+                  {f.contactInfoTitle}
                 </h4>
                 <div className="text-gray-400 text-[14px] sm:text-[15px] space-y-2.5 font-medium">
                   <p>
-                    SIA Upworx, Reģ.Nr. 50203706491
+                    {f.companyRegistration}
                   </p>
                   <p className="flex items-center gap-2">
                     <MapPin className="w-4 h-4 text-teal-custom shrink-0" />
-                    <span className="break-words">Ošu ceļš 11B, Jelgava, LV-3003</span>
+                    <span className="break-words">{f.address}</span>
                   </p>
                   <p className="flex items-center gap-2">
                     <Phone className="w-4 h-4 text-teal-custom shrink-0" />
@@ -101,7 +104,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCookieSettings
                     </a>
                   </p>
                   <p className="text-zinc-400">
-                    Darba laiks: P-Pk: 08:30 - 17:30
+                    {f.workingHours}
                   </p>
                 </div>
               </div>
@@ -109,10 +112,10 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCookieSettings
           </div>
         </div>
 
-        {/* Apakšējā josla: Izstrādātājs no kreisās puses vertikāli salāgots ar Kontaktinformācija stabiņu */}
+        {/* Apakšējā josla */}
         <div className="border-t border-white/5 pt-5 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center text-[14px] sm:text-[15px] text-gray-400 font-medium">
           <div className="col-span-1 lg:col-span-4 xl:col-span-4 text-center lg:text-left">
-            <p>© 2026 UPWORX I Visas tiesības aizsargātas</p>
+            <p>{f.allRightsReserved}</p>
           </div>
 
           <div className="col-span-1 lg:col-span-8 xl:col-span-8">
@@ -128,7 +131,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCookieSettings
                   }} 
                   className="hover:text-teal-custom transition-colors cursor-pointer"
                 >
-                  Privātuma politika
+                  {f.privacyPolicy}
                 </button>
                 <span className="text-zinc-600 select-none">|</span>
                 <button 
@@ -141,13 +144,13 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCookieSettings
                   }} 
                   className="hover:text-teal-custom transition-colors cursor-pointer"
                 >
-                  Sīkdatņu politika
+                  {f.cookiePolicy}
                 </button>
               </div>
 
               <div className="sm:translate-x-[1cm] text-center sm:text-left">
                 <p>
-                  Izstrādātājs:{' '}
+                  {f.developerLabel}:{' '}
                   <a 
                     href="https://sageonmedia.eu" 
                     target="_blank" 
@@ -165,3 +168,4 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCookieSettings
     </footer>
   );
 };
+

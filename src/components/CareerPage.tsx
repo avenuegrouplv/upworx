@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import { CheckCircle2, Mail, Phone, Upload, Award, Wrench, TrendingUp, ShieldCheck, MapPin } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 interface CareerPageProps {
   onContactClick: () => void;
 }
 
-export const CareerPage: React.FC<CareerPageProps> = ({ onContactClick }) => {
-  const [selectedVacancy, setSelectedVacancy] = useState<string>('CNC un lāzergriešanas iekārtu servisa inženieris');
+export const CareerPage: React.FC<CareerPageProps> = () => {
+  const { t } = useLanguage();
+  const cp = t.careerPage;
+
+  const [selectedVacancy, setSelectedVacancy] = useState<string>('');
   const [applicantName, setApplicantName] = useState('');
   const [applicantEmail, setApplicantEmail] = useState('');
   const [applicantPhone, setApplicantPhone] = useState('');
@@ -14,48 +18,24 @@ export const CareerPage: React.FC<CareerPageProps> = ({ onContactClick }) => {
   const [fileName, setFileName] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
 
-  const vacancies = [
-    {
-      id: 'servisa-inzenieris',
-      title: 'CNC un lāzergriešanas iekārtu servisa inženieris'
-    },
-    {
-      id: 'tirdzniecibas-vaditajs',
-      title: 'Metālapstrādes iekārtu tirdzniecības inženieris'
-    },
-    {
-      id: 'automatizacijas-inzenieris',
-      title: 'Ražošanas automatizācijas un robotikas speciālists'
-    }
-  ];
+  const vacancies = cp.vacancies;
 
-  const benefits = [
-    {
-      icon: <Award className="w-8 h-8 text-teal-custom" />,
-      title: 'Apmācības pie ražotājiem',
-      desc: 'Regulāras praktiskās mācības un sertifikācijas Eiropas un pasaules vadošajās rūpnīcās.'
-    },
-    {
-      icon: <Wrench className="w-8 h-8 text-teal-custom" />,
-      title: 'Premium darba aprīkojums',
-      desc: 'Jaunākās paaudzes diagnostikas aparatūra, sertificēti instrumenti un mūsdienīgs servisa auto.'
-    },
-    {
-      icon: <TrendingUp className="w-8 h-8 text-teal-custom" />,
-      title: 'Motivējošs atalgojums',
-      desc: 'Caurspīdīga atalgojuma un bonusu sistēma, kas novērtē iniciatīvu un profesionālos sasniegumus.'
-    },
-    {
-      icon: <ShieldCheck className="w-8 h-8 text-teal-custom" />,
-      title: 'Stabilitāte un atbalsts',
-      desc: 'Spēcīga, draudzīga un profesionāla inženieru komanda ar vairāk nekā 15 gadu pieredzi nozarē.'
-    }
-  ];
+  const benefitIcons = [Award, Wrench, TrendingUp, ShieldCheck];
+  const benefits = cp.benefits.map((b, idx) => {
+    const IconComp = benefitIcons[idx % benefitIcons.length];
+    return {
+      icon: <IconComp className="w-8 h-8 text-teal-custom" />,
+      title: b.title,
+      desc: b.desc
+    };
+  });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitted(true);
   };
+
+  const currentVacancyValue = selectedVacancy || (vacancies[0] ? vacancies[0].title : '');
 
   return (
     <div id="career-page" className="bg-white">
@@ -64,7 +44,7 @@ export const CareerPage: React.FC<CareerPageProps> = ({ onContactClick }) => {
         <div className="absolute inset-0 z-0 pointer-events-none">
           <img 
             src="/hero_par_mums.jpg" 
-            alt="UPWORX Karjera" 
+            alt="UPWORX Career" 
             className="w-full h-full object-cover select-none"
             referrerPolicy="no-referrer"
           />
@@ -74,40 +54,40 @@ export const CareerPage: React.FC<CareerPageProps> = ({ onContactClick }) => {
         <div className="container mx-auto px-6 sm:px-8 lg:px-16 xl:px-20 relative z-10 text-white flex items-center justify-start">
           <div className="max-w-3xl text-left">
             <h1 className="text-3xl sm:text-4xl md:text-[42px] lg:text-[48px] font-black mb-5 leading-[1.15] tracking-tight uppercase">
-              <span className="md:block">KARJERA </span>
+              <span className="md:block">{cp.heroTitle} </span>
               <span className="md:block">
-                <span className="text-teal-custom">UPWORX</span> KOMANDĀ
+                <span className="text-teal-custom">{cp.heroTitleHighlight}</span>
               </span>
             </h1>
             <p className="text-sm sm:text-[15px] md:text-base lg:text-[17px] text-gray-200 max-w-2xl leading-relaxed font-normal">
-              Kļūsti par daļu no profesionāļu komandas, kas ievieš jaunākās paaudzes metālapstrādes tehnoloģijas un automatizāciju Baltijas vadošajās ražotnēs.
+              {cp.heroSubtitle}
             </p>
           </div>
         </div>
       </section>
 
-      {/* CTA Section zem Hero - gaišs stils, saskaņots ar pārējo mājaslapu */}
+      {/* CTA Section zem Hero */}
       <section id="career-cta" className="py-20 sm:py-24 bg-zinc-50 text-zinc-900 overflow-hidden relative border-b border-zinc-200/80">
         <div className="container mx-auto px-6 relative z-10 text-center">
           <h2 className="text-[28px] sm:text-[36px] lg:text-[46px] font-black uppercase tracking-tighter mb-5 leading-tight text-zinc-900">
-            VĒLATIES PIEVIENOTIES <br />MŪSU <span className="text-teal-custom">EKSPERTU</span> KOMANDAI?
+            {cp.ctaTitle1} <br />{cp.ctaTitle2} <span className="text-teal-custom">{cp.ctaTitleHighlight}</span>
           </h2>
           <div className="h-1 w-20 bg-teal-custom mx-auto mb-6"></div>
           <p className="text-zinc-600 text-base sm:text-lg lg:text-xl mb-10 max-w-2xl mx-auto font-normal leading-relaxed">
-            Mēs pastāvīgi meklējam talantīgus inženierus, servisa tehniķus un tirdzniecības speciālistus. Ja esi gatavs izaicinājumiem, sazinies ar mums vai piesakies kādai no brīvajām vietām.
+            {cp.ctaDesc}
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-5">
             <a 
               href="#vakances"
               className="bg-teal-custom hover:bg-teal-600 px-9 py-3.5 text-xs font-bold uppercase tracking-widest transition-all rounded-sm shadow-md text-white inline-flex items-center justify-center cursor-pointer"
             >
-              Apskatīt Vakances
+              {cp.viewVacanciesBtn}
             </a>
             <a 
               href="#pieteikties"
               className="bg-white hover:bg-zinc-100 border border-zinc-300 text-zinc-800 px-9 py-3.5 text-xs font-bold uppercase tracking-widest transition-all rounded-sm inline-flex items-center justify-center cursor-pointer shadow-xs"
             >
-              Sūtīt CV
+              {cp.sendCvBtn}
             </a>
           </div>
         </div>
@@ -118,11 +98,11 @@ export const CareerPage: React.FC<CareerPageProps> = ({ onContactClick }) => {
         <div className="container mx-auto px-6">
           <div className="text-center max-w-3xl mx-auto mb-14">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tighter text-zinc-900 mb-4">
-              KĀPĒC STRĀDĀT <span className="text-teal-custom">UPWORX?</span>
+              {cp.whyTitle} <span className="text-teal-custom">{cp.whyHighlight}</span>
             </h2>
             <div className="h-1 w-20 bg-teal-custom mx-auto mb-6"></div>
             <p className="text-zinc-600 text-base sm:text-lg leading-relaxed">
-              Mēs radām vidi, kurā ikviens tehniskais speciālists var nepārtraukti attīstīties un strādāt ar nozares augstākā līmeņa iekārtām.
+              {cp.whyDesc}
             </p>
           </div>
 
@@ -147,11 +127,11 @@ export const CareerPage: React.FC<CareerPageProps> = ({ onContactClick }) => {
         <div className="container mx-auto px-6">
           <div className="max-w-3xl mb-12 sm:mb-14">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tighter text-zinc-900 mb-4">
-              AKTUĀLĀS <span className="text-teal-custom">VAKANCES</span>
+              {cp.vacanciesTitle} <span className="text-teal-custom">{cp.vacanciesHighlight}</span>
             </h2>
             <div className="h-1 w-20 bg-teal-custom mb-6"></div>
             <p className="text-zinc-600 text-base sm:text-lg leading-relaxed">
-              Izvēlies savām prasmēm atbilstošāko amatu un pievienojies mūsu augošajai tehnoloģiju komandai.
+              {cp.vacanciesDesc}
             </p>
           </div>
 
@@ -170,14 +150,13 @@ export const CareerPage: React.FC<CareerPageProps> = ({ onContactClick }) => {
                     onClick={() => setSelectedVacancy(v.title)}
                     className="bg-teal-custom hover:bg-teal-600 text-white px-5 py-2.5 rounded-sm text-xs font-bold uppercase tracking-wider transition-colors inline-block text-center shrink-0 self-start sm:self-auto shadow-sm"
                   >
-                    Pieteikties
+                    {cp.applyBtn}
                   </a>
                 </div>
 
-                {/* Brīva vieta ar uzrakstu "Informācija sekos." */}
                 <div className="pt-6 mt-6 border-t border-zinc-100 min-h-[90px] flex items-center">
                   <p className="text-sm sm:text-base font-semibold text-zinc-400 italic">
-                    Informācija sekos.
+                    {cp.infoToFollow}
                   </p>
                 </div>
               </div>
@@ -186,18 +165,18 @@ export const CareerPage: React.FC<CareerPageProps> = ({ onContactClick }) => {
         </div>
       </section>
 
-      {/* Application Form Section - Gaišs dizains */}
+      {/* Application Form Section */}
       <section id="pieteikties" className="py-20 sm:py-24 bg-white text-zinc-900 scroll-mt-24">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
             <div className="lg:col-span-5">
-              <p className="text-teal-custom font-bold uppercase tracking-[0.25em] text-xs mb-3">Pieteikums</p>
+              <p className="text-teal-custom font-bold uppercase tracking-[0.25em] text-xs mb-3">{cp.appBadge}</p>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tighter mb-6 leading-tight text-zinc-900">
-                IESNIEDZ SAVU <span className="text-teal-custom">PIETEIKUMU</span>
+                {cp.appTitle} <span className="text-teal-custom">{cp.appHighlight}</span>
               </h2>
               <div className="h-1 w-20 bg-teal-custom mb-6"></div>
               <p className="text-zinc-600 text-base leading-relaxed mb-8 font-normal">
-                Aizpildi formu vai nosūti savu CV un pieteikumu tieši uz mūsu personāla e-pastu. Ja dotajā brīdī neredzi precīzu amatu savām prasmēm, droši sūti savu CV brīvā formā!
+                {cp.appDesc}
               </p>
 
               <div className="space-y-5 border-t border-zinc-200 pt-8 text-sm">
@@ -206,7 +185,7 @@ export const CareerPage: React.FC<CareerPageProps> = ({ onContactClick }) => {
                     <Mail className="w-5 h-5" />
                   </div>
                   <div>
-                    <p className="text-xs uppercase tracking-wider text-zinc-500 font-semibold">CV un pieteikumiem</p>
+                    <p className="text-xs uppercase tracking-wider text-zinc-500 font-semibold">{cp.cvEmailLabel}</p>
                     <a href="mailto:info@upworx.lv" className="text-zinc-900 hover:text-teal-custom font-bold text-base transition-colors">
                       info@upworx.lv
                     </a>
@@ -218,7 +197,7 @@ export const CareerPage: React.FC<CareerPageProps> = ({ onContactClick }) => {
                     <Phone className="w-5 h-5" />
                   </div>
                   <div>
-                    <p className="text-xs uppercase tracking-wider text-zinc-500 font-semibold">Jautājumiem par vakancēm</p>
+                    <p className="text-xs uppercase tracking-wider text-zinc-500 font-semibold">{cp.vacancyQuestionsLabel}</p>
                     <a href="tel:+37126474339" className="text-zinc-900 hover:text-teal-custom font-bold text-base transition-colors">
                       +371 26474339
                     </a>
@@ -230,9 +209,9 @@ export const CareerPage: React.FC<CareerPageProps> = ({ onContactClick }) => {
                     <MapPin className="w-5 h-5" />
                   </div>
                   <div>
-                    <p className="text-xs uppercase tracking-wider text-zinc-500 font-semibold">Biroja un servisa adrese</p>
+                    <p className="text-xs uppercase tracking-wider text-zinc-500 font-semibold">{cp.officeAddressLabel}</p>
                     <p className="text-zinc-900 font-medium text-base">
-                      Ošu ceļš 11B, Jelgava, LV-3003, Latvija
+                      {cp.officeAddressValue}
                     </p>
                   </div>
                 </div>
@@ -245,25 +224,25 @@ export const CareerPage: React.FC<CareerPageProps> = ({ onContactClick }) => {
                   <div className="w-16 h-16 bg-teal-custom/10 text-teal-custom rounded-full flex items-center justify-center mx-auto mb-6">
                     <CheckCircle2 className="w-10 h-10" />
                   </div>
-                  <h3 className="text-2xl font-black uppercase tracking-tight text-zinc-900 mb-3">Paldies par pieteikumu!</h3>
+                  <h3 className="text-2xl font-black uppercase tracking-tight text-zinc-900 mb-3">{cp.successTitle}</h3>
                   <p className="text-zinc-600 max-w-md mx-auto mb-8 text-sm leading-relaxed">
-                    Mēs esam saņēmuši Jūsu informāciju un tuvākajā laikā sazināsimies ar Jums, lai pārrunātu tālākos sadarbības soļus.
+                    {cp.successDesc}
                   </p>
                   <button
                     onClick={() => setSubmitted(false)}
                     className="bg-teal-custom hover:bg-teal-600 text-white px-8 py-3 rounded-sm text-xs font-bold uppercase tracking-widest transition-colors cursor-pointer shadow-xs"
                   >
-                    Iesniegt vēl vienu pieteikumu
+                    {cp.submitAnotherBtn}
                   </button>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div>
                     <label className="block text-xs font-bold uppercase tracking-widest text-zinc-700 mb-2">
-                      Izvēlētā vakance *
+                      {cp.vacSelectedLabel}
                     </label>
                     <select
-                      value={selectedVacancy}
+                      value={currentVacancyValue}
                       onChange={(e) => setSelectedVacancy(e.target.value)}
                       className="w-full bg-white border border-zinc-300 rounded-sm px-4 py-3 text-zinc-900 text-sm focus:outline-none focus:border-teal-custom focus:ring-1 focus:ring-teal-custom"
                       required
@@ -273,8 +252,8 @@ export const CareerPage: React.FC<CareerPageProps> = ({ onContactClick }) => {
                           {v.title}
                         </option>
                       ))}
-                      <option value="Cita vakance / Brīvs pieteikums" className="text-zinc-900">
-                        Cita vakance / Brīvs pieteikums
+                      <option value={cp.vacOtherOption} className="text-zinc-900">
+                        {cp.vacOtherOption}
                       </option>
                     </select>
                   </div>
@@ -282,7 +261,7 @@ export const CareerPage: React.FC<CareerPageProps> = ({ onContactClick }) => {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div>
                       <label className="block text-xs font-bold uppercase tracking-widest text-zinc-700 mb-2">
-                        Vārds, Uzvārds *
+                        {cp.nameLabel}
                       </label>
                       <input
                         type="text"
@@ -295,7 +274,7 @@ export const CareerPage: React.FC<CareerPageProps> = ({ onContactClick }) => {
                     </div>
                     <div>
                       <label className="block text-xs font-bold uppercase tracking-widest text-zinc-700 mb-2">
-                        Tālruņa numurs *
+                        {cp.phoneLabel}
                       </label>
                       <input
                         type="tel"
@@ -310,7 +289,7 @@ export const CareerPage: React.FC<CareerPageProps> = ({ onContactClick }) => {
 
                   <div>
                     <label className="block text-xs font-bold uppercase tracking-widest text-zinc-700 mb-2">
-                      E-pasta adrese *
+                      {cp.emailLabel}
                     </label>
                     <input
                       type="email"
@@ -324,7 +303,7 @@ export const CareerPage: React.FC<CareerPageProps> = ({ onContactClick }) => {
 
                   <div>
                     <label className="block text-xs font-bold uppercase tracking-widest text-zinc-700 mb-2">
-                      Pievienot CV failu (PDF, DOCX)
+                      {cp.uploadLabel}
                     </label>
                     <label className="flex flex-col items-center justify-center w-full h-28 border-2 border-dashed border-zinc-300 hover:border-teal-custom rounded-sm cursor-pointer bg-white transition-colors px-4">
                       <div className="flex flex-col items-center justify-center pt-3 pb-3">
@@ -333,7 +312,7 @@ export const CareerPage: React.FC<CareerPageProps> = ({ onContactClick }) => {
                           {fileName ? (
                             <span className="text-teal-custom font-bold">{fileName}</span>
                           ) : (
-                            <span><span className="font-semibold text-zinc-900">Noklikšķiniet</span> vai ievelciet CV failu</span>
+                            <span><span className="font-semibold text-zinc-900">{cp.uploadClickText}</span> {cp.uploadDragText}</span>
                           )}
                         </p>
                       </div>
@@ -352,13 +331,13 @@ export const CareerPage: React.FC<CareerPageProps> = ({ onContactClick }) => {
 
                   <div>
                     <label className="block text-xs font-bold uppercase tracking-widest text-zinc-700 mb-2">
-                      Komentārs / Īss pieredzes apraksts
+                      {cp.commentLabel}
                     </label>
                     <textarea
                       rows={3}
                       value={applicantMessage}
                       onChange={(e) => setApplicantMessage(e.target.value)}
-                      placeholder="Pastāstiet īsumā par savu pieredzi ar metālapstrādes vai CNC iekārtām..."
+                      placeholder={cp.commentPlaceholder}
                       className="w-full bg-white border border-zinc-300 rounded-sm px-4 py-3 text-zinc-900 text-sm focus:outline-none focus:border-teal-custom focus:ring-1 focus:ring-teal-custom resize-none"
                     ></textarea>
                   </div>
@@ -367,7 +346,7 @@ export const CareerPage: React.FC<CareerPageProps> = ({ onContactClick }) => {
                     type="submit"
                     className="w-full bg-teal-custom hover:bg-teal-600 text-white py-4 rounded-sm text-xs font-bold uppercase tracking-widest transition-colors cursor-pointer shadow-md"
                   >
-                    Nosūtīt pieteikumu
+                    {cp.submitApplicationBtn}
                   </button>
                 </form>
               )}
@@ -378,3 +357,4 @@ export const CareerPage: React.FC<CareerPageProps> = ({ onContactClick }) => {
     </div>
   );
 };
+

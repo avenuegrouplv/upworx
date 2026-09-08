@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLanguage } from '../context/LanguageContext';
 
 const StatBox: React.FC<{ value: string; label: string }> = ({ value, label }) => (
   <div className="border-l-2 border-teal-custom pl-5 py-1">
@@ -8,6 +9,9 @@ const StatBox: React.FC<{ value: string; label: string }> = ({ value, label }) =
 );
 
 export const AboutSection: React.FC = () => {
+  const { t } = useLanguage();
+  const a = t.aboutSection;
+
   return (
     <section id="why-choose-upworx" className="relative py-16 sm:py-20 bg-zinc-950 overflow-hidden border-t border-zinc-900">
       {/* Decorative BG element */}
@@ -19,11 +23,11 @@ export const AboutSection: React.FC = () => {
           {/* Kreisā puse: Virsraksti un apraksts */}
           <div className="lg:col-span-7">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white uppercase tracking-tighter mb-4 leading-tight">
-              KĀPĒC IZVĒLĒTIES <span className="text-teal-custom">UPWORX?</span>
+              {a.title1} <span className="text-teal-custom">{a.title2}</span>
             </h2>
             <div className="h-1 w-20 bg-teal-custom mb-6"></div>
             <p className="text-gray-300 text-base sm:text-lg leading-relaxed font-normal">
-              Vairāk nekā 15 gadu pieredze metālapstrādes nozarē ļauj mums piedāvāt ne tikai profesionālas iekārtas, bet arī tehnisko konsultāciju, uzstādīšanu, apmācību un servisu. Strādājam ar pārbaudītiem ražotājiem un palīdzam piemeklēt risinājumu atbilstoši konkrētā uzņēmuma ražošanas vajadzībām.
+              {a.description}
             </p>
           </div>
 
@@ -32,7 +36,7 @@ export const AboutSection: React.FC = () => {
             <div className="relative overflow-hidden rounded-sm border border-zinc-800 shadow-xl">
               <img 
                 src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&q=80&w=800" 
-                alt="Metālapstrādes ražotne un industriālās tehnoloģijas" 
+                alt="UPWORX Industrial Technologies" 
                 className="w-full h-64 sm:h-72 lg:h-[340px] object-cover"
                 loading="lazy"
               />
@@ -41,14 +45,15 @@ export const AboutSection: React.FC = () => {
           </div>
         </div>
 
-        {/* 4 Statistics Numbers (bez 24/7 servisa birkas) */}
+        {/* 4 Statistics Numbers */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-8 pt-8 border-t border-zinc-850">
-          <StatBox value="15+" label="Gadu pieredze nozarē" />
-          <StatBox value="250+" label="Uzstādītas iekārtas Baltijā" />
-          <StatBox value="20+" label="Pārstāvēti iekārtu ražotāji" />
-          <StatBox value="3" label="Pārstāvētās valstis" />
+          <StatBox value="15+" label={a.stat1Label} />
+          <StatBox value="250+" label={a.stat2Label} />
+          <StatBox value="20+" label={a.stat3Label} />
+          <StatBox value="3" label={a.stat4Label} />
         </div>
       </div>
     </section>
   );
 };
+

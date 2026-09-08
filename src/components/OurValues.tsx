@@ -1,35 +1,24 @@
 import React from 'react';
 import { Cpu, ShieldCheck, Award, Handshake } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 export const OurValues: React.FC = () => {
-  const values = [
-    {
-      title: "Inovācijas",
-      desc: "Sekojam tehnoloģiju un ražošanas iekārtu attīstībai, izvērtējot risinājumus, kas praksē nodrošina lielāku precizitāti, efektivitāti un ražošanas iespējas.",
-      icon: Cpu,
-    },
-    {
-      title: "Uzticamība",
-      desc: "Mūsu reputācija balstās uz profesionālu attieksmi, skaidru komunikāciju un uzņemto saistību izpildi. Klientiem sniedzam pārbaudītu informāciju un risinājumus, uz kuriem var paļauties.",
-      icon: ShieldCheck,
-    },
-    {
-      title: "Kvalitāte",
-      desc: "Piedāvājam profesionālai ražošanai paredzētas iekārtas un tehnoloģiskos risinājumus no atzītiem ražotājiem, īpašu uzmanību pievēršot to kvalitātei, precizitātei un ilgmūžībai.",
-      icon: Award,
-    },
-    {
-      title: "Partnerība",
-      desc: "Veidojam ilgtermiņa sadarbību, izprotot katra klienta ražošanas vajadzības un palīdzot izvēlēties piemērotāko risinājumu gan šodienas prasībām, gan uzņēmuma turpmākajai attīstībai.",
-      icon: Handshake,
-    }
-  ];
+  const { t } = useLanguage();
+  const vData = t.aboutPage;
+
+  const icons = [Cpu, ShieldCheck, Award, Handshake];
+
+  const values = vData.values.map((v, i) => ({
+    title: v.title,
+    desc: v.desc,
+    icon: icons[i % icons.length]
+  }));
 
   return (
     <section id="our-values-section" className="py-16 sm:py-20 bg-white border-b border-zinc-100">
       <div className="container mx-auto px-6 text-center mb-12">
         <h2 className="text-3xl lg:text-4xl font-black uppercase tracking-tighter mb-4 text-zinc-900">
-          MŪSU <span className="text-teal-custom">VĒRTĪBAS</span>
+          {vData.valuesTitle} <span className="text-teal-custom">{vData.valuesTitleHighlight}</span>
         </h2>
         <div className="h-1 w-24 bg-teal-custom mx-auto mb-4"></div>
       </div>
@@ -55,3 +44,4 @@ export const OurValues: React.FC = () => {
     </section>
   );
 };
+

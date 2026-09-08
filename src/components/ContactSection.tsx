@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
 import { MACHINERY_CATEGORIES, ALL_MACHINERY } from '../data/machineryData';
+import { useLanguage } from '../context/LanguageContext';
+import { getLocalizedMachine } from '../i18n/machineryLocalization';
 
 interface ContactSectionProps {
   onContactClick?: () => void;
 }
 
 export const ContactSection: React.FC<ContactSectionProps> = () => {
+  const { language, t } = useLanguage();
+  const c = t.homeConsultation;
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -18,6 +23,15 @@ export const ContactSection: React.FC<ContactSectionProps> = () => {
 
   const primaryCategories = MACHINERY_CATEGORIES;
   const availableMachines = ALL_MACHINERY.filter(m => m.category === formData.category);
+
+  const getCategoryDisplayName = (slug: string) => {
+    if (slug === 'metalapstrade') return t.categories.names.metalapstrade;
+    if (slug === 'lazera-griesana') return t.categories.names['lazera-griesana'];
+    if (slug === 'cnc-iekartas') return t.categories.names['cnc-iekartas'];
+    if (slug === 'automatizacija') return t.categories.names.automatizacija;
+    const found = primaryCategories.find(c => c.urlSlug === slug || c.id === slug);
+    return found ? found.name : slug;
+  };
 
   const handleCategorySelect = (categorySlug: string) => {
     setFormData(prev => ({
@@ -44,12 +58,12 @@ export const ContactSection: React.FC<ContactSectionProps> = () => {
           {/* Kreisā puse: Informācija */}
           <div className="flex-1 p-10 sm:p-12 lg:p-16 text-white flex flex-col justify-center">
             <h2 className="text-2xl sm:text-3xl lg:text-[27px] xl:text-[32px] font-black uppercase mb-6 tracking-tight leading-snug">
-              VAI ESIET GATAVI <br className="hidden lg:inline" />
-              SPERT NĀKOŠO SOLI <br className="hidden lg:inline" />
-              TEHNOLOĢIJU PASAULĒ?
+              {c.title1} <br className="hidden lg:inline" />
+              {c.title2} <br className="hidden lg:inline" />
+              {c.title3}
             </h2>
             <p className="text-gray-300 text-base sm:text-lg mb-10 leading-relaxed max-w-xl">
-              Mūsu inženieri palīdzēs atrast vispiemērotāko risinājumu Jūsu metālapstrādes ražotnei. Sazinieties ar mums jau šodien, lai saņemtu bezmaksas konsultāciju.
+              {c.description}
             </p>
             
             <div className="space-y-6">
@@ -60,7 +74,7 @@ export const ContactSection: React.FC<ContactSectionProps> = () => {
                   </svg>
                 </div>
                 <div>
-                  <p className="text-[10px] text-gray-500 uppercase font-bold tracking-widest">Tālrunis</p>
+                  <p className="text-[10px] text-gray-500 uppercase font-bold tracking-widest">{c.phoneLabel}</p>
                   <a href="tel:+37126474339" className="text-xl font-bold hover:text-teal-custom transition-colors block">
                     +371 26474339
                   </a>
@@ -74,7 +88,7 @@ export const ContactSection: React.FC<ContactSectionProps> = () => {
                   </svg>
                 </div>
                 <div>
-                  <p className="text-[10px] text-gray-500 uppercase font-bold tracking-widest">E-pasts</p>
+                  <p className="text-[10px] text-gray-500 uppercase font-bold tracking-widest">{c.emailLabel}</p>
                   <a href="mailto:info@upworx.lv" className="text-xl font-bold hover:text-teal-custom transition-colors block">
                     info@upworx.lv
                   </a>
@@ -83,21 +97,21 @@ export const ContactSection: React.FC<ContactSectionProps> = () => {
             </div>
           </div>
 
-          {/* Labā puse: Kontaktu forma - Paplašināts horizontālais platums par 2.5cm */}
+          {/* Labā puse: Kontaktu forma */}
           <div className="w-full lg:w-[calc(480px+2.5cm)] xl:w-[calc(500px+2.5cm)] shrink-0 bg-teal-custom p-8 sm:p-10 lg:py-14 lg:px-11 flex flex-col justify-center shadow-inner">
             <h3 className="text-white text-2xl font-bold uppercase mb-6 tracking-tight">
-              Pieteikties konsultācijai
+              {c.formTitle}
             </h3>
             {submitted ? (
               <div className="bg-white text-zinc-900 p-8 rounded shadow-lg text-center">
-                <p className="font-bold text-xl mb-2 text-teal-custom">Paldies par pieprasījumu!</p>
-                <p className="text-sm text-zinc-700">Mūsu eksperts sazināsies ar Jums vienas darba dienas laikā.</p>
+                <p className="font-bold text-xl mb-2 text-teal-custom">{c.successTitle}</p>
+                <p className="text-sm text-zinc-700">{c.successDesc}</p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
                   <label htmlFor="consult-name" className="block text-white text-[11px] font-bold uppercase tracking-widest mb-1.5">
-                    Vārds, Uzvārds
+                    {c.nameLabel}
                   </label>
                   <input 
                     type="text" 
@@ -106,12 +120,12 @@ export const ContactSection: React.FC<ContactSectionProps> = () => {
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     className="w-full bg-white text-zinc-900 placeholder-zinc-400 border border-white px-4 py-3 font-medium focus:outline-none focus:ring-2 focus:ring-black shadow-sm transition-all text-sm" 
-                    placeholder="Jūsu vārds" 
+                    placeholder={c.namePlaceholder} 
                   />
                 </div>
                 <div>
                   <label htmlFor="consult-email" className="block text-white text-[11px] font-bold uppercase tracking-widest mb-1.5">
-                    E-pasts
+                    {c.emailLabelInput}
                   </label>
                   <input 
                     type="email" 
@@ -120,12 +134,12 @@ export const ContactSection: React.FC<ContactSectionProps> = () => {
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     className="w-full bg-white text-zinc-900 placeholder-zinc-400 border border-white px-4 py-3 font-medium focus:outline-none focus:ring-2 focus:ring-black shadow-sm transition-all text-sm" 
-                    placeholder="birojs@uznemums.lv" 
+                    placeholder={c.emailPlaceholder} 
                   />
                 </div>
                 <div>
                   <label htmlFor="consult-phone" className="block text-white text-[11px] font-bold uppercase tracking-widest mb-1.5">
-                    Tālrunis
+                    {c.phoneLabelInput}
                   </label>
                   <input 
                     type="tel" 
@@ -134,14 +148,14 @@ export const ContactSection: React.FC<ContactSectionProps> = () => {
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                     className="w-full bg-white text-zinc-900 placeholder-zinc-400 border border-white px-4 py-3 font-medium focus:outline-none focus:ring-2 focus:ring-black shadow-sm transition-all text-sm" 
-                    placeholder="+371 ..." 
+                    placeholder={c.phonePlaceholder} 
                   />
                 </div>
 
                 {/* Iekārtu kategorijas izvēlne */}
                 <div>
                   <label htmlFor="consult-category" className="block text-white text-[11px] font-bold uppercase tracking-widest mb-1.5">
-                    Iekārtu kategorija
+                    {c.categoryLabel}
                   </label>
                   <select
                     id="consult-category"
@@ -149,19 +163,22 @@ export const ContactSection: React.FC<ContactSectionProps> = () => {
                     onChange={(e) => handleCategorySelect(e.target.value)}
                     className="w-full bg-white text-zinc-900 border border-white px-4 py-3 font-medium focus:outline-none focus:ring-2 focus:ring-black shadow-sm transition-all text-sm cursor-pointer"
                   >
-                    <option value="">Izvēlieties kategoriju</option>
-                    {primaryCategories.map(cat => (
-                      <option key={cat.id} value={cat.urlSlug || cat.id}>
-                        {cat.name}
-                      </option>
-                    ))}
+                    <option value="">{c.selectCategory}</option>
+                    {primaryCategories.map(cat => {
+                      const slug = cat.urlSlug || cat.id;
+                      return (
+                        <option key={cat.id} value={slug}>
+                          {getCategoryDisplayName(slug)}
+                        </option>
+                      );
+                    })}
                   </select>
                 </div>
 
                 {/* Konkrētās iekārtas izvēlne */}
                 <div>
                   <label htmlFor="consult-machine" className="block text-white text-[11px] font-bold uppercase tracking-widest mb-1.5">
-                    Iekārtas nosaukums
+                    {c.machineLabel}
                   </label>
                   <select
                     id="consult-machine"
@@ -173,20 +190,23 @@ export const ContactSection: React.FC<ContactSectionProps> = () => {
                     }`}
                   >
                     <option value="">
-                      {formData.category ? 'Izvēlieties konkrētu iekārtu' : 'Vispirms izvēlieties kategoriju'}
+                      {formData.category ? c.selectMachine : c.selectCategoryFirst}
                     </option>
-                    {availableMachines.map(machine => (
-                      <option key={machine.id} value={machine.name}>
-                        {machine.name} ({machine.brand})
-                      </option>
-                    ))}
+                    {availableMachines.map(machine => {
+                      const locMachine = getLocalizedMachine(machine, language);
+                      return (
+                        <option key={machine.id} value={machine.name}>
+                          {locMachine.name} ({locMachine.brand})
+                        </option>
+                      );
+                    })}
                   </select>
                 </div>
 
                 {/* Galvenais aizpildāmais laukums: Jūsu ziņojums */}
                 <div>
                   <label htmlFor="consult-message" className="block text-white text-[11px] font-bold uppercase tracking-widest mb-1.5">
-                    Jūsu ziņojums
+                    {c.messageLabel}
                   </label>
                   <textarea 
                     id="consult-message"
@@ -194,7 +214,7 @@ export const ContactSection: React.FC<ContactSectionProps> = () => {
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     className="w-full bg-white text-zinc-900 placeholder-zinc-400 border border-white px-4 py-3 font-medium focus:outline-none focus:ring-2 focus:ring-black shadow-sm transition-all text-sm resize-y" 
-                    placeholder="Aprakstiet savu ražošanas vajadzību, iekārtas prasības vai interesējošos jautājumus..."
+                    placeholder={c.messagePlaceholder}
                   ></textarea>
                 </div>
 
@@ -203,7 +223,7 @@ export const ContactSection: React.FC<ContactSectionProps> = () => {
                   id="submit-consultation-btn"
                   className="w-full bg-zinc-900 hover:bg-black text-white font-bold py-4 uppercase tracking-widest transition-all cursor-pointer shadow-md text-sm mt-2"
                 >
-                  Nosūtīt Pieprasījumu
+                  {c.submitBtn}
                 </button>
               </form>
             )}
@@ -213,3 +233,4 @@ export const ContactSection: React.FC<ContactSectionProps> = () => {
     </section>
   );
 };
+

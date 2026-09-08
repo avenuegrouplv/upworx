@@ -1,63 +1,27 @@
 import React from 'react';
 import { User } from 'lucide-react';
 import { OurValues } from './OurValues';
+import { useLanguage } from '../context/LanguageContext';
 
 interface AboutPageProps {
   onContactClick: () => void;
 }
 
-export const AboutPage: React.FC<AboutPageProps> = ({ onContactClick }) => {
-  const teamMembers = [
-    {
-      name: "Jānis Bērziņš",
-      role: "Uzņēmuma vadītājs / Valdes priekšsēdētājs",
-    },
-    {
-      name: "Māris Ozoliņš",
-      role: "Pārdošanas nodaļas vadītājs",
-    },
-    {
-      name: "Andris Kalniņš",
-      role: "Tehniskā servisa nodaļas vadītājs",
-    },
-    {
-      name: "Kaspars Liepiņš",
-      role: "Automatizācijas risinājumu nodaļas vadītājs",
-    },
-    {
-      name: "Gatis Krūmiņš",
-      role: "CNC iekārtu servisa inženieris",
-    },
-    {
-      name: "Edgars Vītols",
-      role: "Lāzertehnoloģiju speciālists",
-    },
-    {
-      name: "Artūrs Zariņš",
-      role: "Industriālo projektu vadītājs",
-    },
-    {
-      name: "Ivars Pētersons",
-      role: "Rezerves daļu un loģistikas vadītājs",
-    }
-  ];
+export const AboutPage: React.FC<AboutPageProps> = () => {
+  const { t } = useLanguage();
+  const ap = t.aboutPage;
 
-  const timeline = [
-    { year: "2010", event: "Uzņēmuma dibināšana Rīgā." },
-    { year: "2014", event: "Pirmā lielā CNC lāzergriešanas projekta realizācija Baltijā." },
-    { year: "2018", event: "Servisa centra paplašināšana un 24/7 atbalsta ieviešana." },
-    { year: "2024", event: "Līderpozīcijas stiprināšana automatizēto ražošanas līniju segmentā." },
-    { year: "2026", event: "Jaunākās paaudzes viedās ražošanas līniju un robotizētās automatizācijas risinājumu ieviešana Baltijā." }
-  ];
+  const teamMembers = ap.teamMembers;
+  const timeline = ap.timeline;
 
   return (
     <div id="about-page" className="bg-white">
-      {/* Hero Section - Vertically half height of Home hero, matching heading size, distinct industrial image without portraits */}
+      {/* Hero Section */}
       <section className="relative h-[50vh] min-h-[360px] max-h-[480px] w-full bg-zinc-950 overflow-hidden flex items-center justify-center pt-20">
         <div className="absolute inset-0 z-0 pointer-events-none">
           <img 
             src="/hero_par_mums.jpg" 
-            alt="UPWORX Industriālā Ražotne" 
+            alt="UPWORX Industrial Technologies" 
             className="w-full h-full object-cover select-none"
             referrerPolicy="no-referrer"
           />
@@ -67,71 +31,71 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onContactClick }) => {
         <div className="container mx-auto px-6 sm:px-8 lg:px-16 xl:px-20 relative z-10 text-white flex items-center justify-start">
           <div className="max-w-3xl text-left">
             <h1 className="text-3xl sm:text-4xl md:text-[42px] lg:text-[48px] font-black mb-5 leading-[1.15] tracking-tight uppercase">
-              <span className="md:block">PIEREDZE UN TEHNOLOĢIJAS </span>
+              <span className="md:block">{ap.heroTitle1} </span>
               <span className="md:block">
-                <span className="text-teal-custom">MŪSDIENĪGAI</span> RAŽOŠANAI
+                <span className="text-teal-custom">{ap.heroTitleHighlight}</span> {ap.heroTitle2}
               </span>
             </h1>
             <p className="text-sm sm:text-[15px] md:text-base lg:text-[17px] text-gray-200 max-w-2xl leading-relaxed font-normal">
-              <span className="md:block">UPWORX ir vadošais industriālo metālapstrādes iekārtu piegādātājs Baltijas reģionā, </span>
-              <span className="md:block">nodrošinot augstākās klases metālapstrādes un automatizācijas risinājumus.</span>
+              <span className="md:block">{ap.heroSubtitle1} </span>
+              <span className="md:block">{ap.heroSubtitle2}</span>
             </p>
           </div>
         </div>
       </section>
 
-      {/* Par Upworx - attālums no hero precīzi saskaņots ar lapu Karjera un Iekārtas (pt-20 sm:pt-24 un items-start) */}
+      {/* Par Upworx */}
       <section id="par-upworx-section" className="pt-20 sm:pt-24 pb-20 sm:pb-24 border-b border-zinc-100 bg-white">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
             <div>
               <h2 className="text-4xl lg:text-5xl font-black uppercase tracking-tighter mb-6 text-zinc-900 leading-tight">
-                PAR <span className="text-teal-custom">UPWORX</span>
+                {ap.aboutTitle} <span className="text-teal-custom">{ap.aboutTitleHighlight}</span>
               </h2>
               <div className="h-1 w-20 bg-teal-custom mb-8"></div>
               <p className="text-zinc-800 text-lg lg:text-xl leading-relaxed font-medium mb-6">
-                UPWORX specializējas profesionālu metālapstrādes iekārtu un automatizācijas risinājumu piegādē Baltijas uzņēmumiem. Vairāk nekā 15 gadu pieredze nozarē ļauj nodrošināt klientiem tehnisko konsultāciju, iekārtu piegādi, uzstādīšanu un servisu.
+                {ap.aboutP1}
               </p>
               <p className="text-gray-600 text-base leading-relaxed mb-8">
-                Mūsu mērķis ir būt uzticamam partnerim ražošanas modernizācijā un attīstībā, piedāvājot pārbaudītas tehnoloģijas no vadošajiem pasaules ražotājiem un garantējot augstas klases tehnisko atbalstu katrā projekta posmā.
+                {ap.aboutP2}
               </p>
             </div>
             <div className="grid grid-cols-2 gap-4">
               <img 
                 src="https://images.pexels.com/photos/224924/pexels-photo-224924.jpeg?auto=compress&cs=tinysrgb&w=800" 
                 className="w-full h-52 sm:h-60 object-cover rounded-sm shadow-sm" 
-                alt="Metālapstrādes lāzera griešanas tehnoloģijas" 
+                alt="Industrial laser technology" 
               />
               <img 
                 src="https://images.pexels.com/photos/3846554/pexels-photo-3846554.jpeg?auto=compress&cs=tinysrgb&w=800" 
                 className="w-full h-52 sm:h-60 object-cover rounded-sm shadow-sm" 
-                alt="Precīza CNC apstrāde un frēzēšana" 
+                alt="CNC processing precision" 
               />
               <img 
                 src="https://images.pexels.com/photos/1108101/pexels-photo-1108101.jpeg?auto=compress&cs=tinysrgb&w=800" 
                 className="w-full h-52 sm:h-60 object-cover rounded-sm shadow-sm" 
-                alt="Industriālās ražošanas tehnoloģiskās iekārtas" 
+                alt="Industrial manufacturing machinery" 
               />
               <img 
                 src="https://images.pexels.com/photos/3825586/pexels-photo-3825586.jpeg?auto=compress&cs=tinysrgb&w=800" 
                 className="w-full h-52 sm:h-60 object-cover rounded-sm shadow-sm" 
-                alt="Ražošanas automatizācija un roboti" 
+                alt="Industrial automation and robots" 
               />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Team Section - Pārvietots tieši zem Par Upworx */}
+      {/* Team Section */}
       <section id="our-team-section" className="py-16 sm:py-20 bg-zinc-50 border-b border-zinc-200/80">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto text-center mb-10 sm:mb-12">
             <h2 className="text-4xl lg:text-5xl font-black uppercase tracking-tighter text-zinc-900 mb-4">
-              MŪSU <span className="text-teal-custom">KOMANDA</span>
+              {ap.teamTitle} <span className="text-teal-custom">{ap.teamTitleHighlight}</span>
             </h2>
             <div className="h-1 w-24 bg-teal-custom mx-auto mb-8"></div>
             <p className="text-zinc-800 text-lg lg:text-xl leading-relaxed font-medium">
-              UPWORX komandā strādā speciālisti ar pieredzi metālapstrādes iekārtu, ražošanas tehnoloģiju un tehniskā servisa jomā. Mūsu kompetence aptver visu iekārtas ieviešanas procesu – no piemērotākā risinājuma izvēles līdz uzstādīšanai, operatoru apmācībai un turpmākajam servisam.
+              {ap.teamDesc}
             </p>
           </div>
 
@@ -141,19 +105,17 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onContactClick }) => {
                 key={i} 
                 className="bg-white border border-zinc-200 rounded-sm overflow-hidden flex flex-col justify-between shadow-xs select-none"
               >
-                {/* Vieta attēlam kartiņas augšējā daļā (samazināta par 20% uz 1:1, statiska bez animācijām) */}
                 <div className="relative w-full aspect-square bg-zinc-100 border-b border-zinc-200 flex flex-col items-center justify-center overflow-hidden">
                   <div className="flex flex-col items-center justify-center text-zinc-400 p-4 text-center">
                     <div className="w-14 h-14 rounded-full bg-zinc-200/80 border border-zinc-300 flex items-center justify-center text-zinc-400 mb-2 shadow-inner">
                       <User className="w-7 h-7 stroke-[1.5]" />
                     </div>
                     <span className="text-[10px] font-bold uppercase tracking-widest text-zinc-400">
-                      Attēla vieta
+                      {ap.imagePlaceholder}
                     </span>
                   </div>
                 </div>
 
-                {/* Vārds, uzvārds un amata nosaukums kartiņas apakšējā daļā */}
                 <div className="p-5 bg-white flex flex-col justify-end flex-grow">
                   <h3 className="text-base sm:text-lg font-black uppercase tracking-tight text-zinc-900 mb-1.5 leading-snug">
                     {member.name}
@@ -178,11 +140,11 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onContactClick }) => {
           <div className="flex flex-col lg:flex-row gap-16 lg:gap-20">
             <div className="lg:w-1/3">
               <h2 className="text-4xl font-black uppercase tracking-tighter mb-6 leading-tight text-zinc-900">
-                IZAUGSMES <br /><span className="text-teal-custom">HRONOLOĢIJA</span>
+                {ap.timelineTitle} <br /><span className="text-teal-custom">{ap.timelineBadge}</span>
               </h2>
               <div className="h-1 w-20 bg-teal-custom mb-6"></div>
               <p className="text-gray-600 leading-relaxed text-base">
-                Kopš uzņēmuma dibināšanas esam pakāpeniski paplašinājuši piedāvāto iekārtu klāstu, tehniskā servisa iespējas un realizēto projektu apjomu Baltijā.
+                {ap.timelineDesc}
               </p>
             </div>
             <div className="lg:w-2/3">
@@ -206,3 +168,4 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onContactClick }) => {
     </div>
   );
 };
+

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight, CheckCircle2, Building2, Target, Cpu } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 interface ProjectCard {
   id: string;
@@ -12,82 +13,25 @@ interface ProjectCard {
 }
 
 export const ProjectsSection: React.FC = () => {
+  const { t } = useLanguage();
+  const ps = t.projects;
   const [startIndex, setStartIndex] = useState(0);
 
-  const projects: ProjectCard[] = [
-    {
-      id: 'proj-1',
-      title: 'CNC apstrādes centra izveide',
-      client: 'Metālapstrādes uzņēmums Latvijā',
-      task: 'Palielināt detaļu apstrādes jaudu un virpošanas precizitāti lielgabarīta detaļām',
-      solution: 'MAZAK Slant Turn 550 horizontālā CNC virpa',
-      upworxScope: 'Konsultācija, piegāde, uzstādīšana, apmācība',
-      image: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&q=80&w=800',
-    },
-    {
-      id: 'proj-2',
-      title: 'Lielformāta lāzergriešanas līnijas palaišana',
-      client: 'Lauksaimniecības tehnikas ražotājs Igaunijā',
-      task: 'Automatizēt biezu tērauda lokšņu sērijveida griešanu un samazināt gāzes patēriņu',
-      solution: 'TRUMPF TruLaser 3030 fiber (10 kW šķiedru lāzers)',
-      upworxScope: 'Konsultācija, piegāde, uzstādīšana, apmācība',
-      image: 'https://images.pexels.com/photos/224924/pexels-photo-224924.jpeg?auto=compress&cs=tinysrgb&w=800',
-    },
-    {
-      id: 'proj-3',
-      title: 'Augstas precizitātes locīšanas stacijas integrācija',
-      client: 'Būvkonstrukciju un fasāžu ražotne Lietuvā',
-      task: 'Panākt 100% leņķa precizitāti jau no pirmās detaļas bez pielāgošanas brāķa',
-      solution: 'TRUMPF TruBend 5170 ar bezvadu leņķa kontroli ACB Wireless',
-      upworxScope: 'Konsultācija, piegāde, uzstādīšana, apmācība',
-      image: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&q=80&w=800',
-    },
-    {
-      id: 'proj-4',
-      title: '5-asu sarežģītu detaļu frēzēšanas šūna',
-      client: 'Aviācijas un mašīnbūves komponentu ražotājs Latvijā',
-      task: 'Sarežģītu lējumu un turbīnu detaļu apstrāde vienā iespīlējumā zem 5 mikronu pielaides',
-      solution: 'DMG MORI DMU 75 monoBLOCK 5-asu apstrādes centrs',
-      upworxScope: 'Konsultācija, piegāde, uzstādīšana, apmācība',
-      image: 'https://images.pexels.com/photos/3846554/pexels-photo-3846554.jpeg?auto=compress&cs=tinysrgb&w=800',
-    },
-    {
-      id: 'proj-5',
-      title: 'Automatizētas robotizētas šūnas ieviešana',
-      client: 'Industriālo iekārtu un rāmju ražošanas uzņēmums Latvijā',
-      task: 'Aizstāt roku darbu un nodrošināt stabilu metināšanas šuves kvalitāti 24/7 ciklā',
-      solution: 'FANUC Robotiskā automatizētā ražošanas šūna',
-      upworxScope: 'Konsultācija, piegāde, uzstādīšana, apmācība',
-      image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=800',
-    },
-    {
-      id: 'proj-6',
-      title: 'Energoefektīva elektrohidrauliskā locīšanas prese',
-      client: 'Elektrosadales skapju un korpusu ražotājs Igaunijā',
-      task: 'Samazināt elektroenerģijas patēriņu un nodrošināt ātru instrumentu pārkārtošanu',
-      solution: 'AMADA HFE3i 1003 CNC locīšanas iekārta',
-      upworxScope: 'Konsultācija, piegāde, uzstādīšana, apmācība',
-      image: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=80&w=800',
-    },
-    {
-      id: 'proj-7',
-      title: 'Viedā materiālu noliktavas un padeves līnija',
-      client: 'Modulāro būvkonstrukciju rūpnīca Baltijā',
-      task: 'Pilnībā automatizēt lokšņu metāla padevi tieši lāzergriešanas iekārtā',
-      solution: 'Kasto Compact automātiskā torņu noliktava',
-      upworxScope: 'Konsultācija, piegāde, integrācija, personāla apmācība',
-      image: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=800',
-    },
-    {
-      id: 'proj-8',
-      title: 'Precīzās cauruļu lāzergriešanas iekārtas ieviešana',
-      client: 'Mēbeļu un tērauda furnitūras ražotājs Lietuvā',
-      task: 'Paātrināt profilu savienojumu sagatavošanu un novērst manuālo frēzēšanu',
-      solution: 'Bystronic ByTube Star 130 šķiedru lāzers',
-      upworxScope: 'Piegāde, uzstādīšana, tehniskā konfigurēšana un serviss',
-      image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&q=80&w=800',
-    }
-  ];
+  const imagesMap: Record<string, string> = {
+    'proj-1': 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&q=80&w=800',
+    'proj-2': 'https://images.pexels.com/photos/224924/pexels-photo-224924.jpeg?auto=compress&cs=tinysrgb&w=800',
+    'proj-3': 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&q=80&w=800',
+    'proj-4': 'https://images.pexels.com/photos/3846554/pexels-photo-3846554.jpeg?auto=compress&cs=tinysrgb&w=800',
+    'proj-5': 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=800',
+    'proj-6': 'https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=80&w=800',
+    'proj-7': 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=800',
+    'proj-8': 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&q=80&w=800',
+  };
+
+  const projects: ProjectCard[] = ps.items.map(p => ({
+    ...p,
+    image: imagesMap[p.id] || imagesMap['proj-1']
+  }));
 
   // Maximum start index allowing 4 items in view
   const maxIndex = Math.max(0, projects.length - 4);
@@ -106,7 +50,7 @@ export const ProjectsSection: React.FC = () => {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tighter text-zinc-900">
-              REALIZĒTIE <span className="text-teal-custom">PROJEKTI</span>
+              {ps.title} <span className="text-teal-custom">{ps.titleHighlight}</span>
             </h2>
             <div className="h-1 w-20 bg-teal-custom mt-4"></div>
           </div>
@@ -115,14 +59,14 @@ export const ProjectsSection: React.FC = () => {
           <div className="flex items-center gap-3 self-start md:self-auto">
             <button
               onClick={handlePrev}
-              aria-label="Ritināt pa kreisi"
+              aria-label="Previous projects"
               className="w-12 h-12 rounded-sm bg-zinc-900 hover:bg-teal-custom text-white hover:text-zinc-950 flex items-center justify-center transition-colors cursor-pointer shadow-sm"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
             <button
               onClick={handleNext}
-              aria-label="Ritināt pa labi"
+              aria-label="Next projects"
               className="w-12 h-12 rounded-sm bg-zinc-900 hover:bg-teal-custom text-white hover:text-zinc-950 flex items-center justify-center transition-colors cursor-pointer shadow-sm"
             >
               <ChevronRight className="w-5 h-5" />
@@ -170,7 +114,7 @@ export const ProjectsSection: React.FC = () => {
                           <Building2 className="w-3.5 h-3.5 text-teal-custom shrink-0 mt-0.5" />
                           <div>
                             <span className="font-extrabold text-zinc-900 uppercase text-[10px] block">
-                              Klients:
+                              {ps.clientLabel}:
                             </span>
                             <span className="text-zinc-600 font-medium text-xs">
                               {item.client}
@@ -183,7 +127,7 @@ export const ProjectsSection: React.FC = () => {
                           <Target className="w-3.5 h-3.5 text-teal-custom shrink-0 mt-0.5" />
                           <div>
                             <span className="font-extrabold text-zinc-900 uppercase text-[10px] block">
-                              Uzdevums:
+                              {ps.taskLabel}:
                             </span>
                             <span className="text-zinc-600 text-xs line-clamp-2 leading-relaxed">
                               {item.task}
@@ -196,7 +140,7 @@ export const ProjectsSection: React.FC = () => {
                           <Cpu className="w-3.5 h-3.5 text-teal-custom shrink-0 mt-0.5" />
                           <div>
                             <span className="font-extrabold text-zinc-900 uppercase text-[10px] block">
-                              Risinājums:
+                              {ps.solutionLabel}:
                             </span>
                             <span className="text-teal-700 font-bold text-xs line-clamp-2 leading-relaxed">
                               {item.solution}
@@ -207,7 +151,7 @@ export const ProjectsSection: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* UPWORX Scope Footer - Compact un ar vienmērīgu noslēgumu */}
+                  {/* UPWORX Scope Footer */}
                   <div className="p-4 sm:p-5 pt-3">
                     <div className="bg-white border border-teal-custom/30 p-2.5 rounded-sm flex items-center gap-2">
                       <CheckCircle2 className="w-3.5 h-3.5 text-teal-custom shrink-0" />
@@ -226,3 +170,4 @@ export const ProjectsSection: React.FC = () => {
     </section>
   );
 };
+

@@ -1,13 +1,19 @@
 import React from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import { MachineItem } from '../data/machineryData';
+import { useLanguage } from '../context/LanguageContext';
+import { getLocalizedMachine } from '../i18n/machineryLocalization';
 
 interface MachineCardProps {
   machine: MachineItem;
   onViewMachine: (categorySlug: string, machineId: string) => void;
 }
 
-export const MachineCard: React.FC<MachineCardProps> = ({ machine, onViewMachine }) => {
+export const MachineCard: React.FC<MachineCardProps> = ({ machine: rawMachine, onViewMachine }) => {
+  const { language, t } = useLanguage();
+  const machine = getLocalizedMachine(rawMachine, language);
+  const mc = t.machineCard;
+
   return (
     <div 
       id={`machine-card-${machine.id}`}
@@ -42,7 +48,7 @@ export const MachineCard: React.FC<MachineCardProps> = ({ machine, onViewMachine
           {/* Iekārtas tips */}
           <div>
             <p className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mb-1">
-              Iekārtas tips
+              {mc.machineTypeLabel}
             </p>
             <p className="text-sm font-bold text-zinc-900 uppercase tracking-tight min-h-[2.5rem] flex items-start">
               {machine.type}
@@ -52,7 +58,7 @@ export const MachineCard: React.FC<MachineCardProps> = ({ machine, onViewMachine
           {/* 3 svarīgākie tehniskie parametri */}
           <div className="pt-4 border-t border-zinc-100">
             <p className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mb-3">
-              Galvenie parametri
+              {mc.keyParamsLabel}
             </p>
             <div className="grid grid-cols-1 gap-2.5">
               {machine.threeMainParams.slice(0, 3).map((param, idx) => (
@@ -73,14 +79,14 @@ export const MachineCard: React.FC<MachineCardProps> = ({ machine, onViewMachine
         </div>
       </div>
 
-      {/* Poga: Apskatīt iekārtu (izteiksmīgs rāmītis, fons, bultiņa ar apaļu kontūru bez atsevišķa fona) */}
+      {/* Poga: Apskatīt iekārtu */}
       <div className="p-6 pt-0">
         <button
           id={`view-machine-${machine.id}`}
           onClick={() => onViewMachine(machine.category, machine.id)}
           className="w-full bg-zinc-100 hover:bg-zinc-200/80 text-zinc-900 border border-zinc-400 hover:border-teal-custom py-3 px-4 text-xs font-bold uppercase tracking-wider rounded-sm transition-all duration-300 flex items-center justify-center gap-2.5 hover:shadow-md cursor-pointer"
         >
-          <span>Apskatīt iekārtu</span>
+          <span>{mc.viewMachineBtn}</span>
           <span className="w-7 h-7 rounded-full border border-teal-custom text-teal-custom flex items-center justify-center shrink-0">
             <ArrowUpRight className="w-3.5 h-3.5" strokeWidth={2.8} />
           </span>
@@ -89,3 +95,4 @@ export const MachineCard: React.FC<MachineCardProps> = ({ machine, onViewMachine
     </div>
   );
 };
+
