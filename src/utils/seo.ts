@@ -307,7 +307,7 @@ function updateSchemaJsonLd({
     name: 'UPWORX',
     legalName: 'SIA UPWORX',
     url: 'https://upworx.lv',
-    logo: 'https://upworx.lv/Hero-upworx.webp',
+    logo: 'https://upworx.lv/logo.svg',
     image: 'https://upworx.lv/Hero-upworx.webp',
     description: 'Industriālo metālapstrādes iekārtu, CNC darbgaldu, lāzergriešanas un ražošanas automatizācijas risinājumi.',
     telephone: '+37126474339',
