@@ -53,36 +53,36 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCookieSettings
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 lg:gap-8 xl:gap-10">
               {/* Kolonna: IEKĀRTAS */}
               <div>
-                <h4 className="text-[14px] sm:text-[15px] font-black uppercase tracking-widest mb-4 border-b border-teal-custom/30 pb-2 inline-block">
+                <h3 className="text-[14px] sm:text-[15px] font-black uppercase tracking-widest mb-4 border-b border-teal-custom/30 pb-2 inline-block">
                   {f.machineryTitle}
-                </h4>
+                </h3>
                 <ul className="space-y-2.5 text-gray-400 text-[14px] sm:text-[15px] font-medium text-left">
-                  <li><button onClick={() => onNavigate('machinery', 'metalapstrade')} className="hover:text-teal-custom transition-colors text-left w-full cursor-pointer">{f.metalworking}</button></li>
-                  <li><button onClick={() => onNavigate('machinery', 'lazera-griesana')} className="hover:text-teal-custom transition-colors text-left w-full cursor-pointer">{f.laserCutting}</button></li>
-                  <li><button onClick={() => onNavigate('machinery', 'cnc-iekartas')} className="hover:text-teal-custom transition-colors text-left w-full cursor-pointer">{f.cncEquipment}</button></li>
-                  <li><button onClick={() => onNavigate('machinery', 'automatizacija')} className="hover:text-teal-custom transition-colors text-left w-full cursor-pointer">{f.automation}</button></li>
+                  <li><a href="/iekartas/metalapstrade" onClick={(e) => { e.preventDefault(); onNavigate('machinery', 'metalapstrade'); }} className="hover:text-teal-custom transition-colors text-left block w-full cursor-pointer">{f.metalworking}</a></li>
+                  <li><a href="/iekartas/lazera-griesana" onClick={(e) => { e.preventDefault(); onNavigate('machinery', 'lazera-griesana'); }} className="hover:text-teal-custom transition-colors text-left block w-full cursor-pointer">{f.laserCutting}</a></li>
+                  <li><a href="/iekartas/cnc-iekartas" onClick={(e) => { e.preventDefault(); onNavigate('machinery', 'cnc-iekartas'); }} className="hover:text-teal-custom transition-colors text-left block w-full cursor-pointer">{f.cncEquipment}</a></li>
+                  <li><a href="/iekartas/automatizacija" onClick={(e) => { e.preventDefault(); onNavigate('machinery', 'automatizacija'); }} className="hover:text-teal-custom transition-colors text-left block w-full cursor-pointer">{f.automation}</a></li>
                 </ul>
               </div>
 
               {/* Kolonna: NAVIGĀCIJA */}
               <div>
-                <h4 className="text-[14px] sm:text-[15px] font-black uppercase tracking-widest mb-4 border-b border-teal-custom/30 pb-2 inline-block">
+                <h3 className="text-[14px] sm:text-[15px] font-black uppercase tracking-widest mb-4 border-b border-teal-custom/30 pb-2 inline-block">
                   {f.navigationTitle}
-                </h4>
+                </h3>
                 <ul className="space-y-2.5 text-gray-400 text-[14px] sm:text-[15px] font-medium text-left">
-                  <li><button onClick={() => onNavigate('home')} className="hover:text-teal-custom transition-colors text-left w-full cursor-pointer">{f.home}</button></li>
-                  <li><button onClick={() => onNavigate('about')} className="hover:text-teal-custom transition-colors text-left w-full cursor-pointer">{f.about}</button></li>
-                  <li><button onClick={() => onNavigate('machinery')} className="hover:text-teal-custom transition-colors text-left w-full cursor-pointer">{f.machinery}</button></li>
-                  <li><button onClick={() => onNavigate('career')} className="hover:text-teal-custom transition-colors text-left w-full cursor-pointer">{f.career}</button></li>
-                  <li><button onClick={() => onNavigate('contact')} className="hover:text-teal-custom transition-colors text-left w-full cursor-pointer">{f.contact}</button></li>
+                  <li><a href="/" onClick={(e) => { e.preventDefault(); onNavigate('home'); }} className="hover:text-teal-custom transition-colors text-left block w-full cursor-pointer">{f.home}</a></li>
+                  <li><a href="/par-mums" onClick={(e) => { e.preventDefault(); onNavigate('about'); }} className="hover:text-teal-custom transition-colors text-left block w-full cursor-pointer">{f.about}</a></li>
+                  <li><a href="/iekartas" onClick={(e) => { e.preventDefault(); onNavigate('machinery'); }} className="hover:text-teal-custom transition-colors text-left block w-full cursor-pointer">{f.machinery}</a></li>
+                  <li><a href="/karjera" onClick={(e) => { e.preventDefault(); onNavigate('career'); }} className="hover:text-teal-custom transition-colors text-left block w-full cursor-pointer">{f.career}</a></li>
+                  <li><a href="/kontakti" onClick={(e) => { e.preventDefault(); onNavigate('contact'); }} className="hover:text-teal-custom transition-colors text-left block w-full cursor-pointer">{f.contact}</a></li>
                 </ul>
               </div>
 
               {/* Kolonna: KONTAKTINFORMĀCIJA */}
               <div className="sm:translate-x-[1cm]">
-                <h4 className="text-[14px] sm:text-[15px] font-black uppercase tracking-widest mb-4 border-b border-teal-custom/30 pb-2 inline-block">
+                <h3 className="text-[14px] sm:text-[15px] font-black uppercase tracking-widest mb-4 border-b border-teal-custom/30 pb-2 inline-block">
                   {f.contactInfoTitle}
-                </h4>
+                </h3>
                 <div className="text-gray-400 text-[14px] sm:text-[15px] space-y-2.5 font-medium">
                   <p>
                     {f.companyRegistration}

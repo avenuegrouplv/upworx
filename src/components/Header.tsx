@@ -37,9 +37,11 @@ export const Header: React.FC<HeaderProps> = ({
       }`}
     >
       <div className="container mx-auto px-4 sm:px-6 flex justify-between items-center gap-2 min-w-0">
-        <div 
+        <a 
+          href="/"
           className="flex items-center cursor-pointer group shrink-0"
-          onClick={() => handleNav('home')}
+          onClick={(e) => { e.preventDefault(); handleNav('home'); }}
+          aria-label="UPWORX Sākums"
         >
           <svg width="34" height="34" viewBox="0 0 100 100" className="mr-2 sm:mr-3 sm:w-10 sm:h-10 shrink-0">
             <path d="M10 80 L30 60 L50 70 L80 30" fill="none" stroke="#2c9db1" strokeWidth="12" strokeLinecap="round" />
@@ -48,40 +50,48 @@ export const Header: React.FC<HeaderProps> = ({
           <span className="text-xl sm:text-2xl font-extrabold tracking-tighter text-white whitespace-nowrap">
             UP<span className="text-teal-custom">WORX</span>
           </span>
-        </div>
+        </a>
 
         {/* Desktop Nav */}
-        <nav className="hidden lg:flex items-center space-x-6 xl:space-x-8 text-xs xl:text-sm font-semibold uppercase tracking-widest text-white translate-x-4 xl:translate-x-8">
-          <button 
-            onClick={() => handleNav('home')} 
+        <nav 
+          aria-label="Galvenā navigācija"
+          className="hidden lg:flex items-center space-x-6 xl:space-x-8 text-xs xl:text-sm font-semibold uppercase tracking-widest text-white translate-x-4 xl:translate-x-8"
+        >
+          <a 
+            href="/"
+            onClick={(e) => { e.preventDefault(); handleNav('home'); }} 
             className={`hover:text-teal-custom transition-colors cursor-pointer py-1 ${currentView === 'home' ? 'text-teal-custom border-b-2 border-teal-custom' : ''}`}
           >
             {nav.home}
-          </button>
-          <button 
-            onClick={() => handleNav('about')} 
+          </a>
+          <a 
+            href="/par-mums"
+            onClick={(e) => { e.preventDefault(); handleNav('about'); }} 
             className={`hover:text-teal-custom transition-colors cursor-pointer py-1 ${currentView === 'about' ? 'text-teal-custom border-b-2 border-teal-custom' : ''}`}
           >
             {nav.about}
-          </button>
-          <button 
-            onClick={() => handleNav('machinery')} 
+          </a>
+          <a 
+            href="/iekartas"
+            onClick={(e) => { e.preventDefault(); handleNav('machinery'); }} 
             className={`hover:text-teal-custom transition-colors cursor-pointer py-1 ${currentView === 'machinery' ? 'text-teal-custom border-b-2 border-teal-custom' : ''}`}
           >
             {nav.machinery}
-          </button>
-          <button 
-            onClick={() => handleNav('career')} 
+          </a>
+          <a 
+            href="/karjera"
+            onClick={(e) => { e.preventDefault(); handleNav('career'); }} 
             className={`hover:text-teal-custom transition-colors cursor-pointer py-1 ${currentView === 'career' ? 'text-teal-custom border-b-2 border-teal-custom' : ''}`}
           >
             {nav.career}
-          </button>
-          <button 
-            onClick={() => handleNav('contact')} 
+          </a>
+          <a 
+            href="/kontakti"
+            onClick={(e) => { e.preventDefault(); handleNav('contact'); }} 
             className={`hover:text-teal-custom transition-colors cursor-pointer py-1 ${currentView === 'contact' ? 'text-teal-custom border-b-2 border-teal-custom' : ''}`}
           >
             {nav.contact}
-          </button>
+          </a>
         </nav>
 
         {/* Action button, Language switcher & Mobile Toggle */}
@@ -93,16 +103,16 @@ export const Header: React.FC<HeaderProps> = ({
             </a>
           </div>
 
-          {/* Poga: PIEPRASĪT CENU - uz visiem ekrāniem sakārtota un nepārklājas ar logo */}
+          {/* Poga: PIEPRASĪT CENU - redzama no sm ekrāniem, mobilajā slēpta, jo atrodas izvēlnē */}
           <button 
             id="header-start-collab-btn"
             onClick={() => handleNav('contact')}
-            className="inline-flex items-center justify-center bg-teal-custom hover:bg-teal-600 text-white px-2.5 py-1.5 sm:px-5 sm:py-2.5 rounded-sm text-[11px] sm:text-xs font-bold uppercase tracking-wider sm:tracking-widest transition-colors shadow-md shadow-teal-900/20 cursor-pointer whitespace-nowrap shrink-0"
+            className="hidden sm:inline-flex items-center justify-center bg-teal-custom hover:bg-teal-600 text-white sm:px-5 sm:py-2.5 rounded-sm sm:text-xs font-bold uppercase sm:tracking-widest transition-colors shadow-md shadow-teal-900/20 cursor-pointer whitespace-nowrap shrink-0"
           >
             {nav.requestPrice}
           </button>
 
-          {/* Valodu izvēlne - no sm: (>=640px) redzamas visas 3 valodas pogas */}
+          {/* Valodu izvēlne - redzama no sm: (>=640px), mobilajā slēpta, jo pieejama atverot izvēlni */}
           <div 
             id="header-language-switcher"
             className="hidden sm:flex items-center bg-zinc-900/90 border border-zinc-700/80 rounded-sm p-0.5 text-xs font-bold tracking-wider shadow-inner shrink-0"
@@ -129,21 +139,6 @@ export const Header: React.FC<HeaderProps> = ({
               );
             })}
           </div>
-
-          {/* Kompakts valodas indikators/pārslēdzējs uz maziem ekrāniem (< sm) */}
-          <button
-            type="button"
-            onClick={() => {
-              const langs: Language[] = ['LV', 'ENG', 'RU'];
-              const nextIndex = (langs.indexOf(language) + 1) % langs.length;
-              handleLangSelect(langs[nextIndex]);
-            }}
-            className="sm:hidden flex items-center gap-1 bg-zinc-900/90 border border-zinc-700/80 rounded-sm px-2 py-1 text-[11px] font-black uppercase text-zinc-200 hover:text-white shrink-0 cursor-pointer"
-            title="Mainīt valodu / Switch language"
-          >
-            <Globe className="w-3 h-3 text-teal-custom" />
-            <span>{language}</span>
-          </button>
           
           <button 
             id="mobile-menu-toggle"
@@ -167,39 +162,47 @@ export const Header: React.FC<HeaderProps> = ({
             <span>{nav.requestPrice}</span>
           </button>
 
-          <button 
-            onClick={() => handleNav('home')} 
+          <a 
+            href="/"
+            onClick={(e) => { e.preventDefault(); handleNav('home'); }} 
             className={`block w-full text-left py-2 text-base font-bold uppercase tracking-wider ${currentView === 'home' ? 'text-teal-custom' : 'text-white'}`}
           >
             {nav.home}
-          </button>
-          <button 
-            onClick={() => handleNav('about')} 
+          </a>
+          <a 
+            href="/par-mums"
+            onClick={(e) => { e.preventDefault(); handleNav('about'); }} 
             className={`block w-full text-left py-2 text-base font-bold uppercase tracking-wider ${currentView === 'about' ? 'text-teal-custom' : 'text-white'}`}
           >
             {nav.about}
-          </button>
-          <button 
-            onClick={() => handleNav('machinery')} 
+          </a>
+          <a 
+            href="/iekartas"
+            onClick={(e) => { e.preventDefault(); handleNav('machinery'); }} 
             className={`block w-full text-left py-2 text-base font-bold uppercase tracking-wider ${currentView === 'machinery' ? 'text-teal-custom' : 'text-white'}`}
           >
             {nav.machinery}
-          </button>
-          <button 
-            onClick={() => handleNav('career')} 
+          </a>
+          <a 
+            href="/karjera"
+            onClick={(e) => { e.preventDefault(); handleNav('career'); }} 
             className={`block w-full text-left py-2 text-base font-bold uppercase tracking-wider ${currentView === 'career' ? 'text-teal-custom' : 'text-white'}`}
           >
             {nav.career}
-          </button>
-          <button 
-            onClick={() => handleNav('contact')} 
+          </a>
+          <a 
+            href="/kontakti"
+            onClick={(e) => { e.preventDefault(); handleNav('contact'); }} 
             className={`block w-full text-left py-2 text-base font-bold uppercase tracking-wider ${currentView === 'contact' ? 'text-teal-custom' : 'text-white'}`}
           >
             {nav.contact}
-          </button>
+          </a>
           
           <div className="pt-4 border-t border-zinc-800 flex items-center justify-between">
-            <span className="text-xs uppercase tracking-wider text-zinc-400 font-semibold">{nav.languageSelectionLabel}:</span>
+            <div className="flex items-center text-xs uppercase tracking-wider text-zinc-400 font-semibold">
+              <Globe className="w-3.5 h-3.5 text-teal-custom mr-1.5" />
+              <span>{nav.languageSelectionLabel}:</span>
+            </div>
             <div className="flex items-center bg-zinc-900 border border-zinc-700 rounded-sm p-0.5">
               {(['LV', 'ENG', 'RU'] as const).map((lang) => (
                 <button

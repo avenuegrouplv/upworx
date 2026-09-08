@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Disallow internal scripts or private query states if any
+Disallow: /api/
+
+Sitemap: https://upworx.lv/sitemap.xml

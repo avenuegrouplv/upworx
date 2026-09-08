@@ -120,9 +120,9 @@ export const FeaturedProducts: React.FC<FeaturedProductsProps> = ({
                     <p className="text-[11px] text-teal-custom font-bold uppercase tracking-wider mb-1">
                       {fp.manufacturer}: <span className="text-zinc-900 font-black">{m.brand}</span>
                     </p>
-                    <h4 className="text-2xl font-black uppercase tracking-tight text-zinc-900 mb-1">
+                    <h3 className="text-2xl font-black uppercase tracking-tight text-zinc-900 mb-1">
                       {m.model}
-                    </h4>
+                    </h3>
                     <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
                       {m.type}
                     </p>

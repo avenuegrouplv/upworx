@@ -15,8 +15,13 @@ export const Hero: React.FC<HeroProps> = ({ onContactClick, onCatalogClick }) =>
       {/* Hero Image pinned exactly to bottom-left corner with object-cover */}
       <div className="absolute inset-0 w-full h-full z-0 pointer-events-none overflow-hidden">
         <img 
-          src="/Hero-upworx.webp?v=2" 
-          alt="UPWORX Industrial Machinery"
+          src="/Hero-upworx.webp" 
+          alt="UPWORX industriālās metālapstrādes iekārtas un CNC darbagaldi"
+          width="1920"
+          height="1080"
+          loading="eager"
+          fetchPriority="high"
+          decoding="sync"
           className="w-full h-full object-cover object-left-bottom select-none"
           style={{ objectPosition: 'left bottom', objectFit: 'cover' }}
         />

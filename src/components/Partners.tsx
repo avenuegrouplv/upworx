@@ -70,9 +70,9 @@ export const Partners: React.FC = () => {
     >
       <div className="container mx-auto px-6">
         <div className="mb-8">
-          <p className="text-teal-custom font-bold uppercase tracking-[0.25em] text-xs">
+          <h2 className="text-teal-custom font-bold uppercase tracking-[0.25em] text-xs">
             {partnersData.badge}
-          </p>
+          </h2>
           <div className="h-0.5 w-16 bg-teal-custom/60 mt-2"></div>
         </div>
 

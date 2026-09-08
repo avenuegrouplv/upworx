@@ -16,6 +16,7 @@ import { Footer } from './components/Footer';
 import { CookieBanner } from './components/CookieBanner';
 import { ALL_MACHINERY } from './data/machineryData';
 import { useLanguage } from './context/LanguageContext';
+import { updateSEO } from './utils/seo';
 
 export default function App() {
   const { language, setLanguage } = useLanguage();
@@ -72,71 +73,14 @@ export default function App() {
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
-  // Update dynamic page title based on view, category, machine, and current language
+  // Dynamic SEO & Metadata Engine: updates title, meta description, canonical, OG/Twitter tags, and Schema.org JSON-LD
   useEffect(() => {
-    const titles = {
-      LV: {
-        home: 'UPWORX | Industriālie Risinājumi',
-        about: 'Par Mums | UPWORX',
-        career: 'Karjera | UPWORX',
-        contact: 'Kontakti | UPWORX',
-        machinery: 'Iekārtu Katalogs | UPWORX',
-        metalapstrade: 'Metālapstrādes Iekārtas | UPWORX',
-        'lazera-griesana': 'Lāzera Griešanas Iekārtas | UPWORX',
-        'cnc-iekartas': 'CNC Iekārtas | UPWORX',
-        automatizacija: 'Automatizācijas Iekārtas | UPWORX',
-        defaultMachinery: 'Iekārtas | UPWORX',
-      },
-      ENG: {
-        home: 'UPWORX | Industrial Solutions',
-        about: 'About Us | UPWORX',
-        career: 'Career | UPWORX',
-        contact: 'Contact Us | UPWORX',
-        machinery: 'Machinery Catalog | UPWORX',
-        metalapstrade: 'Metalworking Machinery | UPWORX',
-        'lazera-griesana': 'Laser Cutting Machinery | UPWORX',
-        'cnc-iekartas': 'CNC Machinery | UPWORX',
-        automatizacija: 'Automation Equipment | UPWORX',
-        defaultMachinery: 'Machinery | UPWORX',
-      },
-      RU: {
-        home: 'UPWORX | Промышленные Решения',
-        about: 'О Нас | UPWORX',
-        career: 'Карьера | UPWORX',
-        contact: 'Контакты | UPWORX',
-        machinery: 'Каталог Оборудования | UPWORX',
-        metalapstrade: 'Металлообрабатывающее Оборудование | UPWORX',
-        'lazera-griesana': 'Оборудование для Лазерной Резки | UPWORX',
-        'cnc-iekartas': 'Станки с ЧПУ | UPWORX',
-        automatizacija: 'Оборудование для Автоматизации | UPWORX',
-        defaultMachinery: 'Оборудование | UPWORX',
-      }
-    };
-
-    const cur = titles[language] || titles.LV;
-
-    if (currentView === 'machinery') {
-      if (selectedMachine) {
-        const found = ALL_MACHINERY.find(m => m.id === selectedMachine);
-        if (found) {
-          document.title = `${found.brand} ${found.model} | UPWORX`;
-        } else {
-          document.title = cur.defaultMachinery;
-        }
-      } else if (selectedCategory && (cur as Record<string, string>)[selectedCategory]) {
-        document.title = (cur as Record<string, string>)[selectedCategory];
-      } else {
-        document.title = cur.machinery;
-      }
-    } else if (currentView === 'about') {
-      document.title = cur.about;
-    } else if (currentView === 'career') {
-      document.title = cur.career;
-    } else if (currentView === 'contact') {
-      document.title = cur.contact;
-    } else {
-      document.title = cur.home;
-    }
+    updateSEO({
+      view: currentView,
+      categorySlug: selectedCategory,
+      machineId: selectedMachine,
+      language
+    });
   }, [currentView, selectedCategory, selectedMachine, language]);
 
   useEffect(() => {
