@@ -62,31 +62,35 @@ export const AboutPage: React.FC<AboutPageProps> = () => {
             </div>
             <div className="grid grid-cols-2 gap-4">
               <img 
-                src="https://images.pexels.com/photos/224924/pexels-photo-224924.jpeg?auto=compress&cs=tinysrgb&w=800" 
+                src="/upworx-1.webp" 
                 className="w-full h-52 sm:h-60 object-cover rounded-sm shadow-sm" 
                 alt="Industrial laser technology" 
+                loading="lazy"
               />
               <img 
-                src="https://images.pexels.com/photos/3846554/pexels-photo-3846554.jpeg?auto=compress&cs=tinysrgb&w=800" 
+                src="/upworx-2.webp" 
                 className="w-full h-52 sm:h-60 object-cover rounded-sm shadow-sm" 
                 alt="CNC processing precision" 
+                loading="lazy"
               />
               <img 
-                src="https://images.pexels.com/photos/1108101/pexels-photo-1108101.jpeg?auto=compress&cs=tinysrgb&w=800" 
+                src="/upworx-3.webp" 
                 className="w-full h-52 sm:h-60 object-cover rounded-sm shadow-sm" 
                 alt="Industrial manufacturing machinery" 
+                loading="lazy"
               />
               <img 
-                src="https://images.pexels.com/photos/3825586/pexels-photo-3825586.jpeg?auto=compress&cs=tinysrgb&w=800" 
+                src="/upworx-4.webp" 
                 className="w-full h-52 sm:h-60 object-cover rounded-sm shadow-sm" 
                 alt="Industrial automation and robots" 
+                loading="lazy"
               />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Team Section */}
+      {/* Sadaļa "Mūsu komanda" šobrīd paslēpta pēc pieprasījuma (iespējams atjaunot vēlāk):
       <section id="our-team-section" className="py-16 sm:py-20 bg-zinc-50 border-b border-zinc-200/80">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto text-center mb-10 sm:mb-12">
@@ -130,6 +134,7 @@ export const AboutPage: React.FC<AboutPageProps> = () => {
           </div>
         </div>
       </section>
+      */}
 
       {/* Mūsu misija un vērtības */}
       <OurValues />

@@ -30,20 +30,13 @@ export default function App() {
   // Sync state from current browser URL
   const syncStateFromUrl = () => {
     const pathname = window.location.pathname.toLowerCase();
-    if (pathname.startsWith('/iekartas')) {
-      const parts = pathname.split('/').filter(Boolean);
-      // parts[0] === 'iekartas'
-      const cat = parts[1] || 'metalapstrade';
-      const machine = parts[2] || null;
-      setCurrentView('machinery');
-      setSelectedCategory(cat);
-      setSelectedMachine(machine);
-    } else if (pathname === '/par-mums' || pathname === '/about') {
-      setCurrentView('about');
+    // Iekārtas un Karjera lapas šobrīd paslēptas pēc pieprasījuma
+    if (pathname.startsWith('/iekartas') || pathname === '/karjera' || pathname === '/career') {
+      setCurrentView('home');
       setSelectedCategory(null);
       setSelectedMachine(null);
-    } else if (pathname === '/karjera' || pathname === '/career') {
-      setCurrentView('career');
+    } else if (pathname === '/par-mums' || pathname === '/about') {
+      setCurrentView('about');
       setSelectedCategory(null);
       setSelectedMachine(null);
     } else if (pathname === '/kontakti' || pathname === '/contact') {
@@ -154,21 +147,24 @@ export default function App() {
             {/* 1. Hero Section */}
             <Hero 
               onContactClick={() => navigateTo('contact')} 
-              onCatalogClick={() => navigateTo('machinery')}
             />
 
-            {/* 2. Iekārtu Katalogs Kategorijas */}
+            {/* 2. Iekārtu Katalogs Kategorijas (šobrīd paslēpts pēc pieprasījuma) */}
+            {/* 
             <Categories 
               onViewAll={() => navigateTo('machinery')} 
               onSelectCategory={(catId) => navigateTo('machinery', catId)}
             />
+            */}
 
-            {/* 3. Jaunākās iekārtas */}
+            {/* 3. Jaunākie piedāvājumi (šobrīd paslēpts pēc pieprasījuma) */}
+            {/* 
             <FeaturedProducts 
               onSelectMachine={(categoryId, machineId) => navigateTo('machinery', machineId)}
               onViewAllMachinery={() => navigateTo('machinery')} 
               onRequestPrice={(machineName) => navigateTo('contact', undefined, machineName, true)}
             />
+            */}
 
             {/* 4. Pakalpojumi un serviss (6 kartītes) pirms Kāpēc izvēlēties mūs */}
             <ServicesSection />
@@ -176,11 +172,15 @@ export default function App() {
             {/* 5. Kāpēc izvēlēties UPWORX? */}
             <AboutSection />
 
-            {/* 6. Realizētie projekti */}
+            {/* 6. Realizētie projekti (šobrīd paslēpts pēc pieprasījuma) */}
+            {/* 
             <ProjectsSection />
+            */}
 
-            {/* 7. Sadarbības partneri logo karuselis virs kontaktu formas */}
+            {/* 7. Sadarbības partneri (šobrīd paslēpts pēc pieprasījuma) */}
+            {/* 
             <Partners />
+            */}
 
             {/* 8. Saziņas aicinājuma sadaļa */}
             <ContactSection onContactClick={() => navigateTo('contact')} />
@@ -191,6 +191,7 @@ export default function App() {
           <ContactPage initialMachineName={selectedMachine} />
         )}
 
+        {/* Iekārtas lapa (šobrīd paslēpta pēc pieprasījuma)
         {currentView === 'machinery' && (
           <MachineryPage 
             selectedCategorySlug={selectedCategory || 'metalapstrade'}
@@ -200,14 +201,17 @@ export default function App() {
             onInquiryClick={(machineName) => navigateTo('contact', undefined, machineName, true)} 
           />
         )}
+        */}
 
         {currentView === 'about' && (
           <AboutPage onContactClick={() => navigateTo('contact')} />
         )}
 
+        {/* Karjera lapa (šobrīd paslēpta pēc pieprasījuma)
         {currentView === 'career' && (
           <CareerPage onContactClick={() => navigateTo('contact')} />
         )}
+        */}
       </main>
       <Footer 
         onNavigate={navigateTo} 

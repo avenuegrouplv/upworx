@@ -71,6 +71,7 @@ export const Header: React.FC<HeaderProps> = ({
           >
             {nav.about}
           </a>
+          {/* Iekārtas un Karjera lapas šobrīd paslēptas pēc pieprasījuma:
           <a 
             href="/iekartas"
             onClick={(e) => { e.preventDefault(); handleNav('machinery'); }} 
@@ -85,6 +86,7 @@ export const Header: React.FC<HeaderProps> = ({
           >
             {nav.career}
           </a>
+          */}
           <a 
             href="/kontakti"
             onClick={(e) => { e.preventDefault(); handleNav('contact'); }} 
@@ -176,6 +178,7 @@ export const Header: React.FC<HeaderProps> = ({
           >
             {nav.about}
           </a>
+          {/* Iekārtas un Karjera lapas šobrīd paslēptas pēc pieprasījuma:
           <a 
             href="/iekartas"
             onClick={(e) => { e.preventDefault(); handleNav('machinery'); }} 
@@ -190,6 +193,7 @@ export const Header: React.FC<HeaderProps> = ({
           >
             {nav.career}
           </a>
+          */}
           <a 
             href="/kontakti"
             onClick={(e) => { e.preventDefault(); handleNav('contact'); }} 

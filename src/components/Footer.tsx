@@ -48,10 +48,10 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCookieSettings
             </div>
           </div>
 
-          {/* Labā puse ar 3 vienmērīgi izvietotiem stabiņiem: Iekārtas, Navigācija (pa vidu), Kontaktinformācija */}
+          {/* Labā puse ar stabiņiem: Navigācija un Kontaktinformācija (Iekārtas šobrīd paslēptas) */}
           <div className="col-span-1 lg:col-span-8 xl:col-span-8">
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 lg:gap-8 xl:gap-10">
-              {/* Kolonna: IEKĀRTAS */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 lg:gap-12 xl:gap-16">
+              {/* Kolonna: IEKĀRTAS (šobrīd paslēpta pēc pieprasījuma)
               <div>
                 <h3 className="text-[14px] sm:text-[15px] font-black uppercase tracking-widest mb-4 border-b border-teal-custom/30 pb-2 inline-block">
                   {f.machineryTitle}
@@ -63,6 +63,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCookieSettings
                   <li><a href="/iekartas/automatizacija" onClick={(e) => { e.preventDefault(); onNavigate('machinery', 'automatizacija'); }} className="hover:text-teal-custom transition-colors text-left block w-full cursor-pointer">{f.automation}</a></li>
                 </ul>
               </div>
+              */}
 
               {/* Kolonna: NAVIGĀCIJA */}
               <div>
@@ -72,14 +73,16 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCookieSettings
                 <ul className="space-y-2.5 text-gray-400 text-[14px] sm:text-[15px] font-medium text-left">
                   <li><a href="/" onClick={(e) => { e.preventDefault(); onNavigate('home'); }} className="hover:text-teal-custom transition-colors text-left block w-full cursor-pointer">{f.home}</a></li>
                   <li><a href="/par-mums" onClick={(e) => { e.preventDefault(); onNavigate('about'); }} className="hover:text-teal-custom transition-colors text-left block w-full cursor-pointer">{f.about}</a></li>
+                  {/* Iekārtas un Karjera lapas šobrīd paslēptas pēc pieprasījuma:
                   <li><a href="/iekartas" onClick={(e) => { e.preventDefault(); onNavigate('machinery'); }} className="hover:text-teal-custom transition-colors text-left block w-full cursor-pointer">{f.machinery}</a></li>
                   <li><a href="/karjera" onClick={(e) => { e.preventDefault(); onNavigate('career'); }} className="hover:text-teal-custom transition-colors text-left block w-full cursor-pointer">{f.career}</a></li>
+                  */}
                   <li><a href="/kontakti" onClick={(e) => { e.preventDefault(); onNavigate('contact'); }} className="hover:text-teal-custom transition-colors text-left block w-full cursor-pointer">{f.contact}</a></li>
                 </ul>
               </div>
 
               {/* Kolonna: KONTAKTINFORMĀCIJA */}
-              <div className="sm:translate-x-[1cm]">
+              <div className="sm:translate-x-0">
                 <h3 className="text-[14px] sm:text-[15px] font-black uppercase tracking-widest mb-4 border-b border-teal-custom/30 pb-2 inline-block">
                   {f.contactInfoTitle}
                 </h3>
