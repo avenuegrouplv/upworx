@@ -138,7 +138,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ initialMachineName }) 
                       {cp.officeAddressValue}
                     </p>
                     <a 
-                      href="https://www.google.com/maps/search/?api=1&query=O%C5%A1u+ce%C4%BC%C5%A1+11B,+Jelgava,+LV-3003"
+                      href="https://www.google.com/maps/search/?api=1&query=Vien%C4%ABbas+gatve+109,+R%C4%ABga,+LV-1058"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center text-xs font-bold text-teal-custom hover:text-teal-700 mt-1 transition-colors"
@@ -207,11 +207,11 @@ export const ContactPage: React.FC<ContactPageProps> = ({ initialMachineName }) 
             </div>
           </div>
 
-          {/* Real Interactive Map focused on Jelgava address */}
+          {/* Real Interactive Map focused on Riga address */}
           <div className="lg:col-span-7 relative bg-zinc-950 overflow-hidden rounded-sm border border-zinc-200/80 shadow-md min-h-[400px] sm:min-h-[480px]">
             <iframe
-              title="UPWORX Atrašanās vieta - Ošu ceļš 11B, Jelgava"
-              src="https://maps.google.com/maps?q=O%C5%A1u%20ce%C4%BC%C5%A1%2011B,%20Jelgava,%20LV-3003&t=&z=16&ie=UTF8&iwloc=&output=embed"
+              title="UPWORX Atrašanās vieta - Vienības gatve 109, Rīga"
+              src="https://maps.google.com/maps?q=Vien%C4%ABbas%20gatve%20109,%20R%C4%ABga,%20LV-1058&t=&z=16&ie=UTF8&iwloc=&output=embed"
               className="absolute inset-0 w-full h-full border-0"
               allowFullScreen={false}
               loading="lazy"
@@ -227,7 +227,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ initialMachineName }) 
                 </span>
               </div>
               <a
-                href="https://www.google.com/maps/search/?api=1&query=O%C5%A1u+ce%C4%BC%C5%A1+11B,+Jelgava,+LV-3003"
+                href="https://www.google.com/maps/search/?api=1&query=Vien%C4%ABbas+gatve+109,+R%C4%ABga,+LV-1058"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-[10px] font-bold text-teal-custom hover:text-teal-300 uppercase tracking-wider transition-colors inline-flex items-center ml-4"
